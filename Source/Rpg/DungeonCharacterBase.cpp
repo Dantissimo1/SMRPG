@@ -98,9 +98,8 @@ void ADungeonCharacterBase::ClampCameraPitch()
 
 void ADungeonCharacterBase::ScrollCamera(float Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("M 1,%f"), Value);
 	float NewBoomLength = CameraBoom->TargetArmLength -( Value * World->GetDeltaSeconds() * CamScrollSpeed);
-	UE_LOG(LogTemp, Warning, TEXT("M 2,%f"), NewBoomLength);
+
 	if (NewBoomLength > MaxCamDistance) { NewBoomLength = MaxCamDistance; }
 	else if (NewBoomLength < MinCamDistance) { NewBoomLength = MinCamDistance; }
 	CameraBoom->TargetArmLength = NewBoomLength;
@@ -109,3 +108,4 @@ void ADungeonCharacterBase::ScrollCamera(float Value)
 }
 
 
+//	UE_LOG(LogTemp, Warning, TEXT("M 2,%f"), NewBoomLength);
