@@ -39,7 +39,7 @@ void ADungeonCharacterBase::BeginPlay()
 void ADungeonCharacterBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
 
 	ClampCameraPitch();
 }

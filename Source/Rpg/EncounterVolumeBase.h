@@ -6,6 +6,9 @@
 #include "Engine/TriggerVolume.h"
 #include "EncounterVolumeBase.generated.h"
 
+
+class ADungeonCharacterBase;
+
 /**
  * 
  */
@@ -22,12 +25,29 @@ public:
 
 
 		/////Overlaps
+
+		ADungeonCharacterBase* OverlapingPlayer = NULL;
+
 		UFUNCTION()
 		void OverlapBegin(AActor* theowner, AActor* otherActor);
 
 		UFUNCTION()
 		void OverlapEnd(AActor* theowner, AActor* otherActor);
 
+
+		////Encounthre triggering
+		FTimerHandle tTimerBattleTrigger;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Encountre")
+		float BattleTimerRate = 1;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Encountre")
+			float EncountreTrigerRange = 10;
+
+		FVector LastPlayerLoc;
+
+		void CheckIfEncounterTrigers();
+		void TriggerEncounter();
 
 protected:
 	// Called when the game starts or when spawned
