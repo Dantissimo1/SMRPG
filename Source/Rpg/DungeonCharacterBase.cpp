@@ -46,14 +46,27 @@ void ADungeonCharacterBase::Tick(float DeltaTime)
 
 void ADungeonCharacterBase::ForwardsInput(float Value)
 {
-
+	AddMovementInput(GetControlRotation().Vector(), Value * MovementSpeed);
 
 
 }
 
 void ADungeonCharacterBase::HorizontalInput(float Value)
 {
+	ADungeonControllerBase* MyController = Cast<ADungeonControllerBase>(GetController());
+	FVector vForwardVector = GetControlRotation().Vector();
+	FRotator Newrot = GetControlRotation();
+	Newrot.Yaw += 90;
+	if (Newrot.Yaw > 360)
+	{
+		Newrot.Yaw -= 360;
+	}
+	if (Newrot.Yaw < 0)
+	{
+		Newrot.Yaw += 360;
+	}
 
+	AddMovementInput(Newrot.Vector(), Value * MovementSpeed);
 
 
 }

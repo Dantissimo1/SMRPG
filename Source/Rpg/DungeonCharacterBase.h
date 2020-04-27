@@ -35,6 +35,9 @@ public:
 
 
 	///////Movement
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
+		float MovementSpeed = 10;
+
 	void ForwardsInput(float Value);
 	void HorizontalInput(float Value);
 
