@@ -4,6 +4,10 @@
 #include "DungeonControllerBase.h"
 #include "DungeonCharacterBase.h"
 #include "EncounterVolumeBase.h"
+#include "BattleZoneBase.h"
+
+
+
 
 
 // Sets default values
@@ -44,39 +48,72 @@ void ADungeonControllerBase::SetupInputComponent()
 
 }
 
-
-
 void ADungeonControllerBase::ForwardsInput(float Value)
 {
-	
-	MyChar->ForwardsInput(Value);
-
+	if (bIsInBattleMode != true)
+	{
+		MyChar->ForwardsInput(Value);
+	}
 }
 
 void ADungeonControllerBase::HorizontalInput(float Value)
 {
-	MyChar->HorizontalInput(Value);
+	if (bIsInBattleMode != true)
+	{
+		MyChar->HorizontalInput(Value);
+	}
 }
 
 void ADungeonControllerBase::JumpInput()
 {
-	GetCharacter()->Jump();
+	if (bIsInBattleMode != true)
+	{
+		GetCharacter()->Jump();
+	}
 }
 
 void ADungeonControllerBase::CameraYawInput(float Value)
 {
-	MyChar->CameraYawInput(Value);
+	if (bIsInBattleMode != true)
+	{
+		MyChar->CameraYawInput(Value);
+	}
 }
 
 void ADungeonControllerBase::CameraPitchInput(float Value)
 {
-	
-	MyChar->CameraPitchInput(Value);
+	if (bIsInBattleMode != true)
+	{
+		MyChar->CameraPitchInput(Value);
+	}
 }
 
 void ADungeonControllerBase::ScrollInput(float Value)
 {
-	MyChar->ScrollCamera(Value);
+	if (bIsInBattleMode != true)
+	{
+		MyChar->ScrollCamera(Value);
+	}
+
+
+}
+
+/////////battle mode //////////
+void ADungeonControllerBase::BeginBattle(ABattleZoneBase* InBattleZone)
+{
+	bIsInBattleMode = true;
+	CurrentBattleArea = InBattleZone;
+	//UnPossess();
+	InBattleZone->InitializeBattle(this);
+
+
+}
+
+void ADungeonControllerBase::EndBattle()
+{
+	SetViewTarget(MyChar);
+	bIsInBattleMode = false;
+	MyChar->CurrentEncountreVolume->BattleEndTimerReset();
 
 
 }

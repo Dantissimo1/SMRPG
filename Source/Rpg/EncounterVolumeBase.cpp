@@ -3,7 +3,7 @@
 
 #include "EncounterVolumeBase.h"
 #include "DungeonCharacterBase.h"
-
+#include "DungeonControllerBase.h"
 
 
 AEncounterVolumeBase::AEncounterVolumeBase()
@@ -16,15 +16,19 @@ void AEncounterVolumeBase::Tick(float DeltaTime)
 
 	Super::Tick(DeltaTime);
 
-	if (OverlapingPlayer != NULL)
-	{
 
-
-
-	}
 
 
 }
+
+void AEncounterVolumeBase::BeginPlay()
+{
+	Super::BeginPlay();
+	OnActorBeginOverlap.AddDynamic(this, &AEncounterVolumeBase::OverlapBegin);
+	OnActorEndOverlap.AddDynamic(this, &AEncounterVolumeBase::OverlapEnd);
+
+}
+
 
 void AEncounterVolumeBase::OverlapBegin(AActor* theowner, AActor* otherActor)
 {
@@ -48,9 +52,9 @@ void AEncounterVolumeBase::OverlapEnd(AActor* theowner, AActor* otherActor)
 	if (Cast<ADungeonCharacterBase>(otherActor))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("End over playerlap"));
-		OverlapingPlayer = NULL;
 		GetWorldTimerManager().ClearTimer(tTimerBattleTrigger);
 		OverlapingPlayer->CurrentEncountreVolume = NULL;
+		OverlapingPlayer = NULL;
 	}
 }
 
@@ -77,14 +81,23 @@ void AEncounterVolumeBase::TriggerEncounter()
 
 	UE_LOG(LogTemp, Warning, TEXT("Battle Time!!!!!!!!!!"));
 	GetWorldTimerManager().ClearTimer(tTimerBattleTrigger);
+	if (OverlapingPlayer != NULL)
+	{
+		if (OverlapingPlayer != NULL)
+		{
+			ADungeonControllerBase* PlayerCont = Cast<ADungeonControllerBase>(OverlapingPlayer->GetController());
+			if (LinkedBattleArea != NULL)
+			{
+				PlayerCont->BeginBattle(LinkedBattleArea);
+			}
 
+		}
 
+	}
 }
 
-void AEncounterVolumeBase::BeginPlay()
+void AEncounterVolumeBase::BattleEndTimerReset()
 {
-	Super::BeginPlay();
-	OnActorBeginOverlap.AddDynamic(this, &AEncounterVolumeBase::OverlapBegin);
-	OnActorEndOverlap.AddDynamic(this, &AEncounterVolumeBase::OverlapEnd);
-	
+	GetWorldTimerManager().SetTimer(tTimerBattleTrigger, this, &AEncounterVolumeBase::CheckIfEncounterTrigers, BattleTimerRate, true);
 }
+

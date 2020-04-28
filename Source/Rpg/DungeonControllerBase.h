@@ -9,6 +9,7 @@
 
 class ADungeonCharacterBase;
 class EncounterVolumeBase;
+class ABattleZoneBase;
 /**
  * 
  */
@@ -36,7 +37,9 @@ public:
 
 	////balte mode speific things
 	bool bIsInBattleMode = false;
-
+	ABattleZoneBase* CurrentBattleArea;
+	void BeginBattle(ABattleZoneBase* InBattleZone);
+	void EndBattle();
 
 
 

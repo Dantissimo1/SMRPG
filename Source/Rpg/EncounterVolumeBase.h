@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Engine/TriggerVolume.h"
+#include "BattleZoneBase.h"
+
 #include "EncounterVolumeBase.generated.h"
 
 
@@ -39,7 +41,7 @@ public:
 		FTimerHandle tTimerBattleTrigger;
 
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Encountre")
-		float BattleTimerRate = 1;
+		float BattleTimerRate = 0.1f;
 
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Encountre")
 			float EncountreTrigerRange = 10;
@@ -48,6 +50,14 @@ public:
 
 		void CheckIfEncounterTrigers();
 		void TriggerEncounter();
+		void BattleEndTimerReset();
+
+
+		/////battle area
+		UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Encountre")
+		ABattleZoneBase* LinkedBattleArea;
+
+
 
 protected:
 	// Called when the game starts or when spawned
