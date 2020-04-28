@@ -3,6 +3,7 @@
 
 #include "DungeonControllerBase.h"
 #include "DungeonCharacterBase.h"
+#include "EncounterVolumeBase.h"
 
 
 // Sets default values

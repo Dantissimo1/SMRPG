@@ -13,6 +13,7 @@
 class USpringarmComponent;
 class UCameraComponent;
 class USkeletalMeshComponent;
+class AEncounterVolumeBase;
 
 UCLASS()
 class RPG_API ADungeonCharacterBase : public ACharacter
@@ -30,6 +31,10 @@ public:
 
 	UWorld* World;
 
+
+
+	/////batle mode 
+	AEncounterVolumeBase* CurrentEncountreVolume = NULL;
 
 
 

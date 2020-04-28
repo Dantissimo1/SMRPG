@@ -36,6 +36,7 @@ void AEncounterVolumeBase::OverlapBegin(AActor* theowner, AActor* otherActor)
 		UE_LOG(LogTemp, Warning, TEXT("beginplayer overlapp"));
 		OverlapingPlayer = Cast<ADungeonCharacterBase>(otherActor);
 		GetWorldTimerManager().SetTimer(tTimerBattleTrigger,this, &AEncounterVolumeBase::CheckIfEncounterTrigers, BattleTimerRate, true);
+		OverlapingPlayer->CurrentEncountreVolume = this;
 	}
 
 }
@@ -49,6 +50,7 @@ void AEncounterVolumeBase::OverlapEnd(AActor* theowner, AActor* otherActor)
 		UE_LOG(LogTemp, Warning, TEXT("End over playerlap"));
 		OverlapingPlayer = NULL;
 		GetWorldTimerManager().ClearTimer(tTimerBattleTrigger);
+		OverlapingPlayer->CurrentEncountreVolume = NULL;
 	}
 }
 
@@ -74,6 +76,9 @@ void AEncounterVolumeBase::TriggerEncounter()
 {
 
 	UE_LOG(LogTemp, Warning, TEXT("Battle Time!!!!!!!!!!"));
+	GetWorldTimerManager().ClearTimer(tTimerBattleTrigger);
+
+
 }
 
 void AEncounterVolumeBase::BeginPlay()

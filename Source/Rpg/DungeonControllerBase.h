@@ -8,6 +8,7 @@
 
 
 class ADungeonCharacterBase;
+class EncounterVolumeBase;
 /**
  * 
  */
@@ -31,6 +32,15 @@ public:
 
 	ADungeonCharacterBase* MyChar;
 
+
+
+	////balte mode speific things
+	bool bIsInBattleMode = false;
+
+
+
+
+	/////////////////////////////////////////inputs for all modes///////////////////
 	///////Movement
 	void ForwardsInput(float Value);
 	void HorizontalInput(float Value);
