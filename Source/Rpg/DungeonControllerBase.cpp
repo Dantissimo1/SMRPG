@@ -10,6 +10,7 @@
 
 
 
+
 // Sets default values
 ADungeonControllerBase::ADungeonControllerBase()
 {
@@ -30,6 +31,8 @@ void ADungeonControllerBase::BeginPlay()
 void ADungeonControllerBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+
 
 }
 

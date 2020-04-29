@@ -15,6 +15,7 @@
 class UBoxComponent;
 class UCameraComponent;
 class ADungeonControllerBase;
+class UBattleSpawnPoint;
 
 
 UCLASS()
@@ -37,6 +38,47 @@ public:
 
 
 	FTimerHandle TestTimer;
+
+	//////////spawn points////////////
+	//playerside
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* PlayerSpawn1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* PlayerSpawn2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* PlayerSpawn3;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* PlayerSpawn4;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* PlayerSpawn5;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* PlayerSpawn6;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* PlayerSpawn7;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* PlayerSpawn8;
+
+
+
+	//enemyside
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* EnemySpawn1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* EnemySpawn2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* EnemySpawn3;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* EnemySpawn4;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* EnemySpawn5;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* EnemySpawn6;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* EnemySpawn7;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSpawn")
+		class UBattleSpawnPoint* EnemySpawn8;
+
 
 
 	void InitializeBattle(ADungeonControllerBase* InPlayerCont);
