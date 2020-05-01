@@ -20,7 +20,8 @@ UBattleSpawnPoint::UBattleSpawnPoint()
 void UBattleSpawnPoint::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("Spawnpoint EXasist"));
+
+
 	// ...
 	
 }
@@ -32,7 +33,6 @@ void UBattleSpawnPoint::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
-	UE_LOG(LogTemp, Warning, TEXT("Spawnpoint TickyTicky"));
 
 	DrawDebugPoint(GetWorld(), GetComponentLocation(), 10.0f, FColor::Green, false, 0.1f);
 }

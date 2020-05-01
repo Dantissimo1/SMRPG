@@ -5,7 +5,7 @@
 #include "DungeonCharacterBase.h"
 #include "EncounterVolumeBase.h"
 #include "BattleZoneBase.h"
-
+#include "PlayerPartyComponent.h"
 
 
 
@@ -16,6 +16,9 @@ ADungeonControllerBase::ADungeonControllerBase()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	PlayersParty = CreateDefaultSubobject<UPlayerPartyComponent>(TEXT("Players Party"));
+	PlayersParty->MyController = this;
 	
 }
 
@@ -25,6 +28,10 @@ void ADungeonControllerBase::BeginPlay()
 	Super::BeginPlay();
 
 	MyChar = Cast<ADungeonCharacterBase>(GetCharacter());
+
+	//// load the players party here??
+
+
 }
 
 // Called every frame
@@ -32,7 +39,7 @@ void ADungeonControllerBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-
+	
 
 }
 
@@ -106,7 +113,6 @@ void ADungeonControllerBase::BeginBattle(ABattleZoneBase* InBattleZone)
 {
 	bIsInBattleMode = true;
 	CurrentBattleArea = InBattleZone;
-	//UnPossess();
 	InBattleZone->InitializeBattle(this);
 
 

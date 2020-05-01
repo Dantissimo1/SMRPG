@@ -15,6 +15,7 @@ class UCameraComponent;
 class USkeletalMeshComponent;
 class AEncounterVolumeBase;
 
+
 UCLASS()
 class RPG_API ADungeonCharacterBase : public ACharacter
 {

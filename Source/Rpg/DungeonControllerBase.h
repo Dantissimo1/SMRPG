@@ -10,6 +10,10 @@
 class ADungeonCharacterBase;
 class EncounterVolumeBase;
 class ABattleZoneBase;
+class UPlayerPartyComp;
+class UCharacterDataSheet;
+
+
 /**
  * 
  */
@@ -33,6 +37,9 @@ public:
 
 	ADungeonCharacterBase* MyChar;
 
+	//////players party Detials
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Party")
+	class UPlayerPartyComponent* PlayersParty;
 
 
 	////balte mode speific things
