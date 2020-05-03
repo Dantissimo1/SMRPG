@@ -29,7 +29,7 @@ ABattleZoneBase::ABattleZoneBase()
 	TestCam1->SetupAttachment(RootComponent);
 
 	BattleBrain = CreateDefaultSubobject<UBattleBrainComponent>(TEXT("Battle Brain"));
-
+	BattleBrain->SetUp(this);
 	//////create Spawn points///////
 
 	///create player ftonline spawnpoints 
@@ -117,14 +117,14 @@ void ABattleZoneBase::InitializeBattle(ADungeonControllerBase* InPlayerCont)
 	
 	SpawnPlayersParty();
 	SpanEnemyParty();
+	BattleBrain->InitializeBattle();
 	
 	
 	
 	
 	
 	
-	
-	GetWorldTimerManager().SetTimer(TestTimer, this, &ABattleZoneBase::EndBattle, 3.0f, true);
+	GetWorldTimerManager().SetTimer(TestTimer, this, &ABattleZoneBase::EndBattle, 3.0f, false);
 
 }
 
@@ -236,16 +236,8 @@ void ABattleZoneBase::SpanEnemyParty()
 	}
 }
 
-void ABattleZoneBase::EndBattle()
+void ABattleZoneBase::DeleteEnemyBattlePawns()
 {
-	////de spawn remaning pawns
-	for (int i = 0; i < PlayerBattlePawns.Num();i++)
-	{
-		if (PlayerBattlePawns[i]->IsPendingKill() != true && PlayerBattlePawns[i])
-		{
-			PlayerBattlePawns[i]->Destroy();
-		}
-	}
 	for (int i = 0; i < EnemyBattlePawns.Num();i++)
 	{
 		if (EnemyBattlePawns[i] != NULL)
@@ -255,8 +247,29 @@ void ABattleZoneBase::EndBattle()
 				EnemyBattlePawns[i]->Destroy();
 			}
 		}
+
 	}
+	EnemyBattlePawns.Empty();
+}
 
+void ABattleZoneBase::DeletePlayerBattlePawns()
+{
+	for (int i = 0; i < PlayerBattlePawns.Num();i++)
+	{
+		if (PlayerBattlePawns[i]->IsPendingKill() != true && PlayerBattlePawns[i])
+		{
+			PlayerBattlePawns[i]->Destroy();
+		}
 
+	}
+	PlayerBattlePawns.Empty();
+}
+
+void ABattleZoneBase::EndBattle()
+{
+	////de spawn remaning pawns
+	DeletePlayerBattlePawns();
+	DeleteEnemyBattlePawns();
+	BattleBrain->EndBattle();
 	PlayerCont->EndBattle();
 }

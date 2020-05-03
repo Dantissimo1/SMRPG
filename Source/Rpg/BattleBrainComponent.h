@@ -4,7 +4,36 @@
 
 #include "CoreMinimal.h"
 #include "Components/SceneComponent.h"
+#include "Engine.h"
+
 #include "BattleBrainComponent.generated.h"
+
+
+class ABattleZoneBase;
+class ABattlePawnBase;
+
+
+
+USTRUCT(BluePrintType)
+struct RPG_API FBattlePawnTurnInfo
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ABattlePawnBase* MyBattlePawn;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int Turn;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float Speed;
+
+
+
+
+};
+
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -24,5 +53,25 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	
+	TArray<FBattlePawnTurnInfo>TurnOrder;
+	TArray<FBattlePawnTurnInfo>WorkingTurnOrder;
+	FBattlePawnTurnInfo* ActiveTurn;
+	TArray<ABattlePawnBase*>AllPawnsInBattle;
+	
+	ABattleZoneBase* MyBattleZone;
+
+	void SetUp(ABattleZoneBase* InBattleZone);
+
+	void InitializeBattle();
+	void CalcInitialTurnOrder();
+	void ReCalcChrsTurns();
+	void SetActiveTurn();
+
+
+
+	void EndBattle();
+	void ClearTurnOrders();
+
+
 };

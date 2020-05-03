@@ -16,6 +16,8 @@ void ABattlePawnBase::BeginPlay()
 {
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Warning, TEXT("Battle Character Exists"));
+
+	Speed = BaseSpeed;
 }
 
 // Called every frame

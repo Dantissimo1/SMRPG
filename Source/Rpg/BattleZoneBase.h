@@ -82,8 +82,8 @@ public:
 
 	void SpawnPlayersParty();
 	void SpanEnemyParty();
-
-
+	void DeleteEnemyBattlePawns();
+	void DeletePlayerBattlePawns();
 
 
 	void EndBattle();
