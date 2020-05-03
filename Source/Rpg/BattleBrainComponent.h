@@ -20,8 +20,11 @@ struct RPG_API FBattlePawnTurnInfo
 	GENERATED_USTRUCT_BODY()
 
 public:
-		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		ABattlePawnBase* MyBattlePawn;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString ChrName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int Turn;
@@ -65,9 +68,9 @@ public:
 
 	void InitializeBattle();
 	void CalcInitialTurnOrder();
-	void ReCalcChrsTurns();
+	void ReCalcChrsTurns(ABattlePawnBase* inPawn);
 	void SetActiveTurn();
-
+	void AddNewTurn(ABattlePawnBase* MyBattlePawn,FString ChrName,int Turn,float Speed);
 
 
 	void EndBattle();

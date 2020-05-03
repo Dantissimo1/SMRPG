@@ -58,13 +58,13 @@ void UBattleBrainComponent::InitializeBattle()
 
 void UBattleBrainComponent::CalcInitialTurnOrder()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 1 %d"), AllPawnsInBattle.Num());
-	for (int t = 1; t < 5;t++)
+	//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 1 %d"), AllPawnsInBattle.Num());
+	for (int t = 1; t < 6;t++)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 2"));
+		//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 2"));
 		for (int i = 0; i < AllPawnsInBattle.Num();i++)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 3"));
+			//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 3"));
 			FBattlePawnTurnInfo PawnTurnInfo;
 			PawnTurnInfo.MyBattlePawn = AllPawnsInBattle[i];
 			PawnTurnInfo.Speed = AllPawnsInBattle[i]->Speed * t;
@@ -78,16 +78,16 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 		UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 4"));
 		if (i == 0)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 5"));
-			UE_LOG(LogTemp, Warning, TEXT("Character name,%s"), *TurnOrder[0].MyBattlePawn->CharacterName);
+			//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 5"));
+			//UE_LOG(LogTemp, Warning, TEXT("Character name,%s"), *TurnOrder[0].MyBattlePawn->CharacterName);
 			WorkingTurnOrder.Add(TurnOrder[0]);
-			UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 6"));
+			//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 6"));
 		}
 		else
 		{
 			int iNewPosition;
 			
-			UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 7"));
+			//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 7"));
 			if (WorkingTurnOrder.Num() == 1)
 			{
 
@@ -95,20 +95,20 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 
 			for (int p = WorkingTurnOrder.Num()-1;p >= 0;p--)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 8"));
+				//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 8"));
 				if (TurnOrder[i].Speed < WorkingTurnOrder[p].Speed)
 				{
-					UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 9"));
+					//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 9"));
 					iNewPosition = p;
 					WorkingTurnOrder.Insert(TurnOrder[i],p);
-					UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 10"));
+					//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 10"));
 				}
 				else if(bElementAdded == 0)
 				{
-					UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 11"));
+					//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 11"));
 					WorkingTurnOrder.Add(TurnOrder[i]);
 					bElementAdded = 1;
-					UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 12"));
+					//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 12"));
 				}
 			}
 		}
@@ -116,22 +116,86 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 
 	for (int h = 0; h < WorkingTurnOrder.Num();h++)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Character name,%s"), *WorkingTurnOrder[h].MyBattlePawn->CharacterName);
+		UE_LOG(LogTemp, Warning, TEXT("Character name,%s"), *WorkingTurnOrder[h].MyBattlePawn->GetName());
 		UE_LOG(LogTemp, Warning, TEXT("Working turn order pawn speed = %f"),WorkingTurnOrder[h].Speed);
 
 	}
 	TurnOrder = WorkingTurnOrder;
+	ReCalcChrsTurns(TurnOrder[2].MyBattlePawn);
+
 }
 
-void UBattleBrainComponent::ReCalcChrsTurns()
+void UBattleBrainComponent::ReCalcChrsTurns(ABattlePawnBase* inPawn)
 {
+	TArray< FBattlePawnTurnInfo*> CurrentTurns;
+	TArray<int>TurnNos;
+	UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 1"));
+	for (int i = 0; i < TurnOrder.Num();i++)
+	{	
+		UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 2"))
+		if(TurnOrder[i].MyBattlePawn ==inPawn)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 3"))
+			CurrentTurns.Add(&TurnOrder[i]);
+		}
+	}
+	for(int j = 0; j < CurrentTurns.Num();j++)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 4"))
+		//only update speed if it not the active turn
+		if (CurrentTurns[j] != ActiveTurn) 
+		{
+			UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 5"))
+			TurnNos.Add(CurrentTurns[j]->Turn);
+			UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 6"))
+			CurrentTurns[j]->Speed = CurrentTurns[j]->MyBattlePawn->Speed * CurrentTurns[j]->Turn;	
+		}
+	}
+	if (CurrentTurns.Num() < 5)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 7"))
+		int HighestTurnNo = 0;
+		for (int u = 0; u < TurnNos.Num();u++)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 8"))
+			if (TurnNos[u] > HighestTurnNo)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 9"))
+				HighestTurnNo = TurnNos[u];
+			}
+		}
+		FBattlePawnTurnInfo NewTurn;
+		UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 10"))
+		AddNewTurn(CurrentTurns[0]->MyBattlePawn, CurrentTurns[0]->ChrName, HighestTurnNo+1, CurrentTurns[0]->MyBattlePawn->Speed);
+	}
 }
+
+
 
 void UBattleBrainComponent::SetActiveTurn()
 {
 	if (TurnOrder.Num() > 0)
 	{
 		ActiveTurn = &TurnOrder[0];
+	}
+}
+
+void UBattleBrainComponent::AddNewTurn(ABattlePawnBase* MyBattlePawn, FString ChrName, int Turn, float Speed)
+{
+	FBattlePawnTurnInfo TurnToAdd;
+	TurnToAdd.MyBattlePawn = MyBattlePawn;
+	TurnToAdd.ChrName = ChrName;
+	TurnToAdd.Turn = Turn;
+	TurnToAdd.Speed = Speed * Turn;
+
+	for (int i = 0; i <TurnOrder.Num();i++)	
+	{ 
+		UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 11"))
+		if (TurnToAdd.Speed < TurnOrder[i].Speed)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 12"))
+			TurnOrder.Insert(TurnToAdd, i);
+		}
 	}
 }
 
