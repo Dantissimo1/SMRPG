@@ -6,6 +6,18 @@
 #include "GameFramework/Character.h"
 #include "BattlePawnBase.generated.h"
 
+
+UENUM()
+enum class ECharacterType : uint8
+{
+	Melee,
+	Ranged,
+	Magic,
+	Support,
+	Healing,
+
+};
+
 UCLASS()
 class RPG_API ABattlePawnBase : public ACharacter
 {
@@ -27,6 +39,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 
+
+
 	bool bIsBackLine = false;
 	bool bHasReaction = true;
 
@@ -41,6 +55,8 @@ public:
 		int Experiance = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		float Health = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float ManaMax = 12;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		float ManaRegenRate = 4;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")

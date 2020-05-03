@@ -41,6 +41,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		float Health = 100;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float ManaMax = 12;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		float ManaRegenRate = 4;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		float HealthRegenRate = 0;

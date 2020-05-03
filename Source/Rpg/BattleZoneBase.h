@@ -17,6 +17,9 @@ class UCameraComponent;
 class ADungeonControllerBase;
 class UBattleSpawnPoint;
 class ABattlePawnBase;
+class AEnemyPartyformationComponent;
+class AEnemyPartyFormationList;
+class UBattleBrainComponent;
 
 
 UCLASS()
@@ -33,10 +36,23 @@ public:
 
 	ADungeonControllerBase* PlayerCont;
 
+
+	/////////////Battle Brain
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
+		UBattleBrainComponent* BattleBrain;
+
+
 	/////////////Cameras
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 	class UCameraComponent* TestCam1;
 
+
+	//////enemy party
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnemyParty")
+		TSubclassOf<class AEnemyPartyFormationList>EnemyPartyFormationList;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnemyParty")
+	class AEnemyPartyFormationCompnent* EnemyPartyFormation;
 
 	FTimerHandle TestTimer;
 
@@ -56,12 +72,16 @@ public:
 	TArray<UBattleSpawnPoint*> EnemyBackLineSpawnPoints;
 
 
+	TArray<ABattlePawnBase*> EnemyFrontlineBattlePawns;
+	TArray<ABattlePawnBase*> EnemyBacklineBattlePawns;
+	TArray<ABattlePawnBase*> EnemyBattlePawns;
+
 
 
 	void InitializeBattle(ADungeonControllerBase* InPlayerCont);
 
 	void SpawnPlayersParty();
-
+	void SpanEnemyParty();
 
 
 
