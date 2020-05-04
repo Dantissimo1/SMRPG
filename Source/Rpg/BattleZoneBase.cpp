@@ -124,7 +124,7 @@ void ABattleZoneBase::InitializeBattle(ADungeonControllerBase* InPlayerCont)
 	
 	
 	
-	GetWorldTimerManager().SetTimer(TestTimer, this, &ABattleZoneBase::EndBattle, 3.0f, false);
+	GetWorldTimerManager().SetTimer(TestTimer, this, &ABattleZoneBase::EndBattle, 20.0f, false);
 
 }
 
@@ -150,6 +150,7 @@ void ABattleZoneBase::SpawnPlayersParty()
 			ABattlePawnBase* ClassToSpawn = PlayerCont->PlayersParty->PartyFormationFrontLine[i]->CharactersBattleBlueprint;
 			FVector SpawnLoc = PlayersFrontLineSpawnPoints[i]->GetComponentLocation();
 			ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(ElementInDataSheet->BattlePawnToUse, SpawnLoc, FRotator(0.f, .0f, 0.f), SpawnParams);
+			SpawnedPawn->MyBattleZone = this;
 			PlayerBattlePawns.Add(SpawnedPawn);
 			PlayerFrontlineBattlePawns.Add(SpawnedPawn);
 		}	

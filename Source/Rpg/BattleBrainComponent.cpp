@@ -32,6 +32,13 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	if (TurnOrder.Num() > 0)
+	{
+		if (TurnOrder[0].MyBattlePawn != NULL)
+		{
+			TurnOrder[0].MyBattlePawn->MoveToLocation(FVector(0.f, 0.f, 0.f), DeltaTime);
+		}
+	}
 	// ...
 }
 
@@ -166,7 +173,7 @@ void UBattleBrainComponent::ReCalcChrsTurns(ABattlePawnBase* inPawn)
 		}
 		FBattlePawnTurnInfo NewTurn;
 		UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 10"))
-		AddNewTurn(CurrentTurns[0]->MyBattlePawn, CurrentTurns[0]->ChrName, HighestTurnNo+1, CurrentTurns[0]->MyBattlePawn->Speed);
+		//AddNewTurn(CurrentTurns[0]->MyBattlePawn, CurrentTurns[0]->ChrName, HighestTurnNo+1, CurrentTurns[0]->MyBattlePawn->Speed);
 	}
 }
 

@@ -6,6 +6,11 @@
 #include "GameFramework/Character.h"
 #include "BattlePawnBase.generated.h"
 
+class USkeletalMeshComponent;
+class ABattleZoneBase;
+class AIController;
+
+
 
 UENUM()
 enum class ECharacterType : uint8
@@ -27,6 +32,7 @@ public:
 	// Sets default values for this character's properties
 	ABattlePawnBase();
 
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -36,9 +42,12 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 
+
+
+	ABattleZoneBase* MyBattleZone;
 
 
 	bool bIsBackLine = false;
@@ -98,6 +107,13 @@ public:
 		float VoidResistance = 10;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		float ArcaneResistance = 10;
+
+
+
+
+	///movement
+
+	bool MoveToLocation(FVector inLocation,float deltaTime);
 
 
 };
