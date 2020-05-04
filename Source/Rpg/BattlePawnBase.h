@@ -114,6 +114,17 @@ public:
 	///movement
 
 	bool MoveToLocation(FVector inLocation,float deltaTime);
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
+		float movementSpeed = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
+		float rotationSpeed = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
+		float zHeightOffset = 90;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
+		float moveDistanceTolerance = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
+		float rotationTolerance = 3;
 
-
+	void MoveForwards();
+	void RotateToTarget(FVector inLocation);
 };

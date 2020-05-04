@@ -36,7 +36,7 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 	{
 		if (TurnOrder[0].MyBattlePawn != NULL)
 		{
-			TurnOrder[0].MyBattlePawn->MoveToLocation(FVector(0.f, 0.f, 0.f), DeltaTime);
+			TurnOrder[0].MyBattlePawn->MoveToLocation(TurnOrder[1].MyBattlePawn->GetActorLocation(), DeltaTime);
 		}
 	}
 	// ...
