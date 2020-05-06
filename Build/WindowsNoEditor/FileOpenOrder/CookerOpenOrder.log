@@ -1,525 +1,420 @@
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Mesh/UE4_Mannequin_Skeleton.uasset" 0
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPerson_Jump.uasset" 1
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonJump_Loop.uasset" 2
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonJump_Start.uasset" 3
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonIdle.uasset" 4
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonRun.uasset" 5
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonWalk.uasset" 6
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPerson_IdleRun_2D.uasset" 7
-"../../../Engine/Content/EditorBlueprintResources/StandardMacros.uasset" 8
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPerson_AnimBP.uasset" 9
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/BlendAngleCorrectedNormals.uasset" 10
-"../../../Engine/Content/Functions/MaterialLayerFunctions/MatLayerBlend_NormalBlend.uasset" 11
-"../../../Engine/Content/Functions/MaterialLayerFunctions/MatLayerBlend_Simple.uasset" 12
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/T_ML_Rubber_Blue_01_D.uasset" 13
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/T_ML_Rubber_Blue_01_N.uasset" 14
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/ML_GlossyBlack_Latex_UE4.uasset" 15
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/ML_Plastic_Shiny_Beige.uasset" 16
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Textures/UE4_LOGO_CARD.uasset" 17
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/ML_Plastic_Shiny_Beige_LOGO.uasset" 18
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/T_ML_Aluminum01.uasset" 19
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/T_ML_Aluminum01_N.uasset" 20
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/ML_SoftMetal_UE4.uasset" 21
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Textures/UE4_Mannequin__normals.uasset" 22
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Textures/UE4_Mannequin_MAT_MASKA.uasset" 23
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/M_UE4Man_Body.uasset" 24
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Textures/UE4Man_Logo_N.uasset" 25
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/M_UE4Man_ChestLogo.uasset" 26
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Mesh/SK_Mannequin_PhysicsAsset.uasset" 27
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Mesh/SK_Mannequin.uasset" 28
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavBattlePawn.uasset" 29
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavBattlePawn1.uasset" 30
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavBattlePawn2.uasset" 31
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavBattlePawn3.uasset" 32
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavBattlePawn4.uasset" 33
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/EnemyTestParty.uasset" 34
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/EnemyTestParty1.uasset" 35
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/EnemyTestParty2.uasset" 36
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/TEstEnemyFormationList.uasset" 37
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/BattlezoneTest.uasset" 38
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/BattleZone1.uasset" 39
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavDungeonPawn.uasset" 40
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/DungonPawns/DungeonCharacter1.uasset" 41
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/BattlePawns/DungeonCharacter1.uasset" 42
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/DungeonCharacter1.uasset" 43
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/MyDungeonCharacterBase.uasset" 44
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonJump_End.uasset" 45
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Basic_Wall.uasset" 46
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/Pillar_50x500.uasset" 47
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/Wall_400x300.uasset" 48
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/Wall_400x400.uasset" 49
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/Wall_500x500.uasset" 50
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/Wall_Door_400x400.uasset" 51
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/Wall_Window_400x400.uasset" 52
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Collapse01.uasset" 53
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Collapse02.uasset" 54
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Explosion01.uasset" 55
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Explosion02.uasset" 56
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Fire01.uasset" 57
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Fire_Sparks01.uasset" 58
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Light01.uasset" 59
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Light01_Cue.uasset" 60
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Light02.uasset" 61
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Light02_Cue.uasset" 62
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Smoke01.uasset" 63
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Starter_Birds01.uasset" 64
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Starter_Music01.uasset" 65
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Starter_Wind05.uasset" 66
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Starter_Wind06.uasset" 67
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Steam01.uasset" 68
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Explosion_Cue.uasset" 69
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Burst_M.uasset" 70
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/Materials/M_Burst.uasset" 71
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Explosion_SubUV.uasset" 72
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/Materials/M_explosion_subUV.uasset" 73
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/Materials/m_flare_01.uasset" 74
-"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Gradient/RadialGradient.uasset" 75
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/Materials/M_radial_ramp.uasset" 76
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Smoke_SubUV.uasset" 77
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Smoke_Tiled_D.uasset" 78
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/Materials/M_smoke_subUV.uasset" 79
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/P_Explosion.uasset" 80
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Blueprint_Effect_Explosion.uasset" 81
-"../../../Engine/Content/EditorMeshes/ColorCalibrator/T_ColorGrid.uasset" 82
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_ColorGrid_LowSpec.uasset" 83
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Bush_D.uasset" 84
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Bush_N.uasset" 85
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_Bush.uasset" 86
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_Bush.uasset" 87
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Chair_M.uasset" 88
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Chair_N.uasset" 89
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_Chair.uasset" 90
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_Couch.uasset" 91
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Glass.uasset" 92
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Door_M.uasset" 93
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Door_N.uasset" 94
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_Door.uasset" 95
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_Door.uasset" 96
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_MaterialSphere.uasset" 97
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_MaterialSphere_Plain.uasset" 98
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_MatPreviewMesh_02.uasset" 99
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Detail_Rocky_N.uasset" 100
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Rock_Basalt_D.uasset" 101
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_RockMesh_M.uasset" 102
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_RockMesh_N.uasset" 103
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_Rock.uasset" 104
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_Rock.uasset" 105
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Shelf_M.uasset" 106
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Shelf_N.uasset" 107
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_Shelf.uasset" 108
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_Shelf.uasset" 109
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Basic_Floor.uasset" 110
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_Stairs.uasset" 111
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Cone.uasset" 112
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Cylinder.uasset" 113
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_NarrowCapsule.uasset" 114
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Pipe.uasset" 115
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Pipe_180.uasset" 116
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Pipe_90.uasset" 117
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Plane.uasset" 118
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Torus.uasset" 119
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Trim.uasset" 120
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Trim_90_In.uasset" 121
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Trim_90_Out.uasset" 122
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_TriPyramid.uasset" 123
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Tube.uasset" 124
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Wedge_A.uasset" 125
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Wedge_B.uasset" 126
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_WideCapsule.uasset" 127
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPersonBP/ThirdPersonOverview.uasset" 128
-"../../../Engine/Content/Animation/DefaultAnimCurveCompressionSettings.uasset" 129
-"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Opacity/CameraDepthFade.uasset" 130
-"../../../Engine/Content/EngineMaterials/T_Default_Material_Grid_M.uasset" 131
-"../../../Engine/Content/EngineMaterials/T_Default_Material_Grid_N.uasset" 132
-"../../../Engine/Content/EngineMaterials/WorldGridMaterial.uasset" 133
-"../../../Engine/Content/ArtTools/RenderToTexture/Meshes/S_1_Unit_Plane.uasset" 134
-"../../../Engine/Content/EngineMaterials/DefaultMaterial.uasset" 135
-"../../../Engine/Content/BasicShapes/Cone.uasset" 136
-"../../../Engine/Content/BasicShapes/Cube.uasset" 137
-"../../../Engine/Content/BasicShapes/Cylinder.uasset" 138
-"../../../Engine/Content/BasicShapes/Plane.uasset" 139
-"../../../Engine/Content/BasicShapes/Sphere.uasset" 140
-"../../../Engine/Content/EditorLandscapeResources/DataLayer.uasset" 141
-"../../../Engine/Content/EditorMaterials/MAT_Groups_Toggle.uasset" 142
-"../../../Engine/Content/EditorMaterials/MAT_Groups_Visibility.uasset" 143
-"../../../Engine/Content/EditorMaterials/PreviewShadowIndicator.uasset" 144
-"../../../Engine/Content/EditorMaterials/PreviewShadowIndicatorMaterial.uasset" 145
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_ColorTrack.uasset" 146
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Anim.uasset" 147
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_AudioMaster.uasset" 148
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Director.uasset" 149
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Event.uasset" 150
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Fade.uasset" 151
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Float.uasset" 152
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Move.uasset" 153
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Slomo.uasset" 154
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Sound.uasset" 155
-"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Vector.uasset" 156
-"../../../Engine/Content/EditorMaterials/ParticleSystems/PSysThumbnail_NoImage.uasset" 157
-"../../../Engine/Content/EditorMaterials/ParticleSystems/PSysThumbnail_OOD.uasset" 158
-"../../../Engine/Content/EditorMaterials/Camera/CineMat.uasset" 159
-"../../../Engine/Content/EditorMaterials/Camera/MI_CineMat_Rig.uasset" 160
-"../../../Engine/Content/EditorMeshes/Camera/SM_CraneRig_Arm.uasset" 161
-"../../../Engine/Content/EditorMeshes/Camera/SM_CraneRig_Base.uasset" 162
-"../../../Engine/Content/EditorMeshes/Camera/SM_CraneRig_Body.uasset" 163
-"../../../Engine/Content/EditorMeshes/Camera/SM_CraneRig_Mount.uasset" 164
-"../../../Engine/Content/EditorMeshes/Camera/SM_RailRig_Mount.uasset" 165
-"../../../Engine/Content/EditorMeshes/Camera/SM_RailRig_Track.uasset" 166
-"../../../Engine/Content/EditorResources/BSPVertex.uasset" 167
-"../../../Engine/Content/EditorResources/EmptyActor.uasset" 168
-"../../../Engine/Content/EditorResources/S_Actor.uasset" 169
-"../../../Engine/Content/EditorResources/S_Note.uasset" 170
-"../../../Engine/Content/EditorResources/S_Solver.uasset" 171
-"../../../Engine/Content/EditorResources/S_Trigger.uasset" 172
-"../../../Engine/Content/EditorResources/AudioIcons/S_AudioComponent.uasset" 173
-"../../../Engine/Content/EditorResources/AudioIcons/S_AudioComponent_AutoActivate.uasset" 174
-"../../../Engine/Content/EditorResources/LightIcons/S_LightError.uasset" 175
-"../../../Engine/Content/EditorResources/SequenceRecorder/Countdown.uasset" 176
-"../../../Engine/Content/EditorResources/SequenceRecorder/RecordingIndicator.uasset" 177
-"../../../Engine/Content/EditorSounds/Notifications/CompileFailed.uasset" 178
-"../../../Engine/Content/EditorSounds/Notifications/CompileFailed_Cue.uasset" 179
-"../../../Engine/Content/EditorSounds/Notifications/CompileSuccess.uasset" 180
-"../../../Engine/Content/EditorSounds/Notifications/CompileStart_Cue.uasset" 181
-"../../../Engine/Content/EditorSounds/Notifications/CompileSuccess_Cue.uasset" 182
-"../../../Engine/Content/EngineDamageTypes/DmgTypeBP_Environmental.uasset" 183
-"../../../Engine/Content/EngineDebugMaterials/DebugEditorMaterial.uasset" 184
-"../../../Engine/Content/EngineDebugMaterials/DebugMeshMaterial.uasset" 185
-"../../../Engine/Content/EngineDebugMaterials/M_SimpleTranslucent.uasset" 186
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/CameraDirectionVector.uasset" 187
-"../../../Engine/Content/EngineDebugMaterials/VolumeToRender.uasset" 188
-"../../../Engine/Content/EngineDebugMaterials/M_VolumeRenderSphereTracePP.uasset" 189
-"../../../Engine/Content/EngineDebugMaterials/WireframeMaterial.uasset" 190
-"../../../Engine/Content/EngineFonts/Faces/DroidSansFallback.uasset" 191
-"../../../Engine/Content/EngineFonts/Faces/RobotoBold.uasset" 192
-"../../../Engine/Content/EngineFonts/Faces/RobotoBoldItalic.uasset" 193
-"../../../Engine/Content/EngineFonts/Faces/RobotoItalic.uasset" 194
-"../../../Engine/Content/EngineFonts/Faces/RobotoLight.uasset" 195
-"../../../Engine/Content/EngineFonts/Faces/RobotoRegular.uasset" 196
-"../../../Engine/Content/EngineFonts/Roboto.uasset" 197
-"../../../Engine/Content/EngineMaterials/BaseFlattenDiffuseMap.uasset" 198
-"../../../Engine/Content/EngineMaterials/BaseFlattenEmissiveMap.uasset" 199
-"../../../Engine/Content/EngineMaterials/BaseFlattenGrayscaleMap.uasset" 200
-"../../../Engine/Content/EngineMaterials/BaseFlattenNormalMap.uasset" 201
-"../../../Engine/Content/EngineMaterials/BaseFlattenMaterial.uasset" 202
-"../../../Engine/Content/EngineMaterials/BlueNoise.uasset" 203
-"../../../Engine/Content/EngineMaterials/DefaultBloomKernel.uasset" 204
-"../../../Engine/Content/EngineMaterials/DefaultBokeh.uasset" 205
-"../../../Engine/Content/EngineMaterials/DefaultDiffuse.uasset" 206
-"../../../Engine/Content/EngineMaterials/DefaultDeferredDecalMaterial.uasset" 207
-"../../../Engine/Content/EngineMaterials/DefaultLightFunctionMaterial.uasset" 208
-"../../../Engine/Content/EngineMaterials/DefaultPhysicalMaterial.uasset" 209
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/BreakOutFloat2Components.uasset" 210
-"../../../Engine/Content/EngineMaterials/DefaultPostProcessMaterial.uasset" 211
-"../../../Engine/Content/EngineFonts/RobotoDistanceField.uasset" 212
-"../../../Engine/Content/EngineMaterials/DefaultTextMaterialOpaque.uasset" 213
-"../../../Engine/Content/EngineMaterials/DefaultVirtualTextureMaterial.uasset" 214
-"../../../Engine/Content/EngineMaterials/DefaultWhiteGrid.uasset" 215
-"../../../Engine/Content/EngineMaterials/DefaultWhiteGrid_Low.uasset" 216
-"../../../Engine/Content/EngineMaterials/EmissiveMeshMaterial.uasset" 217
-"../../../Engine/Content/EngineMaterials/GizmoMaterial.uasset" 218
-"../../../Engine/Content/EngineMaterials/Good64x64TilingNoiseHighFreq.uasset" 219
-"../../../Engine/Content/EngineMaterials/HairDefaultMaterial.uasset" 220
-"../../../Engine/Content/EngineMaterials/MiniFont.uasset" 221
-"../../../Engine/Content/EngineMaterials/InvalidLightmapSettings.uasset" 222
-"../../../Engine/Content/EngineMaterials/M_InvalidLightmapSettings.uasset" 223
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/WorldPositionOffset/CameraOffset.uasset" 224
-"../../../Engine/Content/EngineMaterials/PhAT_JointLimitMaterial.uasset" 225
-"../../../Engine/Content/EngineMaterials/PreintegratedSkinBRDF.uasset" 226
-"../../../Engine/Content/EngineMaterials/RemoveSurfaceMaterial.uasset" 227
-"../../../Engine/Content/EngineMaterials/WeightMapPlaceholderTexture.uasset" 228
-"../../../Engine/Content/EngineResources/WhiteSquareTexture.uasset" 229
-"../../../Engine/Content/EngineMaterials/Widget3DPassThrough.uasset" 230
-"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Masked.uasset" 231
-"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Opaque.uasset" 232
-"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Masked_OneSided.uasset" 233
-"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Opaque_OneSided.uasset" 234
-"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Translucent.uasset" 235
-"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Translucent_OneSided.uasset" 236
-"../../../Engine/Content/EngineMeshes/Cylinder.uasset" 237
-"../../../Engine/Content/EngineMeshes/Sphere.uasset" 238
-"../../../Engine/Content/EngineResources/Black.uasset" 239
-"../../../Engine/Content/EngineResources/DefaultTexture.uasset" 240
-"../../../Engine/Content/EngineResources/DefaultTextureCube.uasset" 241
-"../../../Engine/Content/EngineResources/DefaultVolumeTexture2D.uasset" 242
-"../../../Engine/Content/EngineResources/DefaultVolumeTexture.uasset" 243
-"../../../Engine/Content/EngineResources/GradientTexture0.uasset" 244
-"../../../Engine/Content/EngineSounds/Master.uasset" 245
-"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Shading/ConvertFromDiffSpec.uasset" 246
-"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Shading/PowerToRoughness.uasset" 247
-"../../../Engine/Content/Maps/Templates/Thumbnails/Default.uasset" 248
-"../../../Engine/Content/Maps/Templates/Thumbnails/TimeOfDay.uasset" 249
-"../../../Engine/Content/Maps/Templates/Thumbnails/VR-Basic.uasset" 250
-"../../../Engine/Content/MobileResources/T_MobileControls_texture.uasset" 251
-"../../../Engine/Content/MobileResources/T_MobileMenu2.uasset" 252
-"../../../Engine/Content/MobileResources/HUD/AnalogHat.uasset" 253
-"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Background.uasset" 254
-"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Thumb.uasset" 255
-"../../../Engine/Content/MobileResources/HUD/DefaultVirtualJoysticks.uasset" 256
-"../../../Engine/Content/MobileResources/HUD/LeftVirtualJoystickOnly.uasset" 257
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButton1_off.uasset" 258
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButton1_on.uasset" 259
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButton2_off.uasset" 260
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButton2_on.uasset" 261
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButton3.uasset" 262
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButtonFire.uasset" 263
-"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad.uasset" 264
-"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad2.uasset" 265
-"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad3.uasset" 266
-"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionStick.uasset" 267
-"../../../Engine/Content/MobileResources/HUD/T_Castle_ThumbstickInner.uasset" 268
-"../../../Engine/Content/MobileResources/HUD/T_Castle_ThumbstickOutter.uasset" 269
-"../../../Engine/Content/Tutorial/ContentIntroCurve.uasset" 270
-"../../../Engine/Content/Tutorial/Basics/LevelEditorAttract.uasset" 271
-"../../../Engine/Content/VREditor/LaserPointer/VR_LaserPower_01.uasset" 272
-"../../../Engine/Content/VREditor/TransformGizmo/TransformGizmoMaterial.uasset" 273
-"../../../Engine/Content/VREditor/TransformGizmo/TranslucentTransformGizmoMaterial.uasset" 274
-"../../../Engine/Content/VREditor/TransformGizmo/BoundingBoxCorner.uasset" 275
-"../../../Engine/Content/VREditor/TransformGizmo/BoundingBoxEdge.uasset" 276
-"../../../Engine/Content/VREditor/TransformGizmo/PlaneTranslationHandle.uasset" 277
-"../../../Engine/Content/VREditor/TransformGizmo/Main.uasset" 278
-"../../../Engine/Content/VREditor/TransformGizmo/Xray.uasset" 279
-"../../../Engine/Content/VREditor/TransformGizmo/SM_Sequencer_Key.uasset" 280
-"../../../Engine/Content/VREditor/TransformGizmo/SM_Sequencer_Node.uasset" 281
-"../../Plugins/2D/Paper2D/Content/PlaceholderTextures/DummySpriteTexture.uasset" 282
-"../../Plugins/2D/Paper2D/Content/DummySprite.uasset" 283
-"../../Plugins/2D/Paper2D/Content/DefaultPaperTerrainMaterial.uasset" 284
-"../../Plugins/2D/Paper2D/Content/DummySpriteTexture.uasset" 285
-"../../Plugins/2D/Paper2D/Content/DefaultSpriteMaterial.uasset" 286
-"../../Plugins/2D/Paper2D/Content/MaskedUnlitSpriteMaterial.uasset" 287
-"../../Plugins/2D/Paper2D/Content/OpaqueUnlitSpriteMaterial.uasset" 288
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/BreakOutFloat4Components.uasset" 289
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat2.uasset" 290
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat3.uasset" 291
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/OculusMR_ChromaKey.uasset" 292
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/OculusMR_ChromaKey_Lit.uasset" 293
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/OculusMR_OpaqueColoredMaterial.uasset" 294
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/OculusMR_WhiteMaterial.uasset" 295
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Assets/FogBrightnessLUT.uasset" 296
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Assets/SunlightColorLUT.uasset" 297
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Assets/M_LightStage_Arrows.uasset" 298
-"../../../Engine/Content/MapTemplates/Sky/DaylightAmbientCubemap.uasset" 299
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Assets/M_LightStage_Skybox_Master.uasset" 300
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Assets/M_LightStage_Skybox_Black.uasset" 301
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Assets/M_LightStage_Skybox_HDRI.uasset" 302
-"../../../Engine/Content/EditorMaterials/Thumbnails/SkySphereMaterial.uasset" 303
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Assets/Skybox.uasset" 304
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Assets/SM_Arrows.uasset" 305
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/HDRI/HDRI_Epic_Courtyard_Daylight.uasset" 306
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/BP_LightStudio.uasset" 307
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Maps/Advanced_Lighting_BuiltData.uasset" 308
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_AssetPlatform.uasset" 309
-"../../../Engine/Content/EditorMeshes/ColorCalibrator/M_ChromeBall.uasset" 310
-"../../../Engine/Content/EditorMeshes/ColorCalibrator/M_ClearCoat.uasset" 311
-"../../../Engine/Content/EditorMeshes/ColorCalibrator/M_ClearCoatBlack.uasset" 312
-"../../../Engine/Content/EditorMeshes/ColorCalibrator/Color_checker.uasset" 313
-"../../../Engine/Content/EditorMeshes/ColorCalibrator/M_ColorGrid.uasset" 314
-"../../../Engine/Content/EditorMeshes/ColorCalibrator/M_GreyBall.uasset" 315
-"../../../Engine/Content/EditorMeshes/ColorCalibrator/SM_ColorCalibrator.uasset" 316
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/SM_AssetPlatform.uasset" 317
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Maps/Advanced_Lighting.umap" 318
-"../../../Engine/Content/EngineSky/C_Sky_Cloud_Color.uasset" 319
-"../../../Engine/Content/EngineSky/C_Sky_Horizon_Color.uasset" 320
-"../../../Engine/Content/EngineSky/C_Sky_Zenith_Color.uasset" 321
-"../../../Engine/Content/EngineSky/T_Sky_Blue.uasset" 322
-"../../../Engine/Content/EngineSky/T_Sky_Clouds_M.uasset" 323
-"../../../Engine/Content/EngineSky/T_Sky_Stars.uasset" 324
-"../../../Engine/Content/EngineSky/M_Sky_Panning_Clouds2.uasset" 325
-"../../../Engine/Content/EngineSky/SM_SkySphere.uasset" 326
-"../../../Engine/Content/EngineSky/BP_Sky_Sphere.uasset" 327
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Maps/Minimal_Default_BuiltData.uasset" 328
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_MacroVariation.uasset" 329
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Metal_Brushed_Nickel.uasset" 330
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Metal_Aluminum_D.uasset" 331
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Metal_Gold_N.uasset" 332
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Metal_Burnished_Steel.uasset" 333
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Metal_Copper_D.uasset" 334
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Metal_Copper.uasset" 335
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Statue_M.uasset" 336
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Statue_N.uasset" 337
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_StatueGlass.uasset" 338
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/Floor_400x400.uasset" 339
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Starter_Background_Cue.uasset" 340
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_Chair.uasset" 341
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_Statue.uasset" 342
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_Statue.uasset" 343
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_TableRound_M.uasset" 344
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_TableRound_N.uasset" 345
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_TableRound.uasset" 346
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_TableRound.uasset" 347
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Maps/Minimal_Default.umap" 348
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Fire01_Cue.uasset" 349
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Fire_SubUV.uasset" 350
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Fire_Tiled_D.uasset" 351
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/Materials/M_Fire_SubUV.uasset" 352
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Water_N.uasset" 353
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/Materials/M_Heat_Distortion.uasset" 354
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/Materials/M_Radial_Gradient.uasset" 355
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/P_Fire.uasset" 356
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Blueprint_Effect_Fire.uasset" 357
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Smoke01_Cue.uasset" 358
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/P_Smoke.uasset" 359
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Blueprint_Effect_Smoke.uasset" 360
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Fire_Sparks01_Cue.uasset" 361
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Spark_Core.uasset" 362
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/Materials/M_Spark.uasset" 363
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/P_Sparks.uasset" 364
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Blueprint_Effect_Sparks.uasset" 365
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Steam01_Cue.uasset" 366
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/P_Steam_Lit.uasset" 367
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Blueprint_Effect_Steam.uasset" 368
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Lamp_M.uasset" 369
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Lamp_N.uasset" 370
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_Lamp.uasset" 371
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_Lamp_Ceiling.uasset" 372
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Blueprint_CeilingLight.uasset" 373
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_Lamp_Wall.uasset" 374
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Blueprints/Blueprint_WallSconce.uasset" 375
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Maps/StarterMap_BuiltData.uasset" 376
-"../../../Engine/Content/Functions/Engine_MaterialFunctions03/Procedurals/ComputeFilterWidth.uasset" 377
-"../../../Engine/Content/EngineMaterials/AntiAliasedTextMaterialTranslucent.uasset" 378
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Clay_Beveled_D.uasset" 379
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Clay_Beveled_M.uasset" 380
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Clay_Beveled_N.uasset" 381
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Brick_Clay_Beveled.uasset" 382
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Clay_New_D.uasset" 383
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Clay_New_M.uasset" 384
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Clay_New_N.uasset" 385
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Brick_Clay_New.uasset" 386
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Clay_Old_D.uasset" 387
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Clay_Old_N.uasset" 388
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Perlin_Noise_M.uasset" 389
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Brick_Clay_Old.uasset" 390
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Cut_Stone_D.uasset" 391
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Cut_Stone_N.uasset" 392
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Brick_Cut_Stone.uasset" 393
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Hewn_Stone_D.uasset" 394
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Hewn_Stone_M.uasset" 395
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Brick_Hewn_Stone_N.uasset" 396
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Brick_Hewn_Stone.uasset" 397
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Ceramic_Tile_M.uasset" 398
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Ceramic_Tile_N.uasset" 399
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Rock_Marble_Polished_D.uasset" 400
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Ceramic_Tile_Checker.uasset" 401
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_CobbleStone_Pebble_D.uasset" 402
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_CobbleStone_Pebble_M.uasset" 403
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_CobbleStone_Pebble_N.uasset" 404
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_CobbleStone_Pebble.uasset" 405
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_CobbleStone_Rough_D.uasset" 406
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_CobbleStone_Rough_N.uasset" 407
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Gradinet_01.uasset" 408
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Rock_Smooth_Granite_D.uasset" 409
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_CobbleStone_Rough.uasset" 410
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_CobbleStone_Smooth_D.uasset" 411
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_CobbleStone_Smooth_M.uasset" 412
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_CobbleStone_Smooth_N.uasset" 413
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_CobbleStone_Smooth.uasset" 414
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Concrete_Grime_D.uasset" 415
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Metal_Rust_N.uasset" 416
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Concrete_Grime.uasset" 417
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Concrete_Panels_D.uasset" 418
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Concrete_Panels_N.uasset" 419
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Concrete_Panels.uasset" 420
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Concrete_Poured_D.uasset" 421
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Concrete_Poured_N.uasset" 422
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Concrete_Poured.uasset" 423
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Concrete_Tiles_D.uasset" 424
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Concrete_Tiles_M.uasset" 425
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Concrete_Tiles_N.uasset" 426
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Concrete_Tiles_Variation_M.uasset" 427
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Concrete_Tiles.uasset" 428
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Ground_Grass_D.uasset" 429
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Ground_Grass_N.uasset" 430
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Ground_Grass.uasset" 431
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Ground_Gravel_D.uasset" 432
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Ground_Gravel_N.uasset" 433
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Ground_Gravel.uasset" 434
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_ground_Moss_D.uasset" 435
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Ground_Moss_N.uasset" 436
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Ground_Moss.uasset" 437
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Metal_Chrome.uasset" 438
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Metal_Gold_D.uasset" 439
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Metal_Gold.uasset" 440
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Metal_Rust_D.uasset" 441
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Metal_Rust.uasset" 442
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Metal_Steel_D.uasset" 443
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Metal_Steel_N.uasset" 444
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Metal_Steel.uasset" 445
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Rock_Basalt_N.uasset" 446
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Rock_Basalt.uasset" 447
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Rock_Marble_Polished.uasset" 448
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Rock_Sandstone_D.uasset" 449
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Rock_Sandstone_N.uasset" 450
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Rock_Sandstone.uasset" 451
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Rock_Slate_D.uasset" 452
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Rock_Slate_N.uasset" 453
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Rock_Slate.uasset" 454
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Checker_Noise_M.uasset" 455
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Single_Tile_N.uasset" 456
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Tech_Dot_M.uasset" 457
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Tech_Dot_N.uasset" 458
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Tech_Checker_Dot.uasset" 459
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Tech_Hex_Tile_M.uasset" 460
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Tech_Hex_Tile_N.uasset" 461
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Tech_Hex_Tile.uasset" 462
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Tech_Hex_Tile_Pulse.uasset" 463
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Tech_Panel_M.uasset" 464
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Tech_Panel_N.uasset" 465
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Tech_Panel.uasset" 466
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Water_Lake.uasset" 467
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Water_M.uasset" 468
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Water_Ocean.uasset" 469
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Wood_Floor_Walnut_D.uasset" 470
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Wood_Floor_Walnut_M.uasset" 471
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Wood_Floor_Walnut_N.uasset" 472
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Wood_Floor_Walnut_Polished.uasset" 473
-"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Opacity/AlphaOffset.uasset" 474
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Wood_Floor_Walnut_Worn.uasset" 475
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Wood_Oak_D.uasset" 476
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Wood_Oak_N.uasset" 477
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Wood_Oak.uasset" 478
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Wood_Pine_D.uasset" 479
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Wood_Pine_N.uasset" 480
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Wood_Pine.uasset" 481
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Wood_Walnut_D.uasset" 482
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Wood_Walnut_N.uasset" 483
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Materials/M_Wood_Walnut.uasset" 484
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/Wall_400x200.uasset" 485
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/Wall_Door_400x300.uasset" 486
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Architecture/Wall_Window_400x300.uasset" 487
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Collapse_Cue.uasset" 488
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Audio/Starter_Music_Cue.uasset" 489
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Dust_Particle_D.uasset" 490
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/Materials/M_Dust_Particle.uasset" 491
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Particles/P_Ambient_Dust.uasset" 492
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/MaterialSphere.uasset" 493
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Frame_M.uasset" 494
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Textures/T_Frame_N.uasset" 495
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/Materials/M_Frame.uasset" 496
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_CornerFrame.uasset" 497
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_DoorFrame.uasset" 498
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_GlassWindow.uasset" 499
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_PillarFrame.uasset" 500
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_PillarFrame300.uasset" 501
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Props/SM_WindowFrame.uasset" 502
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Cube.uasset" 503
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_QuadPyramid.uasset" 504
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Shapes/Shape_Sphere.uasset" 505
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/StarterContent/Maps/StarterMap.umap" 506
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPersonBP/Blueprints/ThirdPersonCharacter.uasset" 507
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavDataSheet.uasset" 508
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/DungeonController1.uasset" 509
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPersonBP/Blueprints/ThirdPersonGameMode.uasset" 510
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPersonBP/Maps/ThirdPersonExampleMap_BuiltData.uasset" 511
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Geometry/Meshes/CubeMaterial.uasset" 512
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Geometry/Meshes/1M_Cube.uasset" 513
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Geometry/Meshes/1M_Cube_Chamfer.uasset" 514
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Geometry/Meshes/TemplateFloor.uasset" 515
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/RampMaterial.uasset" 516
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/Bump_StaticMesh.uasset" 517
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/LeftArm_StaticMesh.uasset" 518
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/Linear_Stair_StaticMesh.uasset" 519
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/Ramp_StaticMesh.uasset" 520
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/RightArm_StaticMesh.uasset" 521
-"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPersonBP/Maps/ThirdPersonExampleMap.umap" 522
-"../../../Engine/Content/Maps/Entry_BuiltData.uasset" 523
-"../../../Engine/Content/Maps/Entry.umap" 524
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Opacity/CameraDepthFade.uasset" 0
+"../../../Engine/Content/EngineMaterials/T_Default_Material_Grid_M.uasset" 1
+"../../../Engine/Content/EngineMaterials/T_Default_Material_Grid_N.uasset" 2
+"../../../Engine/Content/EngineMaterials/WorldGridMaterial.uasset" 3
+"../../../Engine/Content/ArtTools/RenderToTexture/Meshes/S_1_Unit_Plane.uasset" 4
+"../../../Engine/Content/EngineMaterials/DefaultMaterial.uasset" 5
+"../../../Engine/Content/BasicShapes/Cone.uasset" 6
+"../../../Engine/Content/BasicShapes/Cube.uasset" 7
+"../../../Engine/Content/BasicShapes/Cylinder.uasset" 8
+"../../../Engine/Content/BasicShapes/Plane.uasset" 9
+"../../../Engine/Content/BasicShapes/Sphere.uasset" 10
+"../../../Engine/Content/EngineMaterials/DefaultPhysicalMaterial.uasset" 11
+"../../../Engine/Content/BufferVisualization/AmbientOcclusion.uasset" 12
+"../../../Engine/Content/BufferVisualization/BaseColor.uasset" 13
+"../../../Engine/Content/BufferVisualization/CustomDepth.uasset" 14
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/VectorLength.uasset" 15
+"../../../Engine/Content/BufferVisualization/CustomDepthWorldUnits.uasset" 16
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/BreakOutFloat2Components.uasset" 17
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Texturing/ScaleUVsByCenter.uasset" 18
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/ScreenResolution.uasset" 19
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Texturing/ScreenAlignedUVs.uasset" 20
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat2.uasset" 21
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat3.uasset" 22
+"../../../Engine/Content/EngineMaterials/MiniFont.uasset" 23
+"../../../Engine/Content/BufferVisualization/CustomStencil.uasset" 24
+"../../../Engine/Content/BufferVisualization/FinalImage.uasset" 25
+"../../../Engine/Content/BufferVisualization/LightingModel.uasset" 26
+"../../../Engine/Content/BufferVisualization/MaterialAO.uasset" 27
+"../../../Engine/Content/BufferVisualization/Metallic.uasset" 28
+"../../../Engine/Content/BufferVisualization/Opacity.uasset" 29
+"../../../Engine/Content/BufferVisualization/PostTonemapHDRColor.uasset" 30
+"../../../Engine/Content/BufferVisualization/PreTonemapHDRColor.uasset" 31
+"../../../Engine/Content/BufferVisualization/Roughness.uasset" 32
+"../../../Engine/Content/BufferVisualization/SceneColor.uasset" 33
+"../../../Engine/Content/BufferVisualization/SceneDepth.uasset" 34
+"../../../Engine/Content/BufferVisualization/SceneDepthWorldUnits.uasset" 35
+"../../../Engine/Content/BufferVisualization/SeparateTranslucencyA.uasset" 36
+"../../../Engine/Content/BufferVisualization/SeparateTranslucencyRGB.uasset" 37
+"../../../Engine/Content/BufferVisualization/Specular.uasset" 38
+"../../../Engine/Content/BufferVisualization/SubsurfaceColor.uasset" 39
+"../../../Engine/Content/BufferVisualization/Velocity.uasset" 40
+"../../../Engine/Content/BufferVisualization/WorldNormal.uasset" 41
+"../../../Engine/Content/EditorBlueprintResources/ActorMacros.uasset" 42
+"../../../Engine/Content/EditorLandscapeResources/DataLayer.uasset" 43
+"../../../Engine/Content/EditorLandscapeResources/DefaultAlphaTexture.uasset" 44
+"../../../Engine/Content/EditorLandscapeResources/LandscapeGizmoHeight_Mat.uasset" 45
+"../../../Engine/Content/EditorLandscapeResources/LandscapeGizmo_Mat.uasset" 46
+"../../../Engine/Content/EditorLandscapeResources/LandscapeGizmo_Mat_Copied.uasset" 47
+"../../../Engine/Content/EditorLandscapeResources/SplineEditorMeshMat.uasset" 48
+"../../../Engine/Content/EditorLandscapeResources/SplineEditorMesh.uasset" 49
+"../../../Engine/Content/EditorMaterials/Cross.uasset" 50
+"../../../Engine/Content/EditorMaterials/Cross_Mat.uasset" 51
+"../../../Engine/Content/EngineMaterials/DefaultDiffuse.uasset" 52
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Texturing/TextureCropping.uasset" 53
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Texturing/ComputeMipLevel.uasset" 54
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/ExampleContent/DebugNumberStrip.uasset" 55
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/ExampleContent/Textures/DebugNumberPeriod.uasset" 56
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/DebugScalarValues.uasset" 57
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/DebugFloat2Values.uasset" 58
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/ExampleContent/Textures/flipbook.uasset" 59
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Texturing/FlipBook.uasset" 60
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/Sign.uasset" 61
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/Round.uasset" 62
+"../../../Engine/Content/EditorResources/T_EditorHelp.uasset" 63
+"../../../Engine/Content/EditorMaterials/HelpActorMaterial.uasset" 64
+"../../../Engine/Content/EditorMaterials/CompositeARGBLayer.uasset" 65
+"../../../Engine/Content/EditorMaterials/TilingAALineIntegral.uasset" 66
+"../../../Engine/Content/EditorMaterials/TilingAALineBoxFiltered.uasset" 67
+"../../../Engine/Content/Functions/Engine_MaterialFunctions03/Procedurals/ComputeFilterWidth.uasset" 68
+"../../../Engine/Content/EditorMaterials/TilingAADots.uasset" 69
+"../../../Engine/Content/EngineMaterials/BlendFunc_DefBase.uasset" 70
+"../../../Engine/Content/EngineMaterials/BlendFunc_DefBlend.uasset" 71
+"../../../Engine/Content/Functions/Engine_MaterialFunctions03/Blends/Blend_Screen.uasset" 72
+"../../../Engine/Content/EditorMaterials/TilingAAGrid.uasset" 73
+"../../../Engine/Content/EditorMaterials/LevelGridMaterial.uasset" 74
+"../../../Engine/Content/EditorMaterials/MakeCompositeARGBLayer.uasset" 75
+"../../../Engine/Content/EditorResources/LevelGrid1DStripes.uasset" 76
+"../../../Engine/Content/EditorMaterials/TextureGridCascaded1D.uasset" 77
+"../../../Engine/Content/EditorMaterials/TextureGridCascaded2D.uasset" 78
+"../../../Engine/Content/EditorMaterials/LevelGridMaterial2.uasset" 79
+"../../../Engine/Content/EditorMaterials/MAT_Groups_Toggle.uasset" 80
+"../../../Engine/Content/EditorMaterials/MAT_Groups_Visibility.uasset" 81
+"../../../Engine/Content/EditorMaterials/PhAT_BoneSelectedMaterial.uasset" 82
+"../../../Engine/Content/EditorMaterials/PhAT_ElemSelectedMaterial.uasset" 83
+"../../../Engine/Content/EditorMaterials/PhAT_NoCollisionMaterial.uasset" 84
+"../../../Engine/Content/EditorMaterials/PhAT_UnselectedMaterial.uasset" 85
+"../../../Engine/Content/EditorMaterials/PreviewShadowIndicator.uasset" 86
+"../../../Engine/Content/EditorMaterials/PreviewShadowIndicatorMaterial.uasset" 87
+"../../../Engine/Content/EditorMaterials/TargetIcon.uasset" 88
+"../../../Engine/Content/EditorMaterials/Tick.uasset" 89
+"../../../Engine/Content/EditorMaterials/Tick_Mat.uasset" 90
+"../../../Engine/Content/EditorMaterials/WidgetGridVertexColorMaterial.uasset" 91
+"../../../Engine/Content/EditorMaterials/WidgetGridVertexColorMaterial_Ma.uasset" 92
+"../../../Engine/Content/EditorMaterials/WidgetMaterial.uasset" 93
+"../../../Engine/Content/EditorMaterials/WidgetMaterial_Current.uasset" 94
+"../../../Engine/Content/EditorMaterials/WidgetMaterial_X.uasset" 95
+"../../../Engine/Content/EditorMaterials/WidgetMaterial_Y.uasset" 96
+"../../../Engine/Content/EditorMaterials/WidgetMaterial_Z.uasset" 97
+"../../../Engine/Content/EditorMaterials/WidgetVertexColorMaterial.uasset" 98
+"../../../Engine/Content/EditorMaterials/AssetViewer/EpicQuadPanorama_CC+EV1.uasset" 99
+"../../../Engine/Content/MapTemplates/Sky/SunsetAmbientCubemap.uasset" 100
+"../../../Engine/Content/EditorMaterials/AssetViewer/M_SkyBox.uasset" 101
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_ColorTrack.uasset" 102
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Anim.uasset" 103
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_AudioMaster.uasset" 104
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Director.uasset" 105
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Event.uasset" 106
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Fade.uasset" 107
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Float.uasset" 108
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Move.uasset" 109
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Slomo.uasset" 110
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Sound.uasset" 111
+"../../../Engine/Content/EditorMaterials/MatineeGroups/MAT_Groups_Vector.uasset" 112
+"../../../Engine/Content/EditorMaterials/ParticleSystems/PSysThumbnail_NoImage.uasset" 113
+"../../../Engine/Content/EditorMaterials/ParticleSystems/PSysThumbnail_OOD.uasset" 114
+"../../../Engine/Content/EngineMaterials/Grid.uasset" 115
+"../../../Engine/Content/EditorMaterials/Thumbnails/FloorPlaneMaterial.uasset" 116
+"../../../Engine/Content/EditorMeshes/EditorCube.uasset" 117
+"../../../Engine/Content/EditorMeshes/EditorCylinder.uasset" 118
+"../../../Engine/Content/EditorMeshes/EditorPlane.uasset" 119
+"../../../Engine/Content/EditorMaterials/Thumbnails/SkySphereMaterial.uasset" 120
+"../../../Engine/Content/EditorMeshes/EditorSkySphere.uasset" 121
+"../../../Engine/Content/EditorMeshes/EditorSphere.uasset" 122
+"../../../Engine/Content/EditorResources/MatineeCam_D.uasset" 123
+"../../../Engine/Content/EditorMaterials/MatineeCam_mat.uasset" 124
+"../../../Engine/Content/EditorMeshes/MatineeCam_SM.uasset" 125
+"../../../Engine/Content/EditorMeshes/PlanarReflectionPlane.uasset" 126
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Shading/ConvertFromDiffSpec.uasset" 127
+"../../../Engine/Content/EditorMaterials/GridMaterial.uasset" 128
+"../../../Engine/Content/EditorMeshes/AssetViewer/Floor_Mesh.uasset" 129
+"../../../Engine/Content/EditorMeshes/AssetViewer/Sphere_inversenormals.uasset" 130
+"../../../Engine/Content/EditorMaterials/Camera/CineMat.uasset" 131
+"../../../Engine/Content/EditorMaterials/Camera/MI_CineMat_CameraBody.uasset" 132
+"../../../Engine/Content/EngineDebugMaterials/M_SimpleOpaque.uasset" 133
+"../../../Engine/Content/EditorMaterials/Camera/MI_CineMat_CamViewFinder.uasset" 134
+"../../../Engine/Content/EditorMeshes/Camera/SM_CineCam.uasset" 135
+"../../../Engine/Content/EditorMaterials/Camera/MI_CineMat_Rig.uasset" 136
+"../../../Engine/Content/EditorMeshes/Camera/SM_CraneRig_Arm.uasset" 137
+"../../../Engine/Content/EditorMeshes/Camera/SM_CraneRig_Base.uasset" 138
+"../../../Engine/Content/EditorMeshes/Camera/SM_CraneRig_Body.uasset" 139
+"../../../Engine/Content/EditorMeshes/Camera/SM_CraneRig_Mount.uasset" 140
+"../../../Engine/Content/EditorMeshes/Camera/SM_RailRig_Mount.uasset" 141
+"../../../Engine/Content/EditorMeshes/Camera/SM_RailRig_Track.uasset" 142
+"../../../Engine/Content/EditorMeshes/ColorCalibrator/M_ChromeBall.uasset" 143
+"../../../Engine/Content/EditorResources/Bad.uasset" 144
+"../../../Engine/Content/EditorResources/BSPVertex.uasset" 145
+"../../../Engine/Content/EditorResources/EmptyActor.uasset" 146
+"../../../Engine/Content/EditorResources/MatInstActSprite.uasset" 147
+"../../../Engine/Content/EditorResources/SceneManager.uasset" 148
+"../../../Engine/Content/EditorResources/SmallFont.uasset" 149
+"../../../Engine/Content/EditorResources/S_Actor.uasset" 150
+"../../../Engine/Content/EditorResources/S_DecalActorIcon.uasset" 151
+"../../../Engine/Content/EditorResources/S_Emitter.uasset" 152
+"../../../Engine/Content/EditorResources/S_ExpoHeightFog.uasset" 153
+"../../../Engine/Content/EditorResources/S_FTest.uasset" 154
+"../../../Engine/Content/EditorResources/S_KBSJoint.uasset" 155
+"../../../Engine/Content/EditorResources/S_KHinge.uasset" 156
+"../../../Engine/Content/EditorResources/S_KPrismatic.uasset" 157
+"../../../Engine/Content/EditorResources/S_LevelSequence.uasset" 158
+"../../../Engine/Content/EditorResources/S_NavP.uasset" 159
+"../../../Engine/Content/EditorResources/S_Note.uasset" 160
+"../../../Engine/Content/EditorResources/S_Player.uasset" 161
+"../../../Engine/Content/EditorResources/S_PortalActorIcon2.uasset" 162
+"../../../Engine/Content/EditorResources/S_RadForce.uasset" 163
+"../../../Engine/Content/EditorResources/S_ReflActorIcon.uasset" 164
+"../../../Engine/Content/EditorResources/S_SkyAtmosphere.uasset" 165
+"../../../Engine/Content/EditorResources/S_Solver.uasset" 166
+"../../../Engine/Content/EditorResources/S_Terrain.uasset" 167
+"../../../Engine/Content/EditorResources/S_TextRenderActorIcon.uasset" 168
+"../../../Engine/Content/EditorResources/S_Thruster.uasset" 169
+"../../../Engine/Content/EditorResources/S_Trigger.uasset" 170
+"../../../Engine/Content/EditorResources/S_VectorFieldVol.uasset" 171
+"../../../Engine/Content/EditorResources/S_WindDirectional.uasset" 172
+"../../../Engine/Content/EditorResources/AI/S_NavLink.uasset" 173
+"../../../Engine/Content/EditorResources/LightIcons/SkyLight.uasset" 174
+"../../../Engine/Content/EditorResources/LightIcons/S_LightDirectional.uasset" 175
+"../../../Engine/Content/EditorResources/LightIcons/S_LightDirectionalMove.uasset" 176
+"../../../Engine/Content/EditorResources/LightIcons/S_LightError.uasset" 177
+"../../../Engine/Content/EditorResources/LightIcons/S_LightPoint.uasset" 178
+"../../../Engine/Content/EditorResources/LightIcons/S_LightPointMove.uasset" 179
+"../../../Engine/Content/EditorResources/LightIcons/S_LightSpot.uasset" 180
+"../../../Engine/Content/EditorResources/LightIcons/S_LightSpotMove.uasset" 181
+"../../../Engine/Content/EditorResources/SequenceRecorder/Countdown.uasset" 182
+"../../../Engine/Content/EditorResources/SequenceRecorder/RecordingIndicator.uasset" 183
+"../../../Engine/Content/EditorResources/Spline/T_Loft_Spline.uasset" 184
+"../../../Engine/Content/EditorSounds/Notifications/CompileFailed.uasset" 185
+"../../../Engine/Content/EditorSounds/Notifications/CompileFailed_Cue.uasset" 186
+"../../../Engine/Content/EditorSounds/Notifications/CompileSuccess.uasset" 187
+"../../../Engine/Content/EditorSounds/Notifications/CompileStart_Cue.uasset" 188
+"../../../Engine/Content/EditorSounds/Notifications/CompileSuccess_Cue.uasset" 189
+"../../../Engine/Content/EngineDamageTypes/DmgTypeBP_Environmental.uasset" 190
+"../../../Engine/Content/EngineDebugMaterials/HeatmapGradient.uasset" 191
+"../../../Engine/Content/EngineDebugMaterials/BoneWeightMaterial.uasset" 192
+"../../../Engine/Content/EngineDebugMaterials/ClothMaterial.uasset" 193
+"../../../Engine/Content/EngineDebugMaterials/ClothMaterial_WF.uasset" 194
+"../../../Engine/Content/EngineDebugMaterials/DebugEditorMaterial.uasset" 195
+"../../../Engine/Content/EngineDebugMaterials/DebugMeshMaterial.uasset" 196
+"../../../Engine/Content/EngineDebugMaterials/GeomMaterial.uasset" 197
+"../../../Engine/Content/EngineDebugMaterials/LevelColorationLitMaterial.uasset" 198
+"../../../Engine/Content/EngineDebugMaterials/LevelColorationUnlitMaterial.uasset" 199
+"../../../Engine/Content/EngineMaterials/DefaultWhiteGrid.uasset" 200
+"../../../Engine/Content/EngineDebugMaterials/MAT_LevelColorationLitLightmapUV.uasset" 201
+"../../../Engine/Content/EngineDebugMaterials/M_SimpleTranslucent.uasset" 202
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/CameraDirectionVector.uasset" 203
+"../../../Engine/Content/EngineDebugMaterials/VolumeToRender.uasset" 204
+"../../../Engine/Content/EngineDebugMaterials/M_VolumeRenderSphereTracePP.uasset" 205
+"../../../Engine/Content/EngineDebugMaterials/ShadedLevelColorationLitMaterial.uasset" 206
+"../../../Engine/Content/EngineDebugMaterials/ShadedLevelColorationUnlitMateri.uasset" 207
+"../../../Engine/Content/EngineDebugMaterials/VertexColorMaterial.uasset" 208
+"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_AlphaAsColor.uasset" 209
+"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_BlueOnly.uasset" 210
+"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_ColorOnly.uasset" 211
+"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_GreenOnly.uasset" 212
+"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_RedOnly.uasset" 213
+"../../../Engine/Content/EngineDebugMaterials/WireframeMaterial.uasset" 214
+"../../../Engine/Content/EngineFonts/Faces/DroidSansFallback.uasset" 215
+"../../../Engine/Content/EngineFonts/Faces/RobotoBold.uasset" 216
+"../../../Engine/Content/EngineFonts/Faces/RobotoBoldItalic.uasset" 217
+"../../../Engine/Content/EngineFonts/Faces/RobotoItalic.uasset" 218
+"../../../Engine/Content/EngineFonts/Faces/RobotoLight.uasset" 219
+"../../../Engine/Content/EngineFonts/Faces/RobotoRegular.uasset" 220
+"../../../Engine/Content/EngineFonts/Roboto.uasset" 221
+"../../../Engine/Content/EngineFonts/Faces/RobotoTiny.uasset" 222
+"../../../Engine/Content/EngineFonts/RobotoTiny.uasset" 223
+"../../../Engine/Content/EngineFonts/SmallFont.uasset" 224
+"../../../Engine/Content/EngineFonts/TinyFont.uasset" 225
+"../../../Engine/Content/EngineMaterials/BaseFlattenDiffuseMap.uasset" 226
+"../../../Engine/Content/EngineMaterials/BaseFlattenEmissiveMap.uasset" 227
+"../../../Engine/Content/EngineMaterials/BaseFlattenGrayscaleMap.uasset" 228
+"../../../Engine/Content/EngineMaterials/BaseFlattenNormalMap.uasset" 229
+"../../../Engine/Content/EngineMaterials/BaseFlattenMaterial.uasset" 230
+"../../../Engine/Content/EngineResources/WhiteSquareTexture.uasset" 231
+"../../../Engine/Content/EngineMaterials/BlinkingCaret.uasset" 232
+"../../../Engine/Content/EngineMaterials/BlueNoise.uasset" 233
+"../../../Engine/Content/EngineMaterials/DefaultBloomKernel.uasset" 234
+"../../../Engine/Content/EngineMaterials/DefaultBokeh.uasset" 235
+"../../../Engine/Content/EngineMaterials/DefaultDeferredDecalMaterial.uasset" 236
+"../../../Engine/Content/EngineMaterials/DefaultLightFunctionMaterial.uasset" 237
+"../../../Engine/Content/EngineMaterials/DefaultNormal.uasset" 238
+"../../../Engine/Content/EngineMaterials/DefaultPostProcessMaterial.uasset" 239
+"../../../Engine/Content/EngineFonts/RobotoDistanceField.uasset" 240
+"../../../Engine/Content/EngineMaterials/DefaultTextMaterialOpaque.uasset" 241
+"../../../Engine/Content/EngineMaterials/DefaultVirtualTextureMaterial.uasset" 242
+"../../../Engine/Content/EngineMaterials/EditorBrushMaterial.uasset" 243
+"../../../Engine/Content/EngineMaterials/DefaultWhiteGrid_Low.uasset" 244
+"../../../Engine/Content/EngineMaterials/EmissiveMeshMaterial.uasset" 245
+"../../../Engine/Content/EngineMaterials/GizmoMaterial.uasset" 246
+"../../../Engine/Content/EngineMaterials/Good64x64TilingNoiseHighFreq.uasset" 247
+"../../../Engine/Content/EngineMaterials/Grid_N.uasset" 248
+"../../../Engine/Content/EngineMaterials/HairColorMap.uasset" 249
+"../../../Engine/Content/EngineMaterials/HairDebugColor.uasset" 250
+"../../../Engine/Content/EngineMaterials/HairDebugMaterial.uasset" 251
+"../../../Engine/Content/EngineMaterials/HairDefaultMaterial.uasset" 252
+"../../../Engine/Content/EngineMaterials/HighResolutionScreenshotMaskFunction.uasset" 253
+"../../../Engine/Content/EngineMaterials/HighResScreenshot.uasset" 254
+"../../../Engine/Content/EngineMaterials/HighResScreenshotCaptureRegion.uasset" 255
+"../../../Engine/Content/EngineMaterials/HighResScreenshotMask.uasset" 256
+"../../../Engine/Content/EngineMaterials/LandscapeHolePhysicalMaterial.uasset" 257
+"../../../Engine/Content/EngineMaterials/InvalidLightmapSettings.uasset" 258
+"../../../Engine/Content/EngineMaterials/M_InvalidLightmapSettings.uasset" 259
+"../../../Engine/Content/EngineMaterials/PaperDiffuse.uasset" 260
+"../../../Engine/Content/EngineMaterials/PaperNormal.uasset" 261
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/WorldPositionOffset/CameraOffset.uasset" 262
+"../../../Engine/Content/EngineMaterials/PhAT_JointLimitMaterial.uasset" 263
+"../../../Engine/Content/EngineMaterials/PhysMat_Rubber.uasset" 264
+"../../../Engine/Content/EngineMaterials/PreintegratedSkinBRDF.uasset" 265
+"../../../Engine/Content/EngineMaterials/RemoveSurfaceMaterial.uasset" 266
+"../../../Engine/Content/EngineMaterials/WeightMapPlaceholderTexture.uasset" 267
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/ImageAdjustment/sRGBToLinear.uasset" 268
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/BreakOutFloat3Components.uasset" 269
+"../../../Engine/Content/EngineMaterials/Widget3DCameraPassThrough_Opaque_OneSided.uasset" 270
+"../../../Engine/Content/EngineMaterials/Widget3DPassThrough.uasset" 271
+"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Masked.uasset" 272
+"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Opaque.uasset" 273
+"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Masked_OneSided.uasset" 274
+"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Opaque_OneSided.uasset" 275
+"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Translucent.uasset" 276
+"../../../Engine/Content/EngineMaterials/Widget3DPassThrough_Translucent_OneSided.uasset" 277
+"../../../Engine/Content/EngineMeshes/Cylinder.uasset" 278
+"../../../Engine/Content/EngineMeshes/Sphere.uasset" 279
+"../../../Engine/Content/EngineResources/Black.uasset" 280
+"../../../Engine/Content/EngineResources/DefaultTexture.uasset" 281
+"../../../Engine/Content/EngineResources/DefaultTextureCube.uasset" 282
+"../../../Engine/Content/EngineResources/DefaultVolumeTexture2D.uasset" 283
+"../../../Engine/Content/EngineResources/DefaultVolumeTexture.uasset" 284
+"../../../Engine/Content/EngineResources/GradientTexture0.uasset" 285
+"../../../Engine/Content/EngineResources/StreamingPauseIcon.uasset" 286
+"../../../Engine/Content/EngineResources/M_StreamingPause.uasset" 287
+"../../../Engine/Content/EngineSounds/Master.uasset" 288
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Shading/PowerToRoughness.uasset" 289
+"../../../Engine/Content/Maps/Templates/Thumbnails/Default.uasset" 290
+"../../../Engine/Content/Maps/Templates/Thumbnails/TimeOfDay.uasset" 291
+"../../../Engine/Content/Maps/Templates/Thumbnails/VR-Basic.uasset" 292
+"../../../Engine/Content/MapTemplates/Sky/DaylightAmbientCubemap.uasset" 293
+"../../../Engine/Content/MobileResources/T_MobileControls_texture.uasset" 294
+"../../../Engine/Content/MobileResources/T_MobileMenu2.uasset" 295
+"../../../Engine/Content/MobileResources/HUD/AnalogHat.uasset" 296
+"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Background.uasset" 297
+"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Thumb.uasset" 298
+"../../../Engine/Content/MobileResources/HUD/DefaultVirtualJoysticks.uasset" 299
+"../../../Engine/Content/MobileResources/HUD/LeftVirtualJoystickOnly.uasset" 300
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButton1_off.uasset" 301
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButton1_on.uasset" 302
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButton2_off.uasset" 303
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButton2_on.uasset" 304
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButton3.uasset" 305
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButtonFire.uasset" 306
+"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad.uasset" 307
+"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad2.uasset" 308
+"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad3.uasset" 309
+"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionStick.uasset" 310
+"../../../Engine/Content/MobileResources/HUD/T_Castle_ThumbstickInner.uasset" 311
+"../../../Engine/Content/MobileResources/HUD/T_Castle_ThumbstickOutter.uasset" 312
+"../../../Engine/Content/Tutorial/ContentIntroCurve.uasset" 313
+"../../../Engine/Content/Tutorial/Basics/LevelEditorAttract.uasset" 314
+"../../../Engine/Content/Tutorial/Basics/TutorialAssets/icon_tab_Levels_40x.uasset" 315
+"../../../Engine/Content/Tutorial/Basics/LevelEditorOverview.uasset" 316
+"../../../Engine/Content/Tutorial/BlueprintTutorials/TutorialAssets/Blueprint_64x.uasset" 317
+"../../../Engine/Content/Tutorial/BlueprintTutorials/BlueprintEditorTutorial.uasset" 318
+"../../../Engine/Content/Tutorial/BlueprintTutorials/TutorialAssets/Tutorial_BP_MacroLib.uasset" 319
+"../../../Engine/Content/VREditor/LaserPointer/VR_LaserPower_01.uasset" 320
+"../../../Engine/Content/VREditor/TransformGizmo/TransformGizmoMaterial.uasset" 321
+"../../../Engine/Content/VREditor/TransformGizmo/TranslucentTransformGizmoMaterial.uasset" 322
+"../../../Engine/Content/VREditor/TransformGizmo/BoundingBoxCorner.uasset" 323
+"../../../Engine/Content/VREditor/TransformGizmo/BoundingBoxEdge.uasset" 324
+"../../../Engine/Content/VREditor/TransformGizmo/PlaneTranslationHandle.uasset" 325
+"../../../Engine/Content/VREditor/TransformGizmo/Main.uasset" 326
+"../../../Engine/Content/VREditor/TransformGizmo/Xray.uasset" 327
+"../../../Engine/Content/VREditor/TransformGizmo/SM_Sequencer_Key.uasset" 328
+"../../../Engine/Content/VREditor/TransformGizmo/SM_Sequencer_Node.uasset" 329
+"../../../Engine/Content/Animation/DefaultAnimCurveCompressionSettings.uasset" 330
+"../../../Engine/Content/ArtTools/RenderToTexture/Enums/RenderToTexture_Enum.uasset" 331
+"../../../Engine/Content/ArtTools/RenderToTexture/Enums/RenderToTexture_Flipbook_Enum.uasset" 332
+"../../../Engine/Content/ArtTools/RenderToTexture/Enums/RenderToTexture_Imposter_Enum.uasset" 333
+"../../../Engine/Content/EditorBlueprintResources/StandardMacros.uasset" 334
+"../../../Engine/Content/ArtTools/RenderToTexture/Enums/EIntTypes.uasset" 335
+"../../../Engine/Content/ArtTools/RenderToTexture/Macros/RenderToTextureFunctionLibrary.uasset" 336
+"../../../Engine/Content/ArtTools/RenderToTexture/Enums/EFloatTypes.uasset" 337
+"../../../Engine/Content/ArtTools/RenderToTexture/Macros/RenderToTextureMacros.uasset" 338
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPersonBP/ThirdPersonOverview.uasset" 339
+"../../Plugins/2D/Paper2D/Content/PlaceholderTextures/DummySpriteTexture.uasset" 340
+"../../Plugins/2D/Paper2D/Content/DummySprite.uasset" 341
+"../../Plugins/2D/Paper2D/Content/DefaultPaperTerrainMaterial.uasset" 342
+"../../Plugins/2D/Paper2D/Content/DefaultSpriteMaterial.uasset" 343
+"../../Plugins/2D/Paper2D/Content/MaskedUnlitSpriteMaterial.uasset" 344
+"../../Plugins/2D/Paper2D/Content/OpaqueUnlitSpriteMaterial.uasset" 345
+"../../Plugins/Enterprise/DatasmithContent/Content/Blueprints/FBXImporter/FBXImporterUtils.uasset" 346
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/BreakOutFloat4Components.uasset" 347
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/OculusMR_ChromaKey.uasset" 348
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/OculusMR_ChromaKey_Lit.uasset" 349
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/OculusMR_OpaqueColoredMaterial.uasset" 350
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/OculusMR_WhiteMaterial.uasset" 351
+"../../../Engine/Content/Maps/Entry_BuiltData.uasset" 352
+"../../../Engine/Content/Maps/Entry.umap" 353
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Mesh/UE4_Mannequin_Skeleton.uasset" 354
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/Attack.uasset" 355
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPerson_Jump.uasset" 356
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonJump_Loop.uasset" 357
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonJump_Start.uasset" 358
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonIdle.uasset" 359
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonRun.uasset" 360
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPersonWalk.uasset" 361
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPerson_IdleRun_2D.uasset" 362
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Animations/ThirdPerson_AnimBP.uasset" 363
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/BlendAngleCorrectedNormals.uasset" 364
+"../../../Engine/Content/Functions/MaterialLayerFunctions/MatLayerBlend_NormalBlend.uasset" 365
+"../../../Engine/Content/Functions/MaterialLayerFunctions/MatLayerBlend_Simple.uasset" 366
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/T_ML_Rubber_Blue_01_D.uasset" 367
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/T_ML_Rubber_Blue_01_N.uasset" 368
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/ML_GlossyBlack_Latex_UE4.uasset" 369
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/ML_Plastic_Shiny_Beige.uasset" 370
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Textures/UE4_LOGO_CARD.uasset" 371
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/ML_Plastic_Shiny_Beige_LOGO.uasset" 372
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/T_ML_Aluminum01.uasset" 373
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/T_ML_Aluminum01_N.uasset" 374
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/MaterialLayers/ML_SoftMetal_UE4.uasset" 375
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Textures/UE4_Mannequin__normals.uasset" 376
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Textures/UE4_Mannequin_MAT_MASKA.uasset" 377
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/M_UE4Man_Body.uasset" 378
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Textures/UE4Man_Logo_N.uasset" 379
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Materials/M_UE4Man_ChestLogo.uasset" 380
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Mesh/SK_Mannequin_PhysicsAsset.uasset" 381
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Mannequin/Character/Mesh/SK_Mannequin.uasset" 382
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavDungeonPawn.uasset" 383
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPersonBP/Blueprints/ThirdPersonCharacter.uasset" 384
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavBattlePawn.uasset" 385
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavBattlePawn1.uasset" 386
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavBattlePawn2.uasset" 387
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavBattlePawn3.uasset" 388
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavBattlePawn4.uasset" 389
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/EnemyTestParty.uasset" 390
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/EnemyTestParty1.uasset" 391
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/EnemyTestParty2.uasset" 392
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/TEstEnemyFormationList.uasset" 393
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/BattleZones/BattlezoneTest.uasset" 394
+"../../../Engine/Content/EngineSky/C_Sky_Cloud_Color.uasset" 395
+"../../../Engine/Content/EngineSky/C_Sky_Horizon_Color.uasset" 396
+"../../../Engine/Content/EngineSky/C_Sky_Zenith_Color.uasset" 397
+"../../../Engine/Content/EngineSky/T_Sky_Blue.uasset" 398
+"../../../Engine/Content/EngineSky/T_Sky_Clouds_M.uasset" 399
+"../../../Engine/Content/EngineSky/T_Sky_Stars.uasset" 400
+"../../../Engine/Content/EngineSky/M_Sky_Panning_Clouds2.uasset" 401
+"../../../Engine/Content/EngineSky/SM_SkySphere.uasset" 402
+"../../../Engine/Content/EngineSky/BP_Sky_Sphere.uasset" 403
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/Gav/GavDataSheet.uasset" 404
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/DungeonController1.uasset" 405
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/characters/DungonPawns/DungeonCharacter1.uasset" 406
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPersonBP/Blueprints/ThirdPersonGameMode.uasset" 407
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPersonBP/Maps/ThirdPersonExampleMap_BuiltData.uasset" 408
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Geometry/Meshes/CubeMaterial.uasset" 409
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Geometry/Meshes/1M_Cube.uasset" 410
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Geometry/Meshes/1M_Cube_Chamfer.uasset" 411
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/Geometry/Meshes/TemplateFloor.uasset" 412
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/RampMaterial.uasset" 413
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/Bump_StaticMesh.uasset" 414
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/LeftArm_StaticMesh.uasset" 415
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/Linear_Stair_StaticMesh.uasset" 416
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/Ramp_StaticMesh.uasset" 417
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPerson/Meshes/RightArm_StaticMesh.uasset" 418
+"../../../../Users/Dantissimo/Documents/Unreal Projects/Rpg/Content/ThirdPersonBP/Maps/ThirdPersonExampleMap.umap" 419

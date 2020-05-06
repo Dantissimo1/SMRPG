@@ -4,6 +4,9 @@
 #include "BattleBrainComponent.h"
 #include "BattleZoneBase.h"
 #include "BattlePawnBase.h"
+#include "BattleSpawnPoint.h"
+#include "AttackPosition.h"
+#include "OpotunityAttackPosition.h"
 
 
 // Sets default values for this component's properties
@@ -32,11 +35,15 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	bool activeTurnCompleted;
+	activeTurnCompleted = RunActiveTurn();
+
+
 	if (TurnOrder.Num() > 0)
 	{
 		if (TurnOrder[0].MyBattlePawn != NULL)
 		{
-			TurnOrder[0].MyBattlePawn->MoveToLocation(TurnOrder[1].MyBattlePawn->GetActorLocation(), DeltaTime);
+			//TurnOrder[0].MyBattlePawn->MoveToLocation(TurnOrder[1].MyBattlePawn->GetActorLocation());
 		}
 	}
 	// ...
@@ -47,20 +54,29 @@ void UBattleBrainComponent::SetUp(ABattleZoneBase* InBattleZone)
 	MyBattleZone = InBattleZone;
 }
 
-void UBattleBrainComponent::InitializeBattle()
+void UBattleBrainComponent::ConstructHUD()
 {
-	for (int i = 0; i < MyBattleZone->PlayerBattlePawns.Num();i++)
-	{
-		AllPawnsInBattle.Add(MyBattleZone->PlayerBattlePawns[i]);
-	}
-	for (int i = 0; i < MyBattleZone->EnemyBattlePawns.Num();i++)
-	{
-		AllPawnsInBattle.Add(MyBattleZone->EnemyBattlePawns[i]);
-	}
+}
 
+void UBattleBrainComponent::InitializeBattle(TArray<ABattlePawnBase*>inPawns, TArray<ABattlePawnBase*>inPlayerBattlePawns, TArray<ABattlePawnBase*>inEnemyBattlePawns)
+{
+	if (inPawns.Num() > 0)
+	{
+		AllPawnsInBattle = inPawns;
+	}
+	if (inPlayerBattlePawns.Num() > 0)
+	{
+		playerBattlePawns = inPlayerBattlePawns;
+	}
+	if (inEnemyBattlePawns.Num() > 0)
+	{
+		enemyBattlePawns = inEnemyBattlePawns;
+	}
 	///set initial turn order
 	CalcInitialTurnOrder();
 	SetActiveTurn();
+	ConstructHUD();
+
 }
 
 void UBattleBrainComponent::CalcInitialTurnOrder()
@@ -82,7 +98,7 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 	for (int i = 0; i < TurnOrder.Num();i++)
 	{
 		bool bElementAdded = 0;
-		UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 4"));
+		//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 4"));
 		if (i == 0)
 		{
 			//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 5"));
@@ -95,11 +111,6 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 			int iNewPosition;
 			
 			//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 7"));
-			if (WorkingTurnOrder.Num() == 1)
-			{
-
-			}
-
 			for (int p = WorkingTurnOrder.Num()-1;p >= 0;p--)
 			{
 				//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 8"));
@@ -121,14 +132,15 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 		}
 	}
 
+	
 	for (int h = 0; h < WorkingTurnOrder.Num();h++)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Character name,%s"), *WorkingTurnOrder[h].MyBattlePawn->GetName());
 		UE_LOG(LogTemp, Warning, TEXT("Working turn order pawn speed = %f"),WorkingTurnOrder[h].Speed);
-
 	}
+	
 	TurnOrder = WorkingTurnOrder;
-	ReCalcChrsTurns(TurnOrder[2].MyBattlePawn);
+	//ReCalcChrsTurns(TurnOrder[2].MyBattlePawn);
 
 }
 
@@ -205,6 +217,172 @@ void UBattleBrainComponent::AddNewTurn(ABattlePawnBase* MyBattlePawn, FString Ch
 		}
 	}
 }
+
+bool UBattleBrainComponent::RunActiveTurn()
+{
+	if (ActiveTurn != NULL)
+	{
+		bool turnCompleted;
+		DrawDebugPoint(GetWorld(), ActiveTurn->MyBattlePawn->GetActorLocation(), 50.f, FColor::Black, false, 0.1f);
+		if (ActiveTurn->MyBattlePawn->isOwnedByPlayer)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Players Turn"));
+			return turnCompleted = RunPlayersTurn();		
+		}
+		else
+		{
+			return turnCompleted = RunEnemyTurn();
+		}
+	}
+
+
+	return false;
+}
+
+bool UBattleBrainComponent::RunPlayersTurn()
+{
+	
+	if (testOp2 != true)
+	{
+		if (testOperationCompleted == false)
+		{
+
+			for (int i = 0; i < enemyBattlePawns.Num();i++)
+			{
+				if (enemyBattlePawns[i]->bIsBackLine)
+				{
+					attaaaaTarget = enemyBattlePawns[i];
+					testOperationCompleted = true;
+				}
+
+			}
+
+		}
+		testOp2 = AttackMelee(attaaaaTarget);
+	}
+	return false;
+}
+
+bool UBattleBrainComponent::RunEnemyTurn()
+{
+	return false;
+}
+
+bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
+{
+
+	//rte do all
+	UE_LOG(LogTemp, Warning, TEXT(" Attack Melee "));
+	if (ActiveTurn->MyBattlePawn->attackActionCompleeted != true)
+	{
+
+		if (ActiveTurn->MyBattlePawn->bIsBackLine)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" Attack Melee im at back"));
+			if (atStaginPoint1 != true)
+			{
+				UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to staging"));
+				atStaginPoint1 = ActiveTurn->MyBattlePawn->MoveToLocation(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
+				return false;
+			}
+		}
+		if (attackTarget->bIsBackLine)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" Attack Melee  target is back"));
+			if (atopotunityLocation != true)
+			{
+				UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to opotunity"));
+				atopotunityLocation = ActiveTurn->MyBattlePawn->MoveToLocation(attackTarget->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
+				return false;
+			}
+			if (awatingOpotunityDecision)
+			{
+				UE_LOG(LogTemp, Warning, TEXT(" Attack Melee  awating opotunity decision"));
+				////put in functions for player and enemy opotunity decisions
+				//return false;
+			}
+		}
+		if (atAttackPosition != true)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to attack"));
+			atAttackPosition = ActiveTurn->MyBattlePawn->MoveToLocation(attackTarget->PawnsBaseActor->AttackPoint->GetComponentLocation());
+			return false;
+		}
+
+		ActiveTurn->MyBattlePawn->isAttackingMelee = true;
+		UE_LOG(LogTemp, Warning, TEXT(" Attack Melee Atttaaaaaa "));
+
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home "));
+		if (variablesReset == false)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home variable reset one time "));
+			ActiveTurn->MyBattlePawn->isAttackingMelee = false;
+			atAttackPosition = false;
+			awatingOpotunityDecision = true;
+			atopotunityLocation = false;
+			atStaginPoint1 = false;
+			variablesReset = true;
+			
+		}
+
+		if (attackTarget->bIsBackLine)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home target is back line"));
+			if (atopotunityLocation != true)
+			{
+				atopotunityLocation = ActiveTurn->MyBattlePawn->MoveToLocation(attackTarget->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
+				return false;
+			}
+		}
+		if (ActiveTurn->MyBattlePawn->bIsBackLine)
+		{
+			if (atStaginPoint1 != true)
+			{
+				atStaginPoint1 = ActiveTurn->MyBattlePawn->MoveToLocation(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
+				return false;
+			}
+		}
+		if (atStagingPoint2 != true)
+		{
+			atStagingPoint2 = ActiveTurn->MyBattlePawn->MoveToLocation(ActiveTurn->MyBattlePawn->PawnsBaseActor->GetComponentLocation());
+			return false;
+		}
+		if (faceingTargetLocation == false)
+		{
+			faceingTargetLocation = ActiveTurn->MyBattlePawn->RotateToTarget(ActiveTurn->MyBattlePawn->PawnsBaseActor->AttackPoint->GetComponentLocation());
+			return false;
+		}else
+		{
+			
+			//reset all used variables
+			atStaginPoint1 = false;
+			atStagingPoint2 = false;
+			atAttackPosition = false;
+			atopotunityLocation = false;
+			backAtSpawn = false;
+			awatingOpotunityDecision = true;
+			 variablesReset = false;
+			faceingTargetLocation = false;
+			UE_LOG(LogTemp, Warning, TEXT(" Attack rune Melee done"))
+			return true;
+			
+		}
+
+
+		UE_LOG(LogTemp, Warning, TEXT(" Attack Melee atack completed move home "))
+	}
+	///return to ready position
+
+
+
+	
+
+	return false;
+}
+
 
 void UBattleBrainComponent::EndBattle()
 {

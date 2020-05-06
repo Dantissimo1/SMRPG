@@ -30,6 +30,11 @@ void ABattlePawnBase::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+void ABattlePawnBase::EndAttack()
+{
+	attackActionCompleeted = true;
+	UE_LOG(LogTemp, Warning, TEXT("AtackActioncokpleeted"));
+}
 /*
 // Called to bind functionality to input
 void ABattlePawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -38,7 +43,7 @@ void ABattlePawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 }*/
 
-bool ABattlePawnBase::MoveToLocation(FVector inLocation,float deltaTime)
+bool ABattlePawnBase::MoveToLocation(FVector inLocation)
 {
 	bool moveCompleeted = false;
 	bool rotationCompleted = false;
@@ -63,12 +68,12 @@ bool ABattlePawnBase::MoveToLocation(FVector inLocation,float deltaTime)
 	
 	if (rotationCompleted && moveCompleeted == true)
 	{
+		isMoving = false;
 		return true;
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("move Battle Pawn"));
 	DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation()+((GetActorForwardVector()*800)), FColor::Red,false, 0.1f);
-
 
 	UE_LOG(LogTemp, Warning, TEXT("Keep moving"));
 	return false;
@@ -76,6 +81,7 @@ bool ABattlePawnBase::MoveToLocation(FVector inLocation,float deltaTime)
 
 void ABattlePawnBase::MoveForwards()
 {
+	isMoving = true;
 	FVector newLoc;
 	newLoc = GetActorForwardVector();
 	newLoc.Normalize();
@@ -84,11 +90,13 @@ void ABattlePawnBase::MoveForwards()
 	SetActorLocation(newLoc);
 }
 
-void ABattlePawnBase::RotateToTarget(FVector inLocation)
+bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 {
 	FVector targetLoc = inLocation;
 	float rotToAdd = 0;
 	float angleBetween = FVector::DotProduct(-GetActorRightVector(), GetActorLocation() - targetLoc);
+	float crossAngle = FVector::DotProduct(-GetActorForwardVector(), GetActorLocation() - targetLoc);
+
 	DrawDebugPoint(GetWorld(), inLocation, 50.f, FColor::Cyan, false, 0.1f);
 	UE_LOG(LogTemp, Warning, TEXT("angle between %f"), angleBetween);
 	if (angleBetween > 0)
@@ -99,7 +107,28 @@ void ABattlePawnBase::RotateToTarget(FVector inLocation)
 	{
 		rotToAdd = -rotationSpeed * GetWorld()->DeltaTimeSeconds;
 	}
+
+	if (abs(angleBetween) < rotationTolerance)
+	{
+		if (crossAngle > 0)
+		{
+			return true;
+		}
+	}
+
+
 	FRotator rotation(0.f, rotToAdd, 0.f);
 	AddActorWorldRotation(rotation);
+
+	return false;
+}
+
+bool ABattlePawnBase::AttackTargetMelee(ABattlePawnBase* inTarget)
+{
+
+
+
+
+	return false;
 }
 

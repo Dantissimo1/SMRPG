@@ -61,20 +61,41 @@ public:
 	TArray<FBattlePawnTurnInfo>WorkingTurnOrder;
 	FBattlePawnTurnInfo* ActiveTurn;
 	TArray<ABattlePawnBase*>AllPawnsInBattle;
+	TArray<ABattlePawnBase*>playerBattlePawns;
+	TArray<ABattlePawnBase*>enemyBattlePawns;
 	
 	ABattleZoneBase* MyBattleZone;
 
 	void SetUp(ABattleZoneBase* InBattleZone);
-
-	void InitializeBattle();
+	void ConstructHUD();
+	void InitializeBattle(TArray<ABattlePawnBase*>allBattlePawns, TArray<ABattlePawnBase*>playerBattlePawns, TArray<ABattlePawnBase*>enemyBattlePawns);
 	void CalcInitialTurnOrder();
 	void ReCalcChrsTurns(ABattlePawnBase* inPawn);
 	void SetActiveTurn();
 	void AddNewTurn(ABattlePawnBase* MyBattlePawn,FString ChrName,int Turn,float Speed);
+	bool RunActiveTurn();
+	bool RunPlayersTurn();
+	bool RunEnemyTurn();
+
+
+	////attack
+	bool AttackMelee(ABattlePawnBase* attackTarget);
+	bool atStaginPoint1 = false;
+	bool atStagingPoint2 = false;
+	bool atAttackPosition = false;
+	bool atopotunityLocation = false;
+	bool backAtSpawn = false;
+	bool awatingOpotunityDecision = true;
+	bool variablesReset = false;
+	bool faceingTargetLocation = false;
 
 
 	void EndBattle();
 	void ClearTurnOrders();
 
 
+
+	ABattlePawnBase* attaaaaTarget;
+	bool testOperationCompleted = false;
+	bool testOp2 = false;
 };

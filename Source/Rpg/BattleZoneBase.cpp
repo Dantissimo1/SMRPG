@@ -13,6 +13,9 @@
 #include "EnemyPartyFormationCompnent.h"
 #include "EnemyPartyFormationList.h"
 #include "BattleBrainComponent.h"
+#include "AttackPosition.h"
+#include "OpotunityAttackPosition.h"
+
 
 
 // Sets default values
@@ -32,64 +35,59 @@ ABattleZoneBase::ABattleZoneBase()
 	BattleBrain->SetUp(this);
 	//////create Spawn points///////
 
-	///create player ftonline spawnpoints 
-	PlayersFrontLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("PlayerSpawn1")));
-	PlayersFrontLineSpawnPoints[0]->SetupAttachment(RootComponent);
-	PlayersFrontLineSpawnPoints[0]->SetRelativeLocation(FVector(-500, -400, 1));
-	PlayersFrontLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("PlayerSpawn2")));
-	PlayersFrontLineSpawnPoints[1]->SetupAttachment(RootComponent);
-	PlayersFrontLineSpawnPoints[1]->SetRelativeLocation(FVector(-200, -400, 1));
-	PlayersFrontLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("PlayerSpawn3")));
-	PlayersFrontLineSpawnPoints[2]->SetupAttachment(RootComponent);
-	PlayersFrontLineSpawnPoints[2]->SetRelativeLocation(FVector(100, -400, 1));
-	PlayersFrontLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("PlayerSpawn4")));
-	PlayersFrontLineSpawnPoints[3]->SetupAttachment(RootComponent);
-	PlayersFrontLineSpawnPoints[3]->SetRelativeLocation(FVector(400, -400, 1));
-	//create players back line spawn points
-	PlayersBackLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("PlayerSpawn5")));
-	PlayersBackLineSpawnPoints[0]->SetupAttachment(RootComponent);
-	PlayersBackLineSpawnPoints[0]->SetRelativeLocation(FVector(-350, -659, 1));
-	PlayersBackLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("PlayerSpawn6")));
-	PlayersBackLineSpawnPoints[1]->SetupAttachment(RootComponent);
-	PlayersBackLineSpawnPoints[1]->SetRelativeLocation(FVector(-50, -659, 1));
-	PlayersBackLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("PlayerSpawn7")));
-	PlayersBackLineSpawnPoints[2]->SetupAttachment(RootComponent);
-	PlayersBackLineSpawnPoints[2]->SetRelativeLocation(FVector(250, -659, 1));
-	PlayersBackLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("PlayerSpawn8")));
-	PlayersBackLineSpawnPoints[3]->SetupAttachment(RootComponent);
-	PlayersBackLineSpawnPoints[3]->SetRelativeLocation(FVector(550, -659, 1));
-
-
-	//create enemy swapn comps
-	///create Enemy ftonline spawnpoints 
-	EnemyFrontLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("EnemySpawn1")));
-	EnemyFrontLineSpawnPoints[0]->SetupAttachment(RootComponent);
-	EnemyFrontLineSpawnPoints[0]->SetRelativeLocation(FVector(-350, 400, 1));
-	EnemyFrontLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("EnemySpawn2")));
-	EnemyFrontLineSpawnPoints[1]->SetupAttachment(RootComponent);
-	EnemyFrontLineSpawnPoints[1]->SetRelativeLocation(FVector(-50, 400, 1));
-	EnemyFrontLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("EnemySpawn3")));
-	EnemyFrontLineSpawnPoints[2]->SetupAttachment(RootComponent);
-	EnemyFrontLineSpawnPoints[2]->SetRelativeLocation(FVector(250, 400, 1));
-	EnemyFrontLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("EnemySpawn4")));
-	EnemyFrontLineSpawnPoints[3]->SetupAttachment(RootComponent);
-	EnemyFrontLineSpawnPoints[3]->SetRelativeLocation(FVector(550, 400, 1));
-	//create players back line spawn points
-	EnemyBackLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("EnemySpawn5")));
-	EnemyBackLineSpawnPoints[0]->SetupAttachment(RootComponent);
-	EnemyBackLineSpawnPoints[0]->SetRelativeLocation(FVector(-500, 659, 1));
-	EnemyBackLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("EnemySpawn6")));
-	EnemyBackLineSpawnPoints[1]->SetupAttachment(RootComponent);
-	EnemyBackLineSpawnPoints[1]->SetRelativeLocation(FVector(-200, 659, 1));
-	EnemyBackLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("EnemySpawn7")));
-	EnemyBackLineSpawnPoints[2]->SetupAttachment(RootComponent);
-	EnemyBackLineSpawnPoints[2]->SetRelativeLocation(FVector(100, 659, 1));
-	EnemyBackLineSpawnPoints.Add(CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("EnemySpawn8")));
-	EnemyBackLineSpawnPoints[3]->SetupAttachment(RootComponent);
-	EnemyBackLineSpawnPoints[3]->SetRelativeLocation(FVector(400, 659, 1));
+	spawnPoint1 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Spawn 1"));
+	spawnPoint1->SetupAttachment(RootComponent);
+	PlayerBattleSpawns.Add(spawnPoint1);
+	spawnPoint2 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Spawn 2"));
+	spawnPoint2->SetupAttachment(RootComponent);
+	PlayerBattleSpawns.Add(spawnPoint2);
+	spawnPoint3 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Spawn 3"));
+	spawnPoint3->SetupAttachment(RootComponent);
+	PlayerBattleSpawns.Add(spawnPoint3);
+	spawnPoint4 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Spawn 4"));
+	spawnPoint4->SetupAttachment(RootComponent);
+	PlayerBattleSpawns.Add(spawnPoint4);
+	spawnPoint5 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Spawn 5"));
+	spawnPoint5->SetupAttachment(RootComponent);
+	PlayerBattleSpawns.Add(spawnPoint5);
+	spawnPoint6 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Spawn 6"));
+	spawnPoint6->SetupAttachment(RootComponent);
+	PlayerBattleSpawns.Add(spawnPoint6);
+	spawnPoint7 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Spawn 7"));
+	spawnPoint7->SetupAttachment(RootComponent);
+	PlayerBattleSpawns.Add(spawnPoint7);
+	spawnPoint8 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Spawn 8"));
+	spawnPoint8->SetupAttachment(RootComponent);
+	PlayerBattleSpawns.Add(spawnPoint8);
 
 
 
+	EnemySpawnPoint1 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Enemy Spawn 1"));
+	EnemySpawnPoint1->SetupAttachment(RootComponent);
+	EnemyBattleSpawns.Add(EnemySpawnPoint1);
+	EnemySpawnPoint2 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Enemy Spawn 2"));
+	EnemySpawnPoint2->SetupAttachment(RootComponent);
+	EnemyBattleSpawns.Add(EnemySpawnPoint2);
+	EnemySpawnPoint3 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Enemy Spawn 3"));
+	EnemySpawnPoint3->SetupAttachment(RootComponent);
+	EnemyBattleSpawns.Add(EnemySpawnPoint3);
+	EnemySpawnPoint4 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Enemy Spawn 4"));
+	EnemySpawnPoint4->SetupAttachment(RootComponent);
+	EnemyBattleSpawns.Add(EnemySpawnPoint4);
+	EnemySpawnPoint5 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Enemy Spawn 5"));
+	EnemySpawnPoint5->SetupAttachment(RootComponent);
+	EnemyBattleSpawns.Add(EnemySpawnPoint5);
+	EnemySpawnPoint6 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Enemy Spawn 6"));
+	EnemySpawnPoint6->SetupAttachment(RootComponent);
+	EnemyBattleSpawns.Add(EnemySpawnPoint6);
+	EnemySpawnPoint7 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Enemy Spawn 7"));
+	EnemySpawnPoint7->SetupAttachment(RootComponent);
+	EnemyBattleSpawns.Add(EnemySpawnPoint7);
+	EnemySpawnPoint8 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Enemy Spawn 8"));
+	EnemySpawnPoint8->SetupAttachment(RootComponent);
+	EnemyBattleSpawns.Add(EnemySpawnPoint8);
+
+	
 
 }
 
@@ -117,7 +115,7 @@ void ABattleZoneBase::InitializeBattle(ADungeonControllerBase* InPlayerCont)
 	
 	SpawnPlayersParty();
 	SpanEnemyParty();
-	BattleBrain->InitializeBattle();
+	BattleBrain->InitializeBattle(allBattlePawns, playerBattlePawns,enemyBattlePawns);
 	
 	
 	
@@ -130,6 +128,7 @@ void ABattleZoneBase::InitializeBattle(ADungeonControllerBase* InPlayerCont)
 
 void ABattleZoneBase::SpawnPlayersParty()
 {
+	
 	for (int i = 0; i < PlayerCont->PlayersParty->PartyFormationFrontLine.Num() ;i++)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn"));
@@ -148,11 +147,17 @@ void ABattleZoneBase::SpawnPlayersParty()
 				UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *ElementInDataSheet->GetFName().ToString());
 			}
 			ABattlePawnBase* ClassToSpawn = PlayerCont->PlayersParty->PartyFormationFrontLine[i]->CharactersBattleBlueprint;
-			FVector SpawnLoc = PlayersFrontLineSpawnPoints[i]->GetComponentLocation();
-			ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(ElementInDataSheet->BattlePawnToUse, SpawnLoc, FRotator(0.f, .0f, 0.f), SpawnParams);
-			SpawnedPawn->MyBattleZone = this;
-			PlayerBattlePawns.Add(SpawnedPawn);
-			PlayerFrontlineBattlePawns.Add(SpawnedPawn);
+			FVector SpawnLoc = PlayerBattleSpawns[i]->GetComponentLocation();
+			SpawnLoc.Z += ElementInDataSheet->BattlePawnToUse.GetDefaultObject()->heightOffset;
+			ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(ElementInDataSheet->BattlePawnToUse, SpawnLoc, FRotator(0.f, -0.0f, 0.f), SpawnParams);
+			if (SpawnedPawn != NULL)
+			{
+				SpawnedPawn->MyBattleZone = this;
+				SpawnedPawn->isOwnedByPlayer = true;
+				SpawnedPawn->PawnsBaseActor = PlayerBattleSpawns[i];
+				allBattlePawns.Add(SpawnedPawn);
+				playerBattlePawns.Add(SpawnedPawn);
+			}
 		}	
 	}
 	
@@ -174,17 +179,25 @@ void ABattleZoneBase::SpawnPlayersParty()
 				UE_LOG(LogTemp, Warning, TEXT("BattlePawn  BackLine ,%s"), *ElementInDataSheet->GetFName().ToString());
 			}
 			ABattlePawnBase* ClassToSpawn = PlayerCont->PlayersParty->PartyFormationBackLine[i]->CharactersBattleBlueprint;
-			FVector SpawnLoc = PlayersBackLineSpawnPoints[i]->GetComponentLocation();
-			ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(ElementInDataSheet->BattlePawnToUse, SpawnLoc, FRotator(0.f, .0f, 0.f), SpawnParams);
-			PlayerBattlePawns.Add(SpawnedPawn);
-			PlayerBacklineBattlePawns.Add(SpawnedPawn);
-			SpawnedPawn->bIsBackLine = true;
+			FVector SpawnLoc = PlayerBattleSpawns[4 + i]->GetComponentLocation();
+			SpawnLoc.Z += ElementInDataSheet->BattlePawnToUse.GetDefaultObject()->heightOffset;
+			ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(ElementInDataSheet->BattlePawnToUse, SpawnLoc, FRotator(0.f, -0.0f, 0.f), SpawnParams);
+			if (SpawnedPawn != NULL)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
+				SpawnedPawn->PawnsBaseActor = PlayerBattleSpawns[4 + i];
+				SpawnedPawn->isOwnedByPlayer = true;
+				SpawnedPawn->bIsBackLine = true;
+				allBattlePawns.Add(SpawnedPawn);
+				playerBattlePawns.Add(SpawnedPawn);
+			}
 		}	
 	}
 }
 
 void ABattleZoneBase::SpanEnemyParty()
 {
+	
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.Owner = this;
 
@@ -196,81 +209,86 @@ void ABattleZoneBase::SpanEnemyParty()
 	{
 		RandNo = FMath::RoundToInt(FMath::FRandRange(1.f, PartyListLenght));
 		UE_LOG(LogTemp, Warning, TEXT("Formation no =,%d"),rand);
-		EnemyPartyFormation = GetWorld()->SpawnActor<AEnemyPartyFormationCompnent>(PartyList->ListOfFormations[RandNo-1], FVector(0.f, 0.f, 0.f), FRotator(0.f, .0f, 0.f), SpawnParams);
+		enemyPartyFormation = GetWorld()->SpawnActor<AEnemyPartyFormationCompnent>(PartyList->ListOfFormations[RandNo-1], FVector(0.f, 0.f, 0.f), FRotator(0.f, .0f, 0.f), SpawnParams);
 
-		for (int i = 0; i < EnemyPartyFormation->PartyFormationFrontLineSub.Num();i++)
+		for (int i = 0; i < enemyPartyFormation->PartyFormationFrontLineSub.Num();i++)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn"));
 
-			if (EnemyPartyFormation->PartyFormationFrontLineSub[i] != NULL)
+			if (enemyPartyFormation->PartyFormationFrontLineSub[i] != NULL)
 			{
 				UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn  != NBULLLLL"));
 
-				if (EnemyPartyFormation->PartyFormationFrontLineSub[i])
+				if (enemyPartyFormation->PartyFormationFrontLineSub[i])
 				{
-					UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *EnemyPartyFormation->PartyFormationFrontLineSub[i]->GetFName().ToString());
+					UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *enemyPartyFormation->PartyFormationFrontLineSub[i]->GetFName().ToString());
 				}
-				FVector SpawnLoc = EnemyFrontLineSpawnPoints[i]->GetComponentLocation();
-				ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(EnemyPartyFormation->PartyFormationFrontLineSub[i], SpawnLoc, FRotator(0.f, 180.0f, 0.f), SpawnParams);
-				EnemyBattlePawns.Add(SpawnedPawn);
-				EnemyFrontlineBattlePawns.Add(SpawnedPawn);
+				FVector SpawnLoc = EnemyBattleSpawns[i]->GetComponentLocation();
+				SpawnLoc.Z += enemyPartyFormation->PartyFormationFrontLineSub[i].GetDefaultObject()->heightOffset;
+				ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(enemyPartyFormation->PartyFormationFrontLineSub[i], SpawnLoc, FRotator(0.f, 180.0f, 0.f), SpawnParams);
+				if (SpawnedPawn != NULL)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
+					SpawnedPawn->PawnsBaseActor = EnemyBattleSpawns[i];
+					SpawnedPawn->isOwnedByPlayer = false;
+					SpawnedPawn->bIsBackLine = false;
+					allBattlePawns.Add(SpawnedPawn);
+					enemyBattlePawns.Add(SpawnedPawn);
+				}
 			}
 		}
-		for (int i = 0; i < EnemyPartyFormation->PartyFormationBackLineSub.Num();i++)
+		for (int i = 0; i < enemyPartyFormation->PartyFormationBackLineSub.Num();i++)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn"));
 
-			if (EnemyPartyFormation->PartyFormationBackLineSub[i] != NULL)
+			if (enemyPartyFormation->PartyFormationBackLineSub[i] != NULL)
 			{
 				UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn  != NBULLLLL"));
 
-				if (EnemyPartyFormation->PartyFormationBackLineSub[i])
+				if (enemyPartyFormation->PartyFormationBackLineSub[i])
 				{
-					UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *EnemyPartyFormation->PartyFormationBackLineSub[i]->GetFName().ToString());
+					UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *enemyPartyFormation->PartyFormationBackLineSub[i]->GetFName().ToString());
 				}
-				FVector SpawnLoc = EnemyBackLineSpawnPoints[i]->GetComponentLocation();
-				ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(EnemyPartyFormation->PartyFormationBackLineSub[i], SpawnLoc, FRotator(0.f, 180.0f, 0.f), SpawnParams);
-				EnemyBattlePawns.Add(SpawnedPawn);
-				EnemyBacklineBattlePawns.Add(SpawnedPawn);
+				FVector SpawnLoc = EnemyBattleSpawns[4 + i]->GetComponentLocation();
+				SpawnLoc.Z += enemyPartyFormation->PartyFormationBackLineSub[i].GetDefaultObject()->heightOffset;
+				ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(enemyPartyFormation->PartyFormationBackLineSub[i], SpawnLoc, FRotator(0.f, 180.0f, 0.f), SpawnParams);
+				if (SpawnedPawn != NULL)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
+					SpawnedPawn->PawnsBaseActor = EnemyBattleSpawns[4 + i];
+					SpawnedPawn->isOwnedByPlayer = false;
+					SpawnedPawn->bIsBackLine = true;
+					allBattlePawns.Add(SpawnedPawn);
+					enemyBattlePawns.Add(SpawnedPawn);
+				}
 			}
 		}
 	}
+	
 }
 
-void ABattleZoneBase::DeleteEnemyBattlePawns()
+void ABattleZoneBase::DeleteBattlePawns()
 {
-	for (int i = 0; i < EnemyBattlePawns.Num();i++)
+	for (int i = 0; i < allBattlePawns.Num();i++)
 	{
-		if (EnemyBattlePawns[i] != NULL)
+		if (allBattlePawns[i] != NULL)
 		{
-			if (EnemyBattlePawns[i]->IsPendingKill() != true)////BUG CRASH
+			if (allBattlePawns[i]->IsPendingKill() != true)////BUG CRASH
 			{
-				EnemyBattlePawns[i]->Destroy();
+				allBattlePawns[i]->Destroy();
 			}
 		}
 
 	}
-	EnemyBattlePawns.Empty();
+	allBattlePawns.Empty();
 }
 
-void ABattleZoneBase::DeletePlayerBattlePawns()
-{
-	for (int i = 0; i < PlayerBattlePawns.Num();i++)
-	{
-		if (PlayerBattlePawns[i]->IsPendingKill() != true && PlayerBattlePawns[i])
-		{
-			PlayerBattlePawns[i]->Destroy();
-		}
 
-	}
-	PlayerBattlePawns.Empty();
-}
 
 void ABattleZoneBase::EndBattle()
 {
 	////de spawn remaning pawns
-	DeletePlayerBattlePawns();
-	DeleteEnemyBattlePawns();
+	DeleteBattlePawns();
 	BattleBrain->EndBattle();
 	PlayerCont->EndBattle();
 }

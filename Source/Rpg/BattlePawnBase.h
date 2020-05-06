@@ -9,7 +9,9 @@
 class USkeletalMeshComponent;
 class ABattleZoneBase;
 class AIController;
-
+class UAttackPosition;
+class UOpotunityAttackPosition;
+class UBattleSpawnPoint;
 
 
 UENUM()
@@ -45,14 +47,25 @@ public:
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Properties")
+		float heightOffset = 90.f;
 
 	ABattleZoneBase* MyBattleZone;
 
-
+	UBattleSpawnPoint* PawnsBaseActor;
 	bool bIsBackLine = false;
 	bool bHasReaction = true;
+	bool isOwnedByPlayer = false;
+	int positionOnGrid;
 
+
+	///states
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="States")
+	bool isAttackingMelee = false;
+	bool attackActionCompleeted = false;
+
+	UFUNCTION(BlueprintCallable)
+		void EndAttack();
 
 
 	//////////////////////stats/////////////////
@@ -112,12 +125,15 @@ public:
 
 
 	///movement
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
+		bool isMoving;
 
-	bool MoveToLocation(FVector inLocation,float deltaTime);
+	bool MoveToLocation(FVector inLocation);
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
-		float movementSpeed = 100;
+		float movementSpeed = 400;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
-		float rotationSpeed = 100;
+		float rotationSpeed = 900;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
 		float zHeightOffset = 90;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
@@ -126,5 +142,15 @@ public:
 		float rotationTolerance = 3;
 
 	void MoveForwards();
-	void RotateToTarget(FVector inLocation);
+	bool RotateToTarget(FVector inLocation);
+
+
+
+	/////atacking
+
+	UAttackPosition* attackPosition;
+	UOpotunityAttackPosition* opotunityLocation;
+	bool AttackTargetMelee(ABattlePawnBase* inTarget);
+
+
 };

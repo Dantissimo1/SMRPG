@@ -20,6 +20,8 @@ class ABattlePawnBase;
 class AEnemyPartyformationComponent;
 class AEnemyPartyFormationList;
 class UBattleBrainComponent;
+class UOpotunityAttackPosition;
+class UAttackPosition;
 
 
 UCLASS()
@@ -51,30 +53,69 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnemyParty")
 		TSubclassOf<class AEnemyPartyFormationList>EnemyPartyFormationList;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnemyParty")
-	class AEnemyPartyFormationCompnent* EnemyPartyFormation;
+
+	class AEnemyPartyFormationCompnent* enemyPartyFormation;
 
 	FTimerHandle TestTimer;
 
 	//////////spawn points////////////
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
+		UBattleSpawnPoint* spawnPoint1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
+		UBattleSpawnPoint* spawnPoint2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
+		UBattleSpawnPoint* spawnPoint3;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
+		UBattleSpawnPoint* spawnPoint4;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
+		UBattleSpawnPoint* spawnPoint5;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
+		UBattleSpawnPoint* spawnPoint6;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
+		UBattleSpawnPoint* spawnPoint7;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
+		UBattleSpawnPoint* spawnPoint8;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPointsOposite")
+		UBattleSpawnPoint* EnemySpawnPoint1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPointsOposite")
+		UBattleSpawnPoint* EnemySpawnPoint2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPointsOposite")
+		UBattleSpawnPoint* EnemySpawnPoint3;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPointsOposite")
+		UBattleSpawnPoint* EnemySpawnPoint4;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPointsOposite")
+		UBattleSpawnPoint* EnemySpawnPoint5;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPointsOposite")
+		UBattleSpawnPoint* EnemySpawnPoint6;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPointsOposite")
+		UBattleSpawnPoint* EnemySpawnPoint7;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPointsOposite")
+		UBattleSpawnPoint* EnemySpawnPoint8;
+
+
 	//playerside
-	TArray<UBattleSpawnPoint*> PlayersFrontLineSpawnPoints;
-	TArray<UBattleSpawnPoint*> PlayersBackLineSpawnPoints;
-
-
-	TArray<ABattlePawnBase*> PlayerFrontlineBattlePawns;
-	TArray<ABattlePawnBase*> PlayerBacklineBattlePawns;
-	TArray<ABattlePawnBase*> PlayerBattlePawns;
-
+	TArray<UBattleSpawnPoint*> PlayerBattleSpawns;
 
 	//enemyside
-	TArray<UBattleSpawnPoint*> EnemyFrontLineSpawnPoints;
-	TArray<UBattleSpawnPoint*> EnemyBackLineSpawnPoints;
+	TArray<UBattleSpawnPoint*> EnemyBattleSpawns;
+
+	TArray<ABattlePawnBase*> allBattlePawns;
+	TArray<ABattlePawnBase*> enemyBattlePawns;
+	TArray<ABattlePawnBase*> playerBattlePawns;
 
 
-	TArray<ABattlePawnBase*> EnemyFrontlineBattlePawns;
-	TArray<ABattlePawnBase*> EnemyBacklineBattlePawns;
-	TArray<ABattlePawnBase*> EnemyBattlePawns;
+	/////opotunity points
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grid Locations")
+	TArray<UOpotunityAttackPosition*> OpotunityPoints;
+
+
+	///////Attack points
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grid Locations")
+	TArray<UAttackPosition*> AttackPoints;
+
+
 
 
 
@@ -82,8 +123,7 @@ public:
 
 	void SpawnPlayersParty();
 	void SpanEnemyParty();
-	void DeleteEnemyBattlePawns();
-	void DeletePlayerBattlePawns();
+	void DeleteBattlePawns();
 
 
 	void EndBattle();
