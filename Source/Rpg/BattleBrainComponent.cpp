@@ -35,17 +35,16 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	bool activeTurnCompleted;
-	activeTurnCompleted = RunActiveTurn();
 
-
-	if (TurnOrder.Num() > 0)
+	if (RunActiveTurn())
 	{
-		if (TurnOrder[0].MyBattlePawn != NULL)
-		{
-			//TurnOrder[0].MyBattlePawn->MoveToLocation(TurnOrder[1].MyBattlePawn->GetActorLocation());
-		}
+		//start next turn
+		ReCalcChrsTurns(ActiveTurn->MyBattlePawn);
+		TurnOrder.RemoveAt(0);
+		ActiveTurn = &TurnOrder[0];
 	}
+
+
 	// ...
 }
 
@@ -90,7 +89,7 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 			//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 3"));
 			FBattlePawnTurnInfo PawnTurnInfo;
 			PawnTurnInfo.MyBattlePawn = AllPawnsInBattle[i];
-			PawnTurnInfo.Speed = AllPawnsInBattle[i]->Speed * t;
+			PawnTurnInfo.Speed = AllPawnsInBattle[i]->mainCharInfo.Speed * t;
 			PawnTurnInfo.Turn = t;
 			TurnOrder.Add(PawnTurnInfo);
 		}
@@ -167,7 +166,7 @@ void UBattleBrainComponent::ReCalcChrsTurns(ABattlePawnBase* inPawn)
 			UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 5"))
 			TurnNos.Add(CurrentTurns[j]->Turn);
 			UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 6"))
-			CurrentTurns[j]->Speed = CurrentTurns[j]->MyBattlePawn->Speed * CurrentTurns[j]->Turn;	
+			CurrentTurns[j]->Speed = CurrentTurns[j]->MyBattlePawn->mainCharInfo.Speed * CurrentTurns[j]->Turn;
 		}
 	}
 	if (CurrentTurns.Num() < 5)
@@ -241,15 +240,11 @@ bool UBattleBrainComponent::RunActiveTurn()
 
 bool UBattleBrainComponent::RunPlayersTurn()
 {
-	
-	if (testOp2 != true)
-	{
-		if (testOperationCompleted == false)
-		{
+
 
 			for (int i = 0; i < enemyBattlePawns.Num();i++)
 			{
-				if (enemyBattlePawns[i]->bIsBackLine)
+				if (enemyBattlePawns[i]->bIsBackLine !=true )
 				{
 					attaaaaTarget = enemyBattlePawns[i];
 					testOperationCompleted = true;
@@ -257,15 +252,26 @@ bool UBattleBrainComponent::RunPlayersTurn()
 
 			}
 
-		}
-		testOp2 = AttackMelee(attaaaaTarget);
-	}
-	return false;
+
+		return testOp2 = AttackMelee(attaaaaTarget);
+
 }
 
 bool UBattleBrainComponent::RunEnemyTurn()
 {
-	return false;
+
+
+				for (int i = 0; i < playerBattlePawns.Num();i++)
+				{
+					if (playerBattlePawns[i]->bIsBackLine == true)
+					{
+						attaaaaTarget = playerBattlePawns[i];
+						testOperationCompleted = true;
+					}
+				}
+		
+			return testOp2 = AttackMelee(attaaaaTarget);
+	
 }
 
 bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
@@ -308,10 +314,11 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			atAttackPosition = ActiveTurn->MyBattlePawn->MoveToLocation(attackTarget->PawnsBaseActor->AttackPoint->GetComponentLocation());
 			return false;
 		}
-
-		ActiveTurn->MyBattlePawn->isAttackingMelee = true;
-		UE_LOG(LogTemp, Warning, TEXT(" Attack Melee Atttaaaaaa "));
-
+		if (ActiveTurn->MyBattlePawn->RotateToTarget(attackTarget->PawnsBaseActor->GetComponentLocation()))
+		{
+			ActiveTurn->MyBattlePawn->isAttackingMelee = true;
+			UE_LOG(LogTemp, Warning, TEXT(" Attack Melee Atttaaaaaa "));
+		}
 	}
 	else
 	{
@@ -324,10 +331,8 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			awatingOpotunityDecision = true;
 			atopotunityLocation = false;
 			atStaginPoint1 = false;
-			variablesReset = true;
-			
+			variablesReset = true;			
 		}
-
 		if (attackTarget->bIsBackLine)
 		{
 			UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home target is back line"));
@@ -355,8 +360,7 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			faceingTargetLocation = ActiveTurn->MyBattlePawn->RotateToTarget(ActiveTurn->MyBattlePawn->PawnsBaseActor->AttackPoint->GetComponentLocation());
 			return false;
 		}else
-		{
-			
+		{		
 			//reset all used variables
 			atStaginPoint1 = false;
 			atStagingPoint2 = false;
@@ -364,22 +368,15 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			atopotunityLocation = false;
 			backAtSpawn = false;
 			awatingOpotunityDecision = true;
-			 variablesReset = false;
+			variablesReset = false;
 			faceingTargetLocation = false;
+			ActiveTurn->MyBattlePawn->attackActionCompleeted = false;
 			UE_LOG(LogTemp, Warning, TEXT(" Attack rune Melee done"))
-			return true;
-			
+			return true;		
 		}
-
-
 		UE_LOG(LogTemp, Warning, TEXT(" Attack Melee atack completed move home "))
 	}
 	///return to ready position
-
-
-
-	
-
 	return false;
 }
 

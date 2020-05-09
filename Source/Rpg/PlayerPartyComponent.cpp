@@ -42,7 +42,7 @@ void UPlayerPartyComponent::BeginPlay()
 			FActorSpawnParameters SpawnParams;
 			PartyFormationFrontLine[i] = GetWorld()->SpawnActor<ACharacterDataSheet>(PartyFormationFrontLineSub[i], FVector(0.f,0.f,0.f), FRotator(0.f, .0f, 0.f), SpawnParams);
 
-			if (PartyFormationFrontLine[i]->BattlePawnToUse)
+			if (PartyFormationFrontLine[i]->CharacterDetails.BattlePawnToUse)
 			{
 				UE_LOG(LogTemp, Warning, TEXT("BattlePartyFormationFrontLinePawn"));
 			}
@@ -57,7 +57,7 @@ void UPlayerPartyComponent::BeginPlay()
 			FActorSpawnParameters SpawnParams;
 			PartyFormationBackLine[i] = GetWorld()->SpawnActor<ACharacterDataSheet>(PartyFormationBackLineSub[i], FVector(0.f, 0.f, 0.f), FRotator(0.f, .0f, 0.f), SpawnParams);
 
-			if (PartyFormationBackLine[i]->BattlePawnToUse)
+			if (PartyFormationBackLine[i]->CharacterDetails.BattlePawnToUse)
 			{
 				UE_LOG(LogTemp, Warning, TEXT("BattlePartyFormationBackLinePawn"));
 			}

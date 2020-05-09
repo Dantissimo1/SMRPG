@@ -122,7 +122,7 @@ void ABattleZoneBase::InitializeBattle(ADungeonControllerBase* InPlayerCont)
 	
 	
 	
-	GetWorldTimerManager().SetTimer(TestTimer, this, &ABattleZoneBase::EndBattle, 20.0f, false);
+	GetWorldTimerManager().SetTimer(TestTimer, this, &ABattleZoneBase::EndBattle, 120.0f, false);
 
 }
 
@@ -142,21 +142,20 @@ void ABattleZoneBase::SpawnPlayersParty()
 			ACharacterDataSheet* ElementInDataSheet = Cast<ACharacterDataSheet>(PlayerCont->PlayersParty->PartyFormationFrontLine[i]);
 			UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn,%s"), *ElementInDataSheet->GetFName().ToString());
 
-			if (ElementInDataSheet->BattlePawnToUse)
+			if (ElementInDataSheet->CharacterDetails.BattlePawnToUse)
 			{
 				UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *ElementInDataSheet->GetFName().ToString());
 			}
-			ABattlePawnBase* ClassToSpawn = PlayerCont->PlayersParty->PartyFormationFrontLine[i]->CharactersBattleBlueprint;
+			ABattlePawnBase* ClassToSpawn = PlayerCont->PlayersParty->PartyFormationFrontLine[i]->CharacterDetails.CharactersBattleBlueprint;
 			FVector SpawnLoc = PlayerBattleSpawns[i]->GetComponentLocation();
-			SpawnLoc.Z += ElementInDataSheet->BattlePawnToUse.GetDefaultObject()->heightOffset;
-			ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(ElementInDataSheet->BattlePawnToUse, SpawnLoc, FRotator(0.f, -0.0f, 0.f), SpawnParams);
+			SpawnLoc.Z += ElementInDataSheet->CharacterDetails.BattlePawnToUse.GetDefaultObject()->heightOffset;
+			ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(ElementInDataSheet->CharacterDetails.BattlePawnToUse, SpawnLoc, FRotator(0.f, -0.0f, 0.f), SpawnParams);
 			if (SpawnedPawn != NULL)
 			{
-				SpawnedPawn->MyBattleZone = this;
-				SpawnedPawn->isOwnedByPlayer = true;
-				SpawnedPawn->PawnsBaseActor = PlayerBattleSpawns[i];
+				SpawnedPawn->SetUpPlayerPawn(ElementInDataSheet, PlayerBattleSpawns[i], this, false, true);
 				allBattlePawns.Add(SpawnedPawn);
 				playerBattlePawns.Add(SpawnedPawn);
+				SpawnedPawn->InitializeEquipedItems();
 			}
 		}	
 	}
@@ -174,20 +173,18 @@ void ABattleZoneBase::SpawnPlayersParty()
 			ACharacterDataSheet* ElementInDataSheet = Cast<ACharacterDataSheet>(PlayerCont->PlayersParty->PartyFormationBackLine[i]);
 			UE_LOG(LogTemp, Warning, TEXT("looooooop BackLine Spawnnn,%s"), *ElementInDataSheet->GetFName().ToString());
 
-			if (ElementInDataSheet->BattlePawnToUse)
+			if (ElementInDataSheet->CharacterDetails.BattlePawnToUse)
 			{
 				UE_LOG(LogTemp, Warning, TEXT("BattlePawn  BackLine ,%s"), *ElementInDataSheet->GetFName().ToString());
 			}
-			ABattlePawnBase* ClassToSpawn = PlayerCont->PlayersParty->PartyFormationBackLine[i]->CharactersBattleBlueprint;
+			ABattlePawnBase* ClassToSpawn = PlayerCont->PlayersParty->PartyFormationBackLine[i]->CharacterDetails.CharactersBattleBlueprint;
 			FVector SpawnLoc = PlayerBattleSpawns[4 + i]->GetComponentLocation();
-			SpawnLoc.Z += ElementInDataSheet->BattlePawnToUse.GetDefaultObject()->heightOffset;
-			ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(ElementInDataSheet->BattlePawnToUse, SpawnLoc, FRotator(0.f, -0.0f, 0.f), SpawnParams);
+			SpawnLoc.Z += ElementInDataSheet->CharacterDetails.BattlePawnToUse.GetDefaultObject()->heightOffset;
+			ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(ElementInDataSheet->CharacterDetails.BattlePawnToUse, SpawnLoc, FRotator(0.f, -0.0f, 0.f), SpawnParams);
 			if (SpawnedPawn != NULL)
 			{
 				UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
-				SpawnedPawn->PawnsBaseActor = PlayerBattleSpawns[4 + i];
-				SpawnedPawn->isOwnedByPlayer = true;
-				SpawnedPawn->bIsBackLine = true;
+				SpawnedPawn->SetUpPlayerPawn(ElementInDataSheet, PlayerBattleSpawns[4 +i], this, true, true);
 				allBattlePawns.Add(SpawnedPawn);
 				playerBattlePawns.Add(SpawnedPawn);
 			}
@@ -229,6 +226,7 @@ void ABattleZoneBase::SpanEnemyParty()
 				if (SpawnedPawn != NULL)
 				{
 					UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
+					SpawnedPawn->MyBattleZone = this;
 					SpawnedPawn->PawnsBaseActor = EnemyBattleSpawns[i];
 					SpawnedPawn->isOwnedByPlayer = false;
 					SpawnedPawn->bIsBackLine = false;
@@ -255,6 +253,7 @@ void ABattleZoneBase::SpanEnemyParty()
 				if (SpawnedPawn != NULL)
 				{
 					UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
+					SpawnedPawn->MyBattleZone = this;
 					SpawnedPawn->PawnsBaseActor = EnemyBattleSpawns[4 + i];
 					SpawnedPawn->isOwnedByPlayer = false;
 					SpawnedPawn->bIsBackLine = true;

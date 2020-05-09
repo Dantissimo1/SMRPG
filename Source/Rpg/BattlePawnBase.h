@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "WeaponBase.h"
+#include "CharacterDataSheet.h"
 #include "BattlePawnBase.generated.h"
 
 class USkeletalMeshComponent;
@@ -12,6 +14,8 @@ class AIController;
 class UAttackPosition;
 class UOpotunityAttackPosition;
 class UBattleSpawnPoint;
+
+
 
 
 UENUM()
@@ -24,6 +28,8 @@ enum class ECharacterType : uint8
 	Healing,
 
 };
+
+
 
 UCLASS()
 class RPG_API ABattlePawnBase : public ACharacter
@@ -50,13 +56,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Properties")
 		float heightOffset = 90.f;
 
+
+
+	void SetUpPlayerPawn(ACharacterDataSheet* inDataSheet, UBattleSpawnPoint* inPawnsBaseActor, ABattleZoneBase* inBattleZone,bool inbackline,bool inOwnedByPlayer);
+
 	ABattleZoneBase* MyBattleZone;
+
+	ACharacterDataSheet* myDataSheet;
 
 	UBattleSpawnPoint* PawnsBaseActor;
 	bool bIsBackLine = false;
 	bool bHasReaction = true;
 	bool isOwnedByPlayer = false;
 	int positionOnGrid;
+
 
 
 	///states
@@ -70,59 +83,24 @@ public:
 
 	//////////////////////stats/////////////////
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		FString CharacterName = "Gav";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		int Level = 1;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		int Experiance = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float Health = 100;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ManaMax = 12;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ManaRegenRate = 4;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float HealthRegenRate = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float BaseSpeed = 1;
-		float Speed = 1;
+	FCharacterDetails mainCharInfo;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		FOfensiveStats OfensiveStats;
 
-	/////ofensive stats
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float Strength = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float Evasion = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ArcaneAptitude = 10;
-
-	////defensive stats
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ImpactResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float SlashResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float PunctureResistance = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float FireResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float EarthResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float WaterResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ColdResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ElectricityResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float HolyResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float VoidResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ArcaneResistance = 10;
+		FDDefensiveStats DefensiveStats;
 
 
 
+
+	//////// Epquiptment
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equiped Items")
+	FEquipedItems MyEquipedItems;
+	
+	void InitializeEquipedItems();
 
 	///movement
 	
@@ -133,15 +111,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
 		float movementSpeed = 400;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
-		float rotationSpeed = 900;
+		float rotationSpeed = 650;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
 		float zHeightOffset = 90;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
 		float moveDistanceTolerance = 10;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
-		float rotationTolerance = 3;
+		float rotationTolerance = 6;
 
-	void MoveForwards();
+	void MoveForwards(FVector inLocation);
 	bool RotateToTarget(FVector inLocation);
 
 
@@ -152,5 +130,11 @@ public:
 	UOpotunityAttackPosition* opotunityLocation;
 	bool AttackTargetMelee(ABattlePawnBase* inTarget);
 
+
+
+	///////   damage
+	void CauseDamageToBattlePawn(ABattlePawnBase* inPawn);
+
+	//void TakeDamage(FBattlePawnTurnInfo* inDamage);
 
 };

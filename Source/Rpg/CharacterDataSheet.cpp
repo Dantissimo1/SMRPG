@@ -20,7 +20,8 @@ ACharacterDataSheet::ACharacterDataSheet()
 void ACharacterDataSheet::BeginPlay()
 {
 	Super::BeginPlay();
-	CharactersBattleBlueprint = NewObject<ABattlePawnBase>(BattlePawnToUse);
+	CharacterDetails.CharactersBattleBlueprint = NewObject<ABattlePawnBase>(CharacterDetails.BattlePawnToUse);
+	itemsEquiped.myWeapon = NewObject<AWeaponBase>(WeaponToUse);
 	// ...
 	
 }

@@ -7,6 +7,120 @@
 #include "CharacterDataSheet.generated.h"
 
 
+class AWeaponBase;
+
+USTRUCT(BluePrintType)
+struct RPG_API FCharacterDetails
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		TSubclassOf<class ABattlePawnBase>BattlePawnToUse;
+	ABattlePawnBase* CharactersBattleBlueprint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		FString CharacterName = "Gav";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		int Level = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		int Experiance = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float MaxHealth = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float Health = MaxHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float HealthRegenRate = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float ManaMax = 12;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float Mana = ManaMax;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float ManaRegenRate = 4;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float BaseSpeed = 1;
+	float Speed = 1;
+
+
+
+};
+
+USTRUCT(BluePrintType)
+struct RPG_API FOfensiveStats
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+
+	//ofensive stats
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ofensive stats")
+		float Strength = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ofensive stats")
+		float RangeFinesse = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ofensive stats")
+		float Acuracy = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ofensive stats")
+		float ArcaneAptitude = 100;
+
+};
+
+USTRUCT(BluePrintType)
+struct RPG_API FDDefensiveStats
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+
+	////defensive stats
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ofensive stats")
+		float Evasion = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float ImpactResistance = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float SlashResistance = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float PunctureResistance = 10;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float FireResistance = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float EarthResistance = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float WaterResistance = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float ColdResistance = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float ElectricityResistance = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float HolyResistance = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float VoidResistance = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		float ArcaneResistance = 10;
+
+};
+
+
+USTRUCT(BluePrintType)
+struct RPG_API FEquipedItems
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		AWeaponBase* myWeapon;
+
+
+
+
+
+};
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class RPG_API ACharacterDataSheet : public AActor
 {
@@ -28,67 +142,22 @@ public:
 
 
 	////////////character detials / stats///.//////////
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		FCharacterDetails CharacterDetails;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		TSubclassOf<class ABattlePawnBase>BattlePawnToUse;
-		ABattlePawnBase* CharactersBattleBlueprint;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		FString CharacterName = "Gav111";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		int Level = 1;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		int Experiance = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float Health = 100;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ManaMax = 12;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ManaRegenRate = 4;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float HealthRegenRate = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float Speed = 1;
+		FOfensiveStats OfensiveStats;
 
-	/////ofensive stats
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float Strength = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float Evasion = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ArcaneAptitude = 10;
+		FDDefensiveStats DefensiveStats;
 
-	////defensive stats
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ImpactResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float SlashResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float PunctureResistance = 10;
- 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float FireResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float EarthResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float WaterResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ColdResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ElectricityResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float HolyResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float VoidResistance = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float ArcaneResistance = 10;
+	//////Equiptment
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		TSubclassOf<class AWeaponBase>WeaponToUse;
 
-
-
-
-
-
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		FEquipedItems itemsEquiped;
 
 
 
