@@ -29,7 +29,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
-		float attackPointofset = 100;
+		float attackPointofset = 120;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
 		UAttackPosition* AttackPoint;
 

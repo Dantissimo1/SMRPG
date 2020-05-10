@@ -76,6 +76,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="States")
 	bool isAttackingMelee = false;
 	bool attackActionCompleeted = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+	bool isAttackingMagic = false;
 
 	UFUNCTION(BlueprintCallable)
 		void EndAttack();
@@ -115,9 +117,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
 		float zHeightOffset = 90;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
-		float moveDistanceTolerance = 10;
+		float moveDistanceTolerance = 30;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
-		float rotationTolerance = 6;
+		float rotationTolerance =.1;
 
 	void MoveForwards(FVector inLocation);
 	bool RotateToTarget(FVector inLocation);
@@ -129,7 +131,7 @@ public:
 	UAttackPosition* attackPosition;
 	UOpotunityAttackPosition* opotunityLocation;
 	bool AttackTargetMelee(ABattlePawnBase* inTarget);
-
+	bool AttackTargetMagic(ABattlePawnBase* inTarget);
 
 
 	///////   damage

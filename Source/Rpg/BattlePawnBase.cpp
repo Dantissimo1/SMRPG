@@ -20,7 +20,7 @@ ABattlePawnBase::ABattlePawnBase()
 void ABattlePawnBase::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("Battle Character Exists 22"));
+	////////UE_LOG(LogTemp, Warning, TEXT("Battle Character Exists 22"));
 	mainCharInfo.Speed = mainCharInfo.BaseSpeed;
 }
 
@@ -51,7 +51,7 @@ void ABattlePawnBase::SetUpPlayerPawn(ACharacterDataSheet* inDataSheet, UBattleS
 void ABattlePawnBase::EndAttack()
 {
 	attackActionCompleeted = true;
-	UE_LOG(LogTemp, Warning, TEXT("AtackActioncokpleeted"));
+	////////UE_LOG(LogTemp, Warning, TEXT("AtackActioncokpleeted"));
 }
 /*
 // Called to bind functionality to input
@@ -73,27 +73,27 @@ void ABattlePawnBase::InitializeEquipedItems()
 
 bool ABattlePawnBase::MoveToLocation(FVector inLocation)
 {
-	UE_LOG(LogTemp, Warning, TEXT("move to location"));
+	////////UE_LOG(LogTemp, Warning, TEXT("move to location"));
 	bool moveCompleeted = false;
 	bool rotationCompleted = false;
 	FVector actorLocOnBattleFloor = GetActorLocation();
-	UE_LOG(LogTemp, Warning, TEXT("move to location 1"));
+	////////UE_LOG(LogTemp, Warning, TEXT("move to location 1"));
 	actorLocOnBattleFloor.Z = MyBattleZone->GetActorLocation().Z;
-	UE_LOG(LogTemp, Warning, TEXT("move to location 2"));
+	////////UE_LOG(LogTemp, Warning, TEXT("move to location 2"));
 	FVector inLocOnBattleFloor = inLocation;
 	inLocOnBattleFloor.Z = MyBattleZone->GetActorLocation().Z;
-	UE_LOG(LogTemp, Warning, TEXT("move to location 3"));
+	////////UE_LOG(LogTemp, Warning, TEXT("move to location 3"));
 	if (FVector::Dist(actorLocOnBattleFloor, inLocOnBattleFloor) < moveDistanceTolerance)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("move within Tolerance"));
+		////////UE_LOG(LogTemp, Warning, TEXT("move within Tolerance"));
 		moveCompleeted = true;
 	}else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("move forwards"));
+		////////UE_LOG(LogTemp, Warning, TEXT("move forwards"));
 		MoveForwards(inLocation);
 	}
 	RotateToTarget(inLocation);
-	if (FVector::DotProduct(GetActorRightVector(), GetActorLocation() - inLocation) < rotationTolerance)
+	if (FVector::DotProduct(GetActorRightVector(), GetActorLocation() - inLocOnBattleFloor) < rotationTolerance)
 	{
 		rotationCompleted = true;
 
@@ -105,16 +105,16 @@ bool ABattlePawnBase::MoveToLocation(FVector inLocation)
 		return true;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("move Battle Pawn"));
+	////////UE_LOG(LogTemp, Warning, TEXT("move Battle Pawn"));
 	DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation()+((GetActorForwardVector()*800)), FColor::Red,false, 0.1f);
 	
-	UE_LOG(LogTemp, Warning, TEXT("Keep moving"));
+	////////UE_LOG(LogTemp, Warning, TEXT("Keep moving"));
 	return false;
 }
 
 void ABattlePawnBase::MoveForwards(FVector inLocation)
 {
-	UE_LOG(LogTemp, Warning, TEXT("move forawards 111"));
+	////////UE_LOG(LogTemp, Warning, TEXT("move forawards 111"));
 	isMoving = true;
 	FVector newLoc;
 	newLoc = GetActorLocation() - inLocation;
@@ -127,53 +127,98 @@ void ABattlePawnBase::MoveForwards(FVector inLocation)
 bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 {
 	FVector targetLoc = inLocation;
+	FRotator myRot = GetActorRotation();
+
+	FVector t1 = -GetActorRightVector();
+	t1.Z = 0;
+	t1.Normalize();
+	FVector t2 = GetActorLocation();
+	t2.Z = 0;
+	inLocation.Z = 0;
+	FVector t3 = t2 - inLocation;
+	t3.Normalize();
+
+	float angleBetween = FVector::DotProduct(t1, t3 );
 	float rotToAdd = 0;
-	float angleBetween = FVector::DotProduct(-GetActorRightVector(), GetActorLocation() - targetLoc);
-	float crossAngle = FVector::DotProduct(-GetActorForwardVector(), GetActorLocation() - targetLoc);
 
-	DrawDebugPoint(GetWorld(), inLocation, 50.f, FColor::White, false, 0.1f);
-	UE_LOG(LogTemp, Warning, TEXT("angle between %f"), angleBetween);
-	if (angleBetween > 0)
-	{
-		rotToAdd = rotationSpeed * GetWorld()->DeltaTimeSeconds;
-		if (rotToAdd > angleBetween)
-		{
-			//rotToAdd = angleBetween;
-		}
-	}
-	else if (angleBetween < 0)
-	{
-		rotToAdd = -rotationSpeed * GetWorld()->DeltaTimeSeconds;
-		if (rotToAdd > angleBetween)
-		{
-			//rotToAdd = angleBetween;
-		}
-	}
+	FRotator rotRemaning = GetActorRotation() - (inLocation - GetActorLocation()).Rotation();
 
-	UE_LOG(LogTemp, Warning, TEXT("rotToAdd ,%f"), rotToAdd);
 	if (abs(angleBetween) < rotationTolerance)
 	{
-		if (crossAngle < 130 && crossAngle > 40)
+		if ((inLocation - GetActorLocation()).Rotation().Yaw == 0)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("rot return true  ===   00000"));
+		}
 
-			return true;
-		}
-		//else
-		{
-			//rotToAdd = rotationSpeed * GetWorld()->DeltaTimeSeconds;
-		}
+		UE_LOG(LogTemp, Warning, TEXT("rot return true "));
+		return true;
 	}
 
+	if (rotRemaning.Yaw < -179)
+	{
+		rotRemaning.Yaw += 360;
+	}
+	if (rotRemaning.Yaw > 179)
+	{
+		rotRemaning.Yaw -= 360;
+	}
+
+	DrawDebugPoint(GetWorld(), inLocation, 50.f, FColor::White, false, 0.1f);
+	UE_LOG(LogTemp, Warning, TEXT("angle between %f"), rotRemaning.Yaw);
+	if (rotRemaning.Yaw <= 0)
+	{
+		rotToAdd = rotationSpeed * GetWorld()->DeltaTimeSeconds;
+		UE_LOG(LogTemp, Warning, TEXT("rledft  %f"), rotToAdd);
+	}
+	else if (rotRemaning.Yaw > 0)
+	{
+		rotToAdd -= rotationSpeed * GetWorld()->DeltaTimeSeconds;
+		UE_LOG(LogTemp, Warning, TEXT("right =  %f"), rotToAdd);
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("rot to add 2 =  %f"), rotToAdd);
+	if (abs(rotToAdd) > abs(rotRemaning.Yaw))
+	{
+
+		rotToAdd = rotRemaning.Yaw;
+		UE_LOG(LogTemp, Warning, TEXT("rot corection    =  %f"), rotToAdd);
+	}
 
 	FRotator rotation(0.f, rotToAdd, 0.f);
-	AddActorWorldRotation(rotation);
+	FRotator FinalRot = myRot + rotation;
+	//UE_LOG(LogTemp, Warning, TEXT("rot to add 3 =  %s"), *FinalRot.ToString());
+	if (FinalRot.Yaw < -180)
+	{
+		FinalRot.Yaw += 360;
+	}
+	if (FinalRot.Yaw>180)
+	{
+		FinalRot.Yaw -= 360;
+	}
 
+	SetActorRotation(FinalRot);
+	//AddActorWorldRotation(rotation);
+	if (abs(angleBetween) < rotationTolerance)
+	{
+
+
+		UE_LOG(LogTemp, Warning, TEXT("rot return true "));
+		return true;
+	}
 	return false;
 }
 
 bool ABattlePawnBase::AttackTargetMelee(ABattlePawnBase* inTarget)
 {
 
+
+
+
+	return false;
+}
+
+bool ABattlePawnBase::AttackTargetMagic(ABattlePawnBase* inTarget)
+{
 
 
 
