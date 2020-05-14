@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "WeaponBase.h"
 #include "CharacterDataSheet.h"
+#include "DamageLibary.h"
+#include "Test2.h"
+
 #include "BattlePawnBase.generated.h"
 
 class USkeletalMeshComponent;
@@ -14,8 +17,8 @@ class AIController;
 class UAttackPosition;
 class UOpotunityAttackPosition;
 class UBattleSpawnPoint;
-
-
+class UEffectSource;
+class UEffect;
 
 
 UENUM()
@@ -59,6 +62,7 @@ public:
 
 
 	void SetUpPlayerPawn(ACharacterDataSheet* inDataSheet, UBattleSpawnPoint* inPawnsBaseActor, ABattleZoneBase* inBattleZone,bool inbackline,bool inOwnedByPlayer);
+	void SetUpNPCPawn();
 
 	ABattleZoneBase* MyBattleZone;
 
@@ -74,10 +78,13 @@ public:
 
 	///states
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="States")
-	bool isAttackingMelee = false;
-	bool attackActionCompleeted = false;
+		bool isAttackingMelee = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	bool isAttackingMagic = false;
+		bool isAttackingMagic = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+		bool isAttackingRanged = false;
+	bool projectileHit = false;
+	bool attackActionCompleeted = false;
 
 	UFUNCTION(BlueprintCallable)
 		void EndAttack();
@@ -95,6 +102,28 @@ public:
 		FDDefensiveStats DefensiveStats;
 
 
+	//////////////////portraight///////////////////////
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Portrait")
+	UTexture* PortraitImage;
+
+
+
+	/////////abilitys
+	void InitializePlayersAbilitys();
+
+	UAbilityBase* activeAbility = NULL;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPCAbilitys")
+		TArray<TSubclassOf<UAbilityBase>> abilityClasses;
+	TArray<UAbilityBase*> abilitys;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPCAbilitys")
+		TArray<TSubclassOf<UAbilityBase>> magicAbilityClasses;
+	TArray<UAbilityBase*> magicAbilitys;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPCAbilitys")
+		TSubclassOf<UTest2> TestClass;
+	
+	
 
 
 	//////// Epquiptment
@@ -111,7 +140,7 @@ public:
 
 	bool MoveToLocation(FVector inLocation);
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
-		float movementSpeed = 400;
+		float movementSpeed = 600;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
 		float rotationSpeed = 650;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
@@ -135,8 +164,18 @@ public:
 
 
 	///////   damage
-	void CauseDamageToBattlePawn(ABattlePawnBase* inPawn);
-
+	void CauseDamageToBattlePawn(ABattlePawnBase* inPawn,bool isMagic);
+	//void CauseRangedDamageToBattlePawn(ABattlePawnBase* inPawn);
+	//void CauseMagicDamageToBattlePawn(ABattlePawnBase* inPawn);
 	//void TakeDamage(FBattlePawnTurnInfo* inDamage);
 
+	void TakeBattleDamage(FDamageTypesToCause* inDamage);
+
+	TArray<UEffectSource*>activeEffectSources;
+	TArray<UEffect*>activeEffects;
+	
 };
+
+
+
+

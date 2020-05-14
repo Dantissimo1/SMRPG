@@ -12,6 +12,8 @@ class EncounterVolumeBase;
 class ABattleZoneBase;
 class UPlayerPartyComp;
 class UCharacterDataSheet;
+class UDungeonHUD;
+class UBattleHUD;
 
 
 /**
@@ -43,6 +45,7 @@ public:
 
 
 	////balte mode speific things
+	UPROPERTY()
 	bool bIsInBattleMode = false;
 	ABattleZoneBase* CurrentBattleArea;
 	void BeginBattle(ABattleZoneBase* InBattleZone);
@@ -61,4 +64,26 @@ public:
 	void CameraPitchInput(float Value);
 	void ScrollInput(float Value);
 	
+
+
+
+
+
+	////////////////////////HUD/////////////////////////
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+		TSubclassOf< UDungeonHUD> DungeonHUDClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+		TSubclassOf< UBattleHUD> BattleHUDClass;
+
+
+	void SpawnDungeonHUD();
+	void ToggleDungeonHUD(bool hudOn);
+	void BattleHUDSpawn();
+	void BattleHUDDespawn();
+
+	UDungeonHUD* DungeonHUD;
+	UBattleHUD* BattleHUD;
+
+
 };

@@ -6,6 +6,12 @@
 #include "BattleZoneBase.h"
 #include "GameFramework/Controller.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "AbilityBase.h"
+#include "DamageLibary.h"
+#include "EffectSource.h"
+#include "Effect.h"
+
+
 
 
 // Sets default values
@@ -20,8 +26,9 @@ ABattlePawnBase::ABattlePawnBase()
 void ABattlePawnBase::BeginPlay()
 {
 	Super::BeginPlay();
-	////////UE_LOG(LogTemp, Warning, TEXT("Battle Character Exists 22"));
+	//////////UE_LOG(LogTemp, Warning, TEXT("Battle Character Exists 22"));
 	mainCharInfo.Speed = mainCharInfo.BaseSpeed;
+
 }
 
 // Called every frame
@@ -46,12 +53,38 @@ void ABattlePawnBase::SetUpPlayerPawn(ACharacterDataSheet* inDataSheet, UBattleS
 
 	MyEquipedItems = myDataSheet->itemsEquiped;
 
+	InitializePlayersAbilitys();
+
+
+
+}
+
+void ABattlePawnBase::SetUpNPCPawn()
+{
+	
+	for (int i = 0; i < abilityClasses.Num();i++)
+	{
+
+		FActorSpawnParameters Spawnparams;
+		Spawnparams.Owner = this;
+		
+		abilitys.Add(GetWorld()->SpawnActor<UAbilityBase>(abilityClasses[i]));
+
+	}
+
+	for (int i = 0; i < magicAbilityClasses.Num();i++)
+	{
+
+		magicAbilitys.Add(GetWorld()->SpawnActor<UAbilityBase>(magicAbilityClasses[i]));
+
+	}
+	
 }
 
 void ABattlePawnBase::EndAttack()
 {
 	attackActionCompleeted = true;
-	////////UE_LOG(LogTemp, Warning, TEXT("AtackActioncokpleeted"));
+	//////////UE_LOG(LogTemp, Warning, TEXT("AtackActioncokpleeted"));
 }
 /*
 // Called to bind functionality to input
@@ -60,6 +93,28 @@ void ABattlePawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }*/
+
+void ABattlePawnBase::InitializePlayersAbilitys()
+{
+	
+	for (int i = 0; i < myDataSheet->abilityClasses.Num();i++)
+	{
+
+		FActorSpawnParameters Spawnparams;
+		Spawnparams.Owner = this;
+
+		abilitys.Add(GetWorld()->SpawnActor<UAbilityBase>(myDataSheet->abilityClasses[i]));
+
+	}
+
+	for (int i = 0; i < myDataSheet->magicAbilityClasses.Num();i++)
+	{
+
+		magicAbilitys.Add(GetWorld()->SpawnActor<UAbilityBase>(myDataSheet->magicAbilityClasses[i]));
+
+	}
+	
+}
 
 void ABattlePawnBase::InitializeEquipedItems()
 {
@@ -73,23 +128,23 @@ void ABattlePawnBase::InitializeEquipedItems()
 
 bool ABattlePawnBase::MoveToLocation(FVector inLocation)
 {
-	////////UE_LOG(LogTemp, Warning, TEXT("move to location"));
+	//////////UE_LOG(LogTemp, Warning, TEXT("move to location"));
 	bool moveCompleeted = false;
 	bool rotationCompleted = false;
 	FVector actorLocOnBattleFloor = GetActorLocation();
-	////////UE_LOG(LogTemp, Warning, TEXT("move to location 1"));
+	//////////UE_LOG(LogTemp, Warning, TEXT("move to location 1"));
 	actorLocOnBattleFloor.Z = MyBattleZone->GetActorLocation().Z;
-	////////UE_LOG(LogTemp, Warning, TEXT("move to location 2"));
+	//////////UE_LOG(LogTemp, Warning, TEXT("move to location 2"));
 	FVector inLocOnBattleFloor = inLocation;
 	inLocOnBattleFloor.Z = MyBattleZone->GetActorLocation().Z;
-	////////UE_LOG(LogTemp, Warning, TEXT("move to location 3"));
+	//////////UE_LOG(LogTemp, Warning, TEXT("move to location 3"));
 	if (FVector::Dist(actorLocOnBattleFloor, inLocOnBattleFloor) < moveDistanceTolerance)
 	{
-		////////UE_LOG(LogTemp, Warning, TEXT("move within Tolerance"));
+		//////////UE_LOG(LogTemp, Warning, TEXT("move within Tolerance"));
 		moveCompleeted = true;
 	}else
 	{
-		////////UE_LOG(LogTemp, Warning, TEXT("move forwards"));
+		//////////UE_LOG(LogTemp, Warning, TEXT("move forwards"));
 		MoveForwards(inLocation);
 	}
 	RotateToTarget(inLocation);
@@ -105,16 +160,16 @@ bool ABattlePawnBase::MoveToLocation(FVector inLocation)
 		return true;
 	}
 
-	////////UE_LOG(LogTemp, Warning, TEXT("move Battle Pawn"));
+	//////////UE_LOG(LogTemp, Warning, TEXT("move Battle Pawn"));
 	DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation()+((GetActorForwardVector()*800)), FColor::Red,false, 0.1f);
 	
-	////////UE_LOG(LogTemp, Warning, TEXT("Keep moving"));
+	//////////UE_LOG(LogTemp, Warning, TEXT("Keep moving"));
 	return false;
 }
 
 void ABattlePawnBase::MoveForwards(FVector inLocation)
 {
-	////////UE_LOG(LogTemp, Warning, TEXT("move forawards 111"));
+	//////////UE_LOG(LogTemp, Warning, TEXT("move forawards 111"));
 	isMoving = true;
 	FVector newLoc;
 	newLoc = GetActorLocation() - inLocation;
@@ -140,18 +195,33 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 
 	float angleBetween = FVector::DotProduct(t1, t3 );
 	float rotToAdd = 0;
+	//UE_LOG(LogTemp, Warning, TEXT("angle between %f"), angleBetween);
+	FRotator rotRemaning = GetActorRotation() - (inLocation - t2).Rotation();
 
-	FRotator rotRemaning = GetActorRotation() - (inLocation - GetActorLocation()).Rotation();
-
-	if (abs(angleBetween) < rotationTolerance)
+	if (angleBetween < rotationTolerance && angleBetween > - rotationTolerance)
 	{
-		if ((inLocation - GetActorLocation()).Rotation().Yaw == 0)
+		FVector t4 = GetActorForwardVector();
+		t4.Z = 0;
+		float sideAngle = FVector::DotProduct(t4, t3);
+		//UE_LOG(LogTemp, Warning, TEXT("sideAngle =  %f"),sideAngle);
+		if (sideAngle < rotationTolerance)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("rot return true  ===   00000"));
+
+			//UE_LOG(LogTemp, Warning, TEXT("rot return true "));
+			return true;
+		}
+		else
+		{
+			rotToAdd = rotationSpeed * GetWorld()->DeltaTimeSeconds;
+			FRotator rot = GetActorRotation();
+			rot.Yaw += rotToAdd;
+			SetActorRotation(rot);
+
+			return false;
 		}
 
-		UE_LOG(LogTemp, Warning, TEXT("rot return true "));
-		return true;
+
+
 	}
 
 	if (rotRemaning.Yaw < -179)
@@ -164,29 +234,29 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 	}
 
 	DrawDebugPoint(GetWorld(), inLocation, 50.f, FColor::White, false, 0.1f);
-	UE_LOG(LogTemp, Warning, TEXT("angle between %f"), rotRemaning.Yaw);
+	
 	if (rotRemaning.Yaw <= 0)
 	{
 		rotToAdd = rotationSpeed * GetWorld()->DeltaTimeSeconds;
-		UE_LOG(LogTemp, Warning, TEXT("rledft  %f"), rotToAdd);
+		//UE_LOG(LogTemp, Warning, TEXT("rledft  %f"), rotToAdd);
 	}
 	else if (rotRemaning.Yaw > 0)
 	{
 		rotToAdd -= rotationSpeed * GetWorld()->DeltaTimeSeconds;
-		UE_LOG(LogTemp, Warning, TEXT("right =  %f"), rotToAdd);
+		//UE_LOG(LogTemp, Warning, TEXT("right =  %f"), rotToAdd);
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("rot to add 2 =  %f"), rotToAdd);
+	//UE_LOG(LogTemp, Warning, TEXT("rot to add 2 =  %f"), rotToAdd);
 	if (abs(rotToAdd) > abs(rotRemaning.Yaw))
 	{
 
 		rotToAdd = rotRemaning.Yaw;
-		UE_LOG(LogTemp, Warning, TEXT("rot corection    =  %f"), rotToAdd);
+		//UE_LOG(LogTemp, Warning, TEXT("rot corection    =  %f"), rotToAdd);
 	}
 
 	FRotator rotation(0.f, rotToAdd, 0.f);
 	FRotator FinalRot = myRot + rotation;
-	//UE_LOG(LogTemp, Warning, TEXT("rot to add 3 =  %s"), *FinalRot.ToString());
+	////UE_LOG(LogTemp, Warning, TEXT("rot to add 3 =  %s"), *FinalRot.ToString());
 	if (FinalRot.Yaw < -180)
 	{
 		FinalRot.Yaw += 360;
@@ -202,8 +272,8 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 	{
 
 
-		UE_LOG(LogTemp, Warning, TEXT("rot return true "));
-		return true;
+		//UE_LOG(LogTemp, Warning, TEXT("rot return true 2"));
+		//return true;
 	}
 	return false;
 }
@@ -225,32 +295,57 @@ bool ABattlePawnBase::AttackTargetMagic(ABattlePawnBase* inTarget)
 	return false;
 }
 
-void ABattlePawnBase::CauseDamageToBattlePawn(ABattlePawnBase* inPawn)
+void ABattlePawnBase::CauseDamageToBattlePawn(ABattlePawnBase* inPawn,bool isMagic)
 {
 	FDamageTypesToCause DamageToDeal;
 
-	float damagemodifierToUse = 1;
+	if (isMagic != true)
+	{
+		DamageToDeal.ImpactDamage = (MyEquipedItems.myWeapon->myDamage.ImpactDamage * OfensiveStats.Strength);
+		DamageToDeal.SlashDamage = (MyEquipedItems.myWeapon->myDamage.SlashDamage * OfensiveStats.Strength);
+		DamageToDeal.PunctureDamage = (MyEquipedItems.myWeapon->myDamage.PunctureDamage * OfensiveStats.Strength);
+		DamageToDeal.FireDamage = (MyEquipedItems.myWeapon->myDamage.FireDamage * OfensiveStats.Strength);
+		DamageToDeal.EarthDamage = (MyEquipedItems.myWeapon->myDamage.EarthDamage * OfensiveStats.Strength);
+		DamageToDeal.WaterDamage = (MyEquipedItems.myWeapon->myDamage.WaterDamage * OfensiveStats.Strength);
+		DamageToDeal.ColdDamage = (MyEquipedItems.myWeapon->myDamage.ColdDamage * OfensiveStats.Strength);
+		DamageToDeal.ElectricityDamage = (MyEquipedItems.myWeapon->myDamage.ElectricityDamage * OfensiveStats.Strength);
+		DamageToDeal.HolyDamage = (MyEquipedItems.myWeapon->myDamage.HolyDamage * OfensiveStats.Strength);
+		DamageToDeal.VoidDamage = (MyEquipedItems.myWeapon->myDamage.VoidDamage * OfensiveStats.Strength);
+		DamageToDeal.ArcaneDamage = (MyEquipedItems.myWeapon->myDamage.ArcaneDamage * OfensiveStats.Strength);
+	}
+
+	if (activeAbility != NULL)
+	{
+		DamageToDeal.ImpactDamage = activeAbility->DamageTypes.ImpactDamage;
+		DamageToDeal.SlashDamage = activeAbility->DamageTypes.SlashDamage;
+		DamageToDeal.PunctureDamage = activeAbility->DamageTypes.PunctureDamage;
+		DamageToDeal.FireDamage = activeAbility->DamageTypes.FireDamage;
+		DamageToDeal.EarthDamage = activeAbility->DamageTypes.EarthDamage;
+		DamageToDeal.WaterDamage = activeAbility->DamageTypes.WaterDamage;
+		DamageToDeal.ColdDamage = activeAbility->DamageTypes.ColdDamage;
+		DamageToDeal.ElectricityDamage = activeAbility->DamageTypes.ElectricityDamage;
+		DamageToDeal.HolyDamage = activeAbility->DamageTypes.HolyDamage;
+		DamageToDeal.VoidDamage = activeAbility->DamageTypes.VoidDamage;
+		DamageToDeal.ArcaneDamage = activeAbility->DamageTypes.ArcaneDamage;
+
+		inPawn->TakeBattleDamage(&DamageToDeal);
+
+
+	}
 
 
 
 
-	DamageToDeal.ImpactDamage = (MyEquipedItems.myWeapon->myDamage.ImpactDamage* damagemodifierToUse);
-	DamageToDeal.SlashDamage = (MyEquipedItems.myWeapon->myDamage.SlashDamage * damagemodifierToUse);
-	DamageToDeal.PunctureDamage = (MyEquipedItems.myWeapon->myDamage.PunctureDamage * damagemodifierToUse);
-	DamageToDeal.FireDamage = (MyEquipedItems.myWeapon->myDamage.FireDamage * damagemodifierToUse);
-	DamageToDeal.EarthDamage = (MyEquipedItems.myWeapon->myDamage.EarthDamage * damagemodifierToUse);
-	DamageToDeal.WaterDamage = (MyEquipedItems.myWeapon->myDamage.WaterDamage * damagemodifierToUse);
-	DamageToDeal.ColdDamage = (MyEquipedItems.myWeapon->myDamage.ColdDamage * damagemodifierToUse);
-	DamageToDeal.ElectricityDamage = (MyEquipedItems.myWeapon->myDamage.ElectricityDamage * damagemodifierToUse);
-	DamageToDeal.HolyDamage = (MyEquipedItems.myWeapon->myDamage.HolyDamage * damagemodifierToUse);
-	DamageToDeal.VoidDamage = (MyEquipedItems.myWeapon->myDamage.VoidDamage * damagemodifierToUse);
-	DamageToDeal.ArcaneDamage = (MyEquipedItems.myWeapon->myDamage.ArcaneDamage * damagemodifierToUse);
+}
 
+void ABattlePawnBase::TakeBattleDamage(FDamageTypesToCause* inDamage)
+{
 
 
 
 
 
 }
+
 
 

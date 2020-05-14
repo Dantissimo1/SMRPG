@@ -3,7 +3,7 @@
 
 #include "CharacterDataSheet.h"
 #include "BattlePawnBase.h"
-
+#include "AbilityBase.h"
 
 
 // Sets default values for this component's properties
@@ -22,6 +22,16 @@ void ACharacterDataSheet::BeginPlay()
 	Super::BeginPlay();
 	CharacterDetails.CharactersBattleBlueprint = NewObject<ABattlePawnBase>(CharacterDetails.BattlePawnToUse);
 	itemsEquiped.myWeapon = NewObject<AWeaponBase>(WeaponToUse);
+
+	for (int i = 0; i < abilityClasses.Num();i++)
+	{
+		abilities.Add(NewObject<UAbilityBase>(abilityClasses[i]->StaticClass()));
+	}
+	for (int i = 0; i < magicAbilityClasses.Num();i++)
+	{
+		magicAbilities.Add(NewObject<UAbilityBase>(magicAbilityClasses[i]->StaticClass()));
+	}
+
 	// ...
 	
 }

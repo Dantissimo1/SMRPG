@@ -4,43 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-
+#include "DamageLibary.h"
 
 #include "WeaponBase.generated.h"
-
-USTRUCT(BluePrintType)
-struct RPG_API FDamageTypesToCause
-{
-	GENERATED_USTRUCT_BODY()
-
-public:
-	
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float ImpactDamage = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float SlashDamage = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float PunctureDamage = 10;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float FireDamage = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float EarthDamage = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float WaterDamage = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float ColdDamage = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float ElectricityDamage = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float HolyDamage = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float VoidDamage = 10;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float ArcaneDamage = 10;
-
-};
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class RPG_API AWeaponBase : public AActor

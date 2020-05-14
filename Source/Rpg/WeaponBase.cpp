@@ -2,6 +2,8 @@
 
 
 #include "WeaponBase.h"
+#include "DamageLibary.h"
+
 
 // Sets default values for this component's properties
 AWeaponBase::AWeaponBase()

@@ -36,6 +36,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "BoxComp")
 	class UBoxComponent* BoxComp ;
 
+	UPROPERTY()
 	ADungeonControllerBase* PlayerCont;
 
 

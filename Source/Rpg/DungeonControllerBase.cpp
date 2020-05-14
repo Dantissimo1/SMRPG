@@ -6,6 +6,8 @@
 #include "EncounterVolumeBase.h"
 #include "BattleZoneBase.h"
 #include "PlayerPartyComponent.h"
+#include "BattleHUD.h"
+#include "DungeonHUD.h"
 
 
 
@@ -31,7 +33,8 @@ void ADungeonControllerBase::BeginPlay()
 
 	//// load the players party here??
 
-
+	SpawnDungeonHUD();
+	
 }
 
 // Called every frame
@@ -108,6 +111,58 @@ void ADungeonControllerBase::ScrollInput(float Value)
 
 }
 
+void ADungeonControllerBase::SpawnDungeonHUD()
+{
+	if (DungeonHUDClass)
+	{
+		DungeonHUD = CreateWidget<UDungeonHUD>(this, DungeonHUDClass);
+		DungeonHUD->AddToViewport();
+		DungeonHUD->SetVisibility(ESlateVisibility::Visible);
+	}else
+	{
+	
+	}
+}
+
+void ADungeonControllerBase::ToggleDungeonHUD(bool hudOn)
+{
+	if (hudOn)
+	{
+		DungeonHUD->SetVisibility(ESlateVisibility::Visible);
+	}
+	else if (hudOn != true)
+	{
+		DungeonHUD->SetVisibility(ESlateVisibility::Hidden);
+	}
+
+
+}
+
+void ADungeonControllerBase::BattleHUDSpawn()
+{
+	
+	if (BattleHUDClass)
+	{
+		BattleHUD = CreateWidget<UBattleHUD>(this, BattleHUDClass);
+		BattleHUD->AddToViewport();
+		BattleHUD->SetVisibility(ESlateVisibility::Visible);
+		UE_LOG(LogTemp, Warning, TEXT("UBattleBrainComponent 0"));
+		BattleHUD->SetUp(CurrentBattleArea->BattleBrain);
+
+	}
+	else
+	{
+
+	}
+}
+
+void ADungeonControllerBase::BattleHUDDespawn()
+{
+	if (BattleHUD)
+	{
+		BattleHUD->RemoveFromParent();
+	}
+}
 /////////battle mode //////////
 void ADungeonControllerBase::BeginBattle(ABattleZoneBase* InBattleZone)
 {
@@ -115,6 +170,10 @@ void ADungeonControllerBase::BeginBattle(ABattleZoneBase* InBattleZone)
 	CurrentBattleArea = InBattleZone;
 	InBattleZone->InitializeBattle(this);
 
+	ToggleDungeonHUD(false);
+	BattleHUDSpawn();
+	BattleHUD->CalcTurnsHUD();
+	InBattleZone->BattleBrain->isLoaded = true;
 
 }
 
@@ -123,6 +182,7 @@ void ADungeonControllerBase::EndBattle()
 	SetViewTarget(MyChar);
 	bIsInBattleMode = false;
 	MyChar->CurrentEncountreVolume->BattleEndTimerReset();
-
+	BattleHUDDespawn();
+	ToggleDungeonHUD(true);
 
 }

@@ -8,6 +8,7 @@
 
 
 class AWeaponBase;
+class UAbilityBase;
 
 USTRUCT(BluePrintType)
 struct RPG_API FCharacterDetails
@@ -41,8 +42,8 @@ public:
 		float ManaRegenRate = 4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		float BaseSpeed = 1;
-	float Speed = 1;
+		float BaseSpeed = 2;
+	float Speed = 2;
 
 
 
@@ -159,9 +160,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		FEquipedItems itemsEquiped;
 
-
-
-
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Abilitys")
+		TArray<TSubclassOf<UAbilityBase>> abilityClasses;
+	TArray<UAbilityBase*> abilities;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Abilitys")
+		TArray<TSubclassOf<UAbilityBase>> magicAbilityClasses;
+	TArray<UAbilityBase*> magicAbilities;
 
 
 

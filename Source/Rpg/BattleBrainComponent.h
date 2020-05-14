@@ -11,31 +11,11 @@
 
 class ABattleZoneBase;
 class ABattlePawnBase;
+class UBattleHUD;
+class UDungeonHUD;
+class ADungeonControllerBase;
+class UTurnInfo;
 
-
-
-USTRUCT(BluePrintType)
-struct RPG_API FBattlePawnTurnInfo
-{
-	GENERATED_USTRUCT_BODY()
-
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		ABattlePawnBase* MyBattlePawn;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FString ChrName;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int Turn;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float Speed;
-
-
-
-
-};
 
 
 
@@ -56,20 +36,28 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	
-	TArray<FBattlePawnTurnInfo>TurnOrder;
-	TArray<FBattlePawnTurnInfo>WorkingTurnOrder;
-	FBattlePawnTurnInfo* ActiveTurn;
+	bool isLoaded = false;
+
+	ADungeonControllerBase* PlayersCont;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Turns")
+	TArray<UTurnInfo*>TurnOrder;
+	TArray<UTurnInfo*>WorkingTurnOrder;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Turns")
+	UTurnInfo* ActiveTurn;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Pawns")
 	TArray<ABattlePawnBase*>AllPawnsInBattle;
 	TArray<ABattlePawnBase*>playerBattlePawns;
 	TArray<ABattlePawnBase*>enemyBattlePawns;
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Main")
 	ABattleZoneBase* MyBattleZone;
 
 	void SetUp(ABattleZoneBase* InBattleZone);
 	void ConstructHUD();
 	void InitializeBattle(TArray<ABattlePawnBase*>allBattlePawns, TArray<ABattlePawnBase*>playerBattlePawns, TArray<ABattlePawnBase*>enemyBattlePawns);
 	void CalcInitialTurnOrder();
+	UFUNCTION(BlueprintCallable)
 	void ReCalcChrsTurns(ABattlePawnBase* inPawn);
 	void SetActiveTurn();
 	void AddNewTurn(ABattlePawnBase* MyBattlePawn,FString ChrName,int Turn,float Speed);
@@ -78,9 +66,12 @@ public:
 	bool RunEnemyTurn();
 
 
+
+
 	////attack
 	bool AttackMelee(ABattlePawnBase* attackTarget);
 	bool AttackMagic(ABattlePawnBase* attackTarget);
+	bool AttackRanged(ABattlePawnBase* attackTarget);
 	bool atStaginPoint1 = false;
 	bool atStagingPoint2 = false;
 	bool atAttackPosition = false;
@@ -98,5 +89,6 @@ public:
 
 	ABattlePawnBase* attaaaaTarget;
 	bool testOperationCompleted = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")
 	bool testOp2 = false;
 };
