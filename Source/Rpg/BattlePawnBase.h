@@ -19,6 +19,8 @@ class UOpotunityAttackPosition;
 class UBattleSpawnPoint;
 class UEffectSource;
 class UEffect;
+class UCameraComponent;
+
 
 
 UENUM()
@@ -59,7 +61,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Properties")
 		float heightOffset = 90.f;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cammera")
+		UCameraComponent* Camera;
 
 	void SetUpPlayerPawn(ACharacterDataSheet* inDataSheet, UBattleSpawnPoint* inPawnsBaseActor, ABattleZoneBase* inBattleZone,bool inbackline,bool inOwnedByPlayer);
 	void SetUpNPCPawn();
@@ -161,9 +164,12 @@ public:
 	UOpotunityAttackPosition* opotunityLocation;
 	bool AttackTargetMelee(ABattlePawnBase* inTarget);
 	bool AttackTargetMagic(ABattlePawnBase* inTarget);
-
+	ABattlePawnBase* lastAttackTarget = NULL;
 
 	///////   damage
+
+
+	bool isDown = false;
 	void CauseDamageToBattlePawn(ABattlePawnBase* inPawn,bool isMagic);
 	//void CauseRangedDamageToBattlePawn(ABattlePawnBase* inPawn);
 	//void CauseMagicDamageToBattlePawn(ABattlePawnBase* inPawn);

@@ -15,6 +15,7 @@ class UBattleHUD;
 class UDungeonHUD;
 class ADungeonControllerBase;
 class UTurnInfo;
+class UAbilityBase;
 
 
 
@@ -66,6 +67,11 @@ public:
 	bool RunEnemyTurn();
 
 
+	//////////target selection///////
+	UAbilityBase* activeAbility = NULL;
+	bool attackMenueSpawned = false;
+	bool watingForPlayersTarget = true;
+	ABattlePawnBase* confirmedSingleTarget = NULL;
 
 
 	////attack

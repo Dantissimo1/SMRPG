@@ -48,7 +48,7 @@ public:
 	/////////////Cameras
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 	class UCameraComponent* TestCam1;
-
+	FTransform camOriginalTrans;
 
 	//////enemy party
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnemyParty")
@@ -60,6 +60,9 @@ public:
 	FTimerHandle TestTimer;
 
 	//////////spawn points////////////
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
+		TSubclassOf<class UBattleSpawnPoint> spawnPointClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
 		UBattleSpawnPoint* spawnPoint1;

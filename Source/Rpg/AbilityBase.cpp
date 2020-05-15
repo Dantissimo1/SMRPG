@@ -32,7 +32,7 @@ void UAbilityBase::passOnEffects(ABattlePawnBase* inPawn, ABattlePawnBase* cause
 		
 
 	}
-	//UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn"));
+	////UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn"));
 
 }
 
@@ -50,7 +50,7 @@ void UAbilityBase::passOnEffects(TArray<ABattlePawnBase*> inPawns, ABattlePawnBa
 		}
 
 	}
-	//UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn"));
+	////UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn"));
 
 }
 

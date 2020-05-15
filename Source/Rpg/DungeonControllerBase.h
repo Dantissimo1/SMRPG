@@ -14,7 +14,7 @@ class UPlayerPartyComp;
 class UCharacterDataSheet;
 class UDungeonHUD;
 class UBattleHUD;
-
+class ABattlePawnBase;
 
 /**
  * 
@@ -76,14 +76,29 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
 		TSubclassOf< UBattleHUD> BattleHUDClass;
 
-
+	UDungeonHUD* DungeonHUD;
 	void SpawnDungeonHUD();
 	void ToggleDungeonHUD(bool hudOn);
+
+
+	////////Camera
+
+
+	void SetBattleCamlocation(FVector* newLoc, FRotator* newRot);
+
+
+	/////////battle
+	UBattleHUD* BattleHUD;
 	void BattleHUDSpawn();
 	void BattleHUDDespawn();
+	bool lookingForHostile = true;
+	bool isWaitingForSingleTargetSelection = false;
+	bool hasSetLastTarget = false;
+	ABattlePawnBase* singleTarget = NULL;
+	void SelectSingleHorizontal(float value);
+	void SelectSingleVertical(float value);
+	ABattlePawnBase* SelectFirstHostileTarget();
 
-	UDungeonHUD* DungeonHUD;
-	UBattleHUD* BattleHUD;
 
-
+	void ConfirmSingleTarget();
 };

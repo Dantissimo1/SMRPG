@@ -11,6 +11,9 @@
 
 class UBattleBrainComponent;
 class ABattleZoneBase;
+class ABattlePawn;
+class ADungeonControllerBase;
+
 
 
 /**
@@ -27,11 +30,23 @@ public:
 		UBattleBrainComponent* activeBattleBrain;
 		
 	UFUNCTION()
-	void SetUp(UBattleBrainComponent* inBrain);
+	void SetUp(UBattleBrainComponent* inBrain, ADungeonControllerBase* playerController);
+
+	ADungeonControllerBase* playerController;
 
 	void CallCalcTurns();
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Turns")
 	void CalcTurnsHUD();
+
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void ShowAttackMenue();
+	UFUNCTION(BlueprintImplementableEvent)
+		void HideAttackMenue();
+
+	UFUNCTION(BlueprintCallable)
+		bool SelectSingleTarget();
+
 
 };

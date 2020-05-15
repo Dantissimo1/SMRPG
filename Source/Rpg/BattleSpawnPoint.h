@@ -8,7 +8,7 @@
 
 class UAttackPosition;
 class UOpotunityAttackPosition;
-
+class ABattlePawnBase;
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -39,4 +39,9 @@ public:
 		UOpotunityAttackPosition* OpotunityPoint;
 
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
+		int placeOnGrid = 0;
+
+
+	ABattlePawnBase* myPawn = NULL;
 };

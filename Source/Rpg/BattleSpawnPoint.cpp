@@ -26,7 +26,6 @@ UBattleSpawnPoint::UBattleSpawnPoint()
 	OpotunityPoint->SetupAttachment(this);
 	OpotunityPoint->SetWorldLocation(newPos);
 
-
 	DrawDebugPoint(GetWorld(), AttackPoint->GetComponentLocation(), 10.f, FColor::Red, true);
 
 	DrawDebugPoint(GetWorld(), OpotunityPoint->GetComponentLocation(), 10.f, FColor::Yellow, true);
@@ -39,6 +38,7 @@ UBattleSpawnPoint::UBattleSpawnPoint()
 void UBattleSpawnPoint::BeginPlay()
 {
 	Super::BeginPlay();
+
 
 
 	DrawDebugPoint(GetWorld(), AttackPoint->GetComponentLocation(), 10.f, FColor::Red, true);
