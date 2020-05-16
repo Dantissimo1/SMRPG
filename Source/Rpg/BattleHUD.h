@@ -45,8 +45,16 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void HideAttackMenue();
 
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void BackToAttackSelection();
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+		bool selectingTargets;
+
 	UFUNCTION(BlueprintCallable)
-		bool SelectSingleTarget();
+		void SelectSingleTarget();
 
 
 };

@@ -148,20 +148,20 @@ void ABattleZoneBase::SpawnPlayersParty()
 	
 	for (int i = 0; i < PlayerCont->PlayersParty->PartyFormationFrontLine.Num() ;i++)
 	{
-		////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn"));
+		//////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn"));
 		
 		if (PlayerCont->PlayersParty->PartyFormationFrontLine[i] != NULL)
 		{
-			////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn  != NBULLLLL"));
+			//////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn  != NBULLLLL"));
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = PlayerCont;
 
 			ACharacterDataSheet* ElementInDataSheet = Cast<ACharacterDataSheet>(PlayerCont->PlayersParty->PartyFormationFrontLine[i]);
-			////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn,%s"), *ElementInDataSheet->GetFName().ToString());
+			//////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn,%s"), *ElementInDataSheet->GetFName().ToString());
 
 			if (ElementInDataSheet->CharacterDetails.BattlePawnToUse)
 			{
-				////////////UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *ElementInDataSheet->GetFName().ToString());
+				//////////////UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *ElementInDataSheet->GetFName().ToString());
 			}
 			ABattlePawnBase* ClassToSpawn = PlayerCont->PlayersParty->PartyFormationFrontLine[i]->CharacterDetails.CharactersBattleBlueprint;
 			FVector SpawnLoc = PlayerBattleSpawns[i]->GetComponentLocation();
@@ -180,20 +180,20 @@ void ABattleZoneBase::SpawnPlayersParty()
 	
 	for (int i = 0; i < PlayerCont->PlayersParty->PartyFormationBackLine.Num() ;i++)
 	{
-		////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn BackLine"));
+		//////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn BackLine"));
 		
 		if (PlayerCont->PlayersParty->PartyFormationBackLine[i] != NULL)
 		{
-			////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn  BackLine != NBULLLLL"));
+			//////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn  BackLine != NBULLLLL"));
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = PlayerCont;
 
 			ACharacterDataSheet* ElementInDataSheet = Cast<ACharacterDataSheet>(PlayerCont->PlayersParty->PartyFormationBackLine[i]);
-			////////////UE_LOG(LogTemp, Warning, TEXT("looooooop BackLine Spawnnn,%s"), *ElementInDataSheet->GetFName().ToString());
+			//////////////UE_LOG(LogTemp, Warning, TEXT("looooooop BackLine Spawnnn,%s"), *ElementInDataSheet->GetFName().ToString());
 
 			if (ElementInDataSheet->CharacterDetails.BattlePawnToUse)
 			{
-				////////////UE_LOG(LogTemp, Warning, TEXT("BattlePawn  BackLine ,%s"), *ElementInDataSheet->GetFName().ToString());
+				//////////////UE_LOG(LogTemp, Warning, TEXT("BattlePawn  BackLine ,%s"), *ElementInDataSheet->GetFName().ToString());
 			}
 			ABattlePawnBase* ClassToSpawn = PlayerCont->PlayersParty->PartyFormationBackLine[i]->CharacterDetails.CharactersBattleBlueprint;
 			FVector SpawnLoc = PlayerBattleSpawns[4 + i]->GetComponentLocation();
@@ -201,7 +201,7 @@ void ABattleZoneBase::SpawnPlayersParty()
 			ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(ElementInDataSheet->CharacterDetails.BattlePawnToUse, SpawnLoc, FRotator(0.f, -0.0f, 0.f), SpawnParams);
 			if (SpawnedPawn != NULL)
 			{
-				////////////UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
+				//////////////UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
 				SpawnedPawn->SetUpPlayerPawn(ElementInDataSheet, PlayerBattleSpawns[4 +i], this, true, true);
 				PlayerBattleSpawns[4 + i]->myPawn = SpawnedPawn;
 				allBattlePawns.Add(SpawnedPawn);
@@ -225,27 +225,27 @@ void ABattleZoneBase::SpanEnemyParty()
 	if (PartyListLenght != 0)
 	{
 		RandNo = FMath::RoundToInt(FMath::FRandRange(1.f, PartyListLenght));
-		////////////UE_LOG(LogTemp, Warning, TEXT("Formation no =,%d"),rand);
+		//////////////UE_LOG(LogTemp, Warning, TEXT("Formation no =,%d"),rand);
 		enemyPartyFormation = GetWorld()->SpawnActor<AEnemyPartyFormationCompnent>(PartyList->ListOfFormations[RandNo-1], FVector(0.f, 0.f, 0.f), FRotator(0.f, .0f, 0.f), SpawnParams);
 
 		for (int i = 0; i < enemyPartyFormation->PartyFormationFrontLineSub.Num();i++)
 		{
-			////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn"));
+			//////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn"));
 
 			if (enemyPartyFormation->PartyFormationFrontLineSub[i] != NULL)
 			{
-				////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn  != NBULLLLL"));
+				//////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn  != NBULLLLL"));
 
 				if (enemyPartyFormation->PartyFormationFrontLineSub[i])
 				{
-					////////////UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *enemyPartyFormation->PartyFormationFrontLineSub[i]->GetFName().ToString());
+					//////////////UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *enemyPartyFormation->PartyFormationFrontLineSub[i]->GetFName().ToString());
 				}
 				FVector SpawnLoc = EnemyBattleSpawns[i]->GetComponentLocation();
 				SpawnLoc.Z += enemyPartyFormation->PartyFormationFrontLineSub[i].GetDefaultObject()->heightOffset;
 				ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(enemyPartyFormation->PartyFormationFrontLineSub[i], SpawnLoc, FRotator(0.f, 180.0f, 0.f), SpawnParams);
 				if (SpawnedPawn != NULL)
 				{
-					////////////UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
+					//////////////UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
 					SpawnedPawn->MyBattleZone = this;
 					SpawnedPawn->PawnsBaseActor = EnemyBattleSpawns[i];
 					SpawnedPawn->isOwnedByPlayer = false;
@@ -260,22 +260,22 @@ void ABattleZoneBase::SpanEnemyParty()
 		}
 		for (int i = 0; i < enemyPartyFormation->PartyFormationBackLineSub.Num();i++)
 		{
-			////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn"));
+			//////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn"));
 
 			if (enemyPartyFormation->PartyFormationBackLineSub[i] != NULL)
 			{
-				////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn  != NBULLLLL"));
+				//////////////UE_LOG(LogTemp, Warning, TEXT("looooooop Spawnnn  != NBULLLLL"));
 
 				if (enemyPartyFormation->PartyFormationBackLineSub[i])
 				{
-					////////////UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *enemyPartyFormation->PartyFormationBackLineSub[i]->GetFName().ToString());
+					//////////////UE_LOG(LogTemp, Warning, TEXT("BattlePawn,%s"), *enemyPartyFormation->PartyFormationBackLineSub[i]->GetFName().ToString());
 				}
 				FVector SpawnLoc = EnemyBattleSpawns[4 + i]->GetComponentLocation();
 				SpawnLoc.Z += enemyPartyFormation->PartyFormationBackLineSub[i].GetDefaultObject()->heightOffset;
 				ABattlePawnBase* SpawnedPawn = GetWorld()->SpawnActor<ABattlePawnBase>(enemyPartyFormation->PartyFormationBackLineSub[i], SpawnLoc, FRotator(0.f, 180.0f, 0.f), SpawnParams);
 				if (SpawnedPawn != NULL)
 				{
-					////////////UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
+					//////////////UE_LOG(LogTemp, Warning, TEXT("Back Spawned"));
 					SpawnedPawn->MyBattleZone = this;
 					SpawnedPawn->PawnsBaseActor = EnemyBattleSpawns[4 + i];
 					SpawnedPawn->isOwnedByPlayer = false;

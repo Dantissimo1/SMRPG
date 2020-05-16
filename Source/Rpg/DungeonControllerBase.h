@@ -58,7 +58,7 @@ public:
 	void ForwardsInput(float Value);
 	void HorizontalInput(float Value);
 	void JumpInput();
-
+	void Back();
 	/////Camera
 	void CameraYawInput(float Value);
 	void CameraPitchInput(float Value);
@@ -99,6 +99,12 @@ public:
 	void SelectSingleVertical(float value);
 	ABattlePawnBase* SelectFirstHostileTarget();
 
+
+
+	FTimerHandle tSwitchTimerHandle;
+	bool switchTimerReady = true;
+	UFUNCTION()
+	void ToggleSwitchTimer();
 
 	void ConfirmSingleTarget();
 };

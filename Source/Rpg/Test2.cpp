@@ -12,5 +12,5 @@ UTest2::UTest2()
 void UTest2::TestFunction()
 {
 
-	////UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn"));
+	//////UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn"));
 }

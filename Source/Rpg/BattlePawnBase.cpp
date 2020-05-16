@@ -27,7 +27,7 @@ ABattlePawnBase::ABattlePawnBase()
 void ABattlePawnBase::BeginPlay()
 {
 	Super::BeginPlay();
-	////////////UE_LOG(LogTemp, Warning, TEXT("Battle Character Exists 22"));
+	//////////////UE_LOG(LogTemp, Warning, TEXT("Battle Character Exists 22"));
 	mainCharInfo.Speed = mainCharInfo.BaseSpeed;
 
 }
@@ -69,14 +69,14 @@ void ABattlePawnBase::SetUpNPCPawn()
 		FActorSpawnParameters Spawnparams;
 		Spawnparams.Owner = this;
 		
-		abilitys.Add(GetWorld()->SpawnActor<UAbilityBase>(abilityClasses[i]));
+		abilitys.Add(NewObject<UAbilityBase>(abilityClasses[i]));
 
 	}
 
 	for (int i = 0; i < magicAbilityClasses.Num();i++)
 	{
 
-		magicAbilitys.Add(GetWorld()->SpawnActor<UAbilityBase>(magicAbilityClasses[i]));
+		magicAbilitys.Add(NewObject<UAbilityBase>(magicAbilityClasses[i]));
 
 	}
 	
@@ -85,7 +85,7 @@ void ABattlePawnBase::SetUpNPCPawn()
 void ABattlePawnBase::EndAttack()
 {
 	attackActionCompleeted = true;
-	////////////UE_LOG(LogTemp, Warning, TEXT("AtackActioncokpleeted"));
+	//////////////UE_LOG(LogTemp, Warning, TEXT("AtackActioncokpleeted"));
 }
 /*
 // Called to bind functionality to input
@@ -104,14 +104,14 @@ void ABattlePawnBase::InitializePlayersAbilitys()
 		FActorSpawnParameters Spawnparams;
 		Spawnparams.Owner = this;
 
-		abilitys.Add(GetWorld()->SpawnActor<UAbilityBase>(myDataSheet->abilityClasses[i]));
+		abilitys.Add(NewObject<UAbilityBase>(myDataSheet->abilityClasses[i]));
 
 	}
 
 	for (int i = 0; i < myDataSheet->magicAbilityClasses.Num();i++)
 	{
 
-		magicAbilitys.Add(GetWorld()->SpawnActor<UAbilityBase>(myDataSheet->magicAbilityClasses[i]));
+		magicAbilitys.Add(NewObject<UAbilityBase>(myDataSheet->magicAbilityClasses[i]));
 
 	}
 	
@@ -129,23 +129,23 @@ void ABattlePawnBase::InitializeEquipedItems()
 
 bool ABattlePawnBase::MoveToLocation(FVector inLocation)
 {
-	////////////UE_LOG(LogTemp, Warning, TEXT("move to location"));
+	//////////////UE_LOG(LogTemp, Warning, TEXT("move to location"));
 	bool moveCompleeted = false;
 	bool rotationCompleted = false;
 	FVector actorLocOnBattleFloor = GetActorLocation();
-	////////////UE_LOG(LogTemp, Warning, TEXT("move to location 1"));
+	//////////////UE_LOG(LogTemp, Warning, TEXT("move to location 1"));
 	actorLocOnBattleFloor.Z = MyBattleZone->GetActorLocation().Z;
-	////////////UE_LOG(LogTemp, Warning, TEXT("move to location 2"));
+	//////////////UE_LOG(LogTemp, Warning, TEXT("move to location 2"));
 	FVector inLocOnBattleFloor = inLocation;
 	inLocOnBattleFloor.Z = MyBattleZone->GetActorLocation().Z;
-	////////////UE_LOG(LogTemp, Warning, TEXT("move to location 3"));
+	//////////////UE_LOG(LogTemp, Warning, TEXT("move to location 3"));
 	if (FVector::Dist(actorLocOnBattleFloor, inLocOnBattleFloor) < moveDistanceTolerance)
 	{
-		////////////UE_LOG(LogTemp, Warning, TEXT("move within Tolerance"));
+		//////////////UE_LOG(LogTemp, Warning, TEXT("move within Tolerance"));
 		moveCompleeted = true;
 	}else
 	{
-		////////////UE_LOG(LogTemp, Warning, TEXT("move forwards"));
+		//////////////UE_LOG(LogTemp, Warning, TEXT("move forwards"));
 		MoveForwards(inLocation);
 	}
 	RotateToTarget(inLocation);
@@ -161,16 +161,16 @@ bool ABattlePawnBase::MoveToLocation(FVector inLocation)
 		return true;
 	}
 
-	////////////UE_LOG(LogTemp, Warning, TEXT("move Battle Pawn"));
+	//////////////UE_LOG(LogTemp, Warning, TEXT("move Battle Pawn"));
 	DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation()+((GetActorForwardVector()*800)), FColor::Red,false, 0.1f);
 	
-	////////////UE_LOG(LogTemp, Warning, TEXT("Keep moving"));
+	//////////////UE_LOG(LogTemp, Warning, TEXT("Keep moving"));
 	return false;
 }
 
 void ABattlePawnBase::MoveForwards(FVector inLocation)
 {
-	////////////UE_LOG(LogTemp, Warning, TEXT("move forawards 111"));
+	//////////////UE_LOG(LogTemp, Warning, TEXT("move forawards 111"));
 	isMoving = true;
 	FVector newLoc;
 	newLoc = GetActorLocation() - inLocation;
@@ -196,7 +196,7 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 
 	float angleBetween = FVector::DotProduct(t1, t3 );
 	float rotToAdd = 0;
-	////UE_LOG(LogTemp, Warning, TEXT("angle between %f"), angleBetween);
+	//////UE_LOG(LogTemp, Warning, TEXT("angle between %f"), angleBetween);
 	FRotator rotRemaning = GetActorRotation() - (inLocation - t2).Rotation();
 
 	if (angleBetween < rotationTolerance && angleBetween > - rotationTolerance)
@@ -204,11 +204,11 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 		FVector t4 = GetActorForwardVector();
 		t4.Z = 0;
 		float sideAngle = FVector::DotProduct(t4, t3);
-		////UE_LOG(LogTemp, Warning, TEXT("sideAngle =  %f"),sideAngle);
+		//////UE_LOG(LogTemp, Warning, TEXT("sideAngle =  %f"),sideAngle);
 		if (sideAngle < rotationTolerance)
 		{
 
-			////UE_LOG(LogTemp, Warning, TEXT("rot return true "));
+			//////UE_LOG(LogTemp, Warning, TEXT("rot return true "));
 			return true;
 		}
 		else
@@ -239,25 +239,25 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 	if (rotRemaning.Yaw <= 0)
 	{
 		rotToAdd = rotationSpeed * GetWorld()->DeltaTimeSeconds;
-		////UE_LOG(LogTemp, Warning, TEXT("rledft  %f"), rotToAdd);
+		//////UE_LOG(LogTemp, Warning, TEXT("rledft  %f"), rotToAdd);
 	}
 	else if (rotRemaning.Yaw > 0)
 	{
 		rotToAdd -= rotationSpeed * GetWorld()->DeltaTimeSeconds;
-		////UE_LOG(LogTemp, Warning, TEXT("right =  %f"), rotToAdd);
+		//////UE_LOG(LogTemp, Warning, TEXT("right =  %f"), rotToAdd);
 	}
 
-	////UE_LOG(LogTemp, Warning, TEXT("rot to add 2 =  %f"), rotToAdd);
+	//////UE_LOG(LogTemp, Warning, TEXT("rot to add 2 =  %f"), rotToAdd);
 	if (abs(rotToAdd) > abs(rotRemaning.Yaw))
 	{
 
 		rotToAdd = rotRemaning.Yaw;
-		////UE_LOG(LogTemp, Warning, TEXT("rot corection    =  %f"), rotToAdd);
+		//////UE_LOG(LogTemp, Warning, TEXT("rot corection    =  %f"), rotToAdd);
 	}
 
 	FRotator rotation(0.f, rotToAdd, 0.f);
 	FRotator FinalRot = myRot + rotation;
-	//////UE_LOG(LogTemp, Warning, TEXT("rot to add 3 =  %s"), *FinalRot.ToString());
+	////////UE_LOG(LogTemp, Warning, TEXT("rot to add 3 =  %s"), *FinalRot.ToString());
 	if (FinalRot.Yaw < -180)
 	{
 		FinalRot.Yaw += 360;
@@ -273,7 +273,7 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 	{
 
 
-		////UE_LOG(LogTemp, Warning, TEXT("rot return true 2"));
+		//////UE_LOG(LogTemp, Warning, TEXT("rot return true 2"));
 		//return true;
 	}
 	return false;

@@ -118,9 +118,11 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPCAbilitys")
 		TArray<TSubclassOf<UAbilityBase>> abilityClasses;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Abilitys")
 	TArray<UAbilityBase*> abilitys;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPCAbilitys")
 		TArray<TSubclassOf<UAbilityBase>> magicAbilityClasses;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Abilitys")
 	TArray<UAbilityBase*> magicAbilitys;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPCAbilitys")
