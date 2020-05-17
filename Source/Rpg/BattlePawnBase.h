@@ -108,7 +108,7 @@ public:
 	//////////////////portraight///////////////////////
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Portrait")
 	UTexture* PortraitImage;
-
+	
 
 
 	/////////abilitys
@@ -158,6 +158,9 @@ public:
 	void MoveForwards(FVector inLocation);
 	bool RotateToTarget(FVector inLocation);
 
+
+	////Freindly targeting
+	ABattlePawnBase* lastFreindlyTarget = NULL;
 
 
 	/////atacking

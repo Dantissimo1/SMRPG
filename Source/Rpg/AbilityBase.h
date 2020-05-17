@@ -12,6 +12,21 @@
 class UEffectSource;
 class ABattlePawnBase;
 
+
+
+
+UENUM()
+enum class EAttackType : uint8
+{
+	singleTarget,
+	aoeSmall,
+	aoeMed,
+	aoePartywide,
+};
+
+
+
+
 /**
  * 
  */
@@ -23,7 +38,20 @@ class RPG_API UAbilityBase : public UObject
 
 public:
 	UAbilityBase();
+
 	void AbilitysInstructions();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		FString Name = "Tits";
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		EAttackType attackType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		bool targetsHostile = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		bool isHealing = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 		FDamageTypesToCause DamageTypes;

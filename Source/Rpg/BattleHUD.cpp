@@ -16,6 +16,7 @@ void UBattleHUD::SetUp(UBattleBrainComponent* inBrain, ADungeonControllerBase* i
 		////UE_LOG(LogTemp, Warning, TEXT("UBattleBrainComponent 2"));
 		activeBattleBrain = inBrain;
 		playerController = inPlayerController;
+		SetUpHUD();
 	}
 
 }
@@ -27,14 +28,18 @@ void UBattleHUD::CallCalcTurns()
 	////UE_LOG(LogTemp, Warning, TEXT("CalcTurnsHUD 2"));
 }
 
-
-void UBattleHUD::SelectSingleTarget()
+void UBattleHUD::SetUpHUD_Implementation()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Select Single Target 1"));
-	playerController->isWaitingForSingleTargetSelection = true;
-	playerController->lookingForHostile = true;
+}
+
+
+void UBattleHUD::SelectTarget()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Select Target 1"));
+	playerController->skillSelected = true;
+	playerController->activeAbility = activeAbility;
+	activeAbility = NULL;
 	selectingTargets = true;
-	
 }
 
 

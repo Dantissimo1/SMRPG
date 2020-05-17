@@ -351,6 +351,10 @@ bool UBattleBrainComponent::RunPlayersTurn()
 			
 			return testOp2 = AttackMelee(confirmedSingleTarget);
 		}
+		/// more for difrent attack types
+
+
+
 
 	}
 

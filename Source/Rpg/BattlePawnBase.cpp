@@ -64,20 +64,17 @@ void ABattlePawnBase::SetUpNPCPawn()
 {
 	
 	for (int i = 0; i < abilityClasses.Num();i++)
-	{
+	{	
+		abilitys.Add(NewObject<UAbilityBase>(this, abilityClasses[i]));
 
-		FActorSpawnParameters Spawnparams;
-		Spawnparams.Owner = this;
+		//NewObject<UMyObject>(this, TMyObj->GetFName(), RF_NoFlags, TMyObj.GetDefaultObject());
 		
-		abilitys.Add(NewObject<UAbilityBase>(abilityClasses[i]));
-
+		
 	}
 
 	for (int i = 0; i < magicAbilityClasses.Num();i++)
 	{
-
-		magicAbilitys.Add(NewObject<UAbilityBase>(magicAbilityClasses[i]));
-
+		magicAbilitys.Add(NewObject<UAbilityBase>(this ,magicAbilityClasses[i]));
 	}
 	
 }
@@ -97,21 +94,20 @@ void ABattlePawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 void ABattlePawnBase::InitializePlayersAbilitys()
 {
-	
+	UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitys"));
 	for (int i = 0; i < myDataSheet->abilityClasses.Num();i++)
 	{
-
+		UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitys 1"));
 		FActorSpawnParameters Spawnparams;
 		Spawnparams.Owner = this;
 
-		abilitys.Add(NewObject<UAbilityBase>(myDataSheet->abilityClasses[i]));
-
+		abilitys.Add(NewObject<UAbilityBase>(this ,myDataSheet->abilityClasses[i]));
 	}
 
 	for (int i = 0; i < myDataSheet->magicAbilityClasses.Num();i++)
 	{
 
-		magicAbilitys.Add(NewObject<UAbilityBase>(myDataSheet->magicAbilityClasses[i]));
+		magicAbilitys.Add(NewObject<UAbilityBase>(this ,myDataSheet->magicAbilityClasses[i]));
 
 	}
 	

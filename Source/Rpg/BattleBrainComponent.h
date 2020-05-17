@@ -72,7 +72,7 @@ public:
 	bool attackMenueSpawned = false;
 	bool watingForPlayersTarget = true;
 	ABattlePawnBase* confirmedSingleTarget = NULL;
-
+	///add more for difrent attack types
 
 	////attack
 	bool AttackMelee(ABattlePawnBase* attackTarget);

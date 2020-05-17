@@ -15,6 +15,7 @@ class UCharacterDataSheet;
 class UDungeonHUD;
 class UBattleHUD;
 class ABattlePawnBase;
+class UAbilityBase;
 
 /**
  * 
@@ -51,7 +52,7 @@ public:
 	void BeginBattle(ABattleZoneBase* InBattleZone);
 	void EndBattle();
 
-
+	UAbilityBase* activeAbility;
 
 	/////////////////////////////////////////inputs for all modes///////////////////
 	///////Movement
@@ -91,8 +92,13 @@ public:
 	UBattleHUD* BattleHUD;
 	void BattleHUDSpawn();
 	void BattleHUDDespawn();
+	bool skillSelected = false;
+	bool targetSelected = false;
 	bool lookingForHostile = true;
 	bool isWaitingForSingleTargetSelection = false;
+	bool isWatingForSmallAOESelection = false;
+	bool isWaitingForMedAoeSelection = false;
+	bool isWaitingForPartyAOESelection = false;
 	bool hasSetLastTarget = false;
 	ABattlePawnBase* singleTarget = NULL;
 	void SelectSingleHorizontal(float value);
