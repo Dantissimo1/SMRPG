@@ -44,7 +44,6 @@ void ADungeonControllerBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-
 	if (skillSelected == true)
 	{
 		UE_LOG(LogTemp, Warning, TEXT(" skillSelected 1"));
@@ -75,11 +74,6 @@ void ADungeonControllerBase::Tick(float DeltaTime)
 			{
 				isWaitingForPartyAOESelection = true;
 			}
-
-			/////fill in moire for difrent attack types
-
-
-
 		}
 	}
 	if (isWaitingForSingleTargetSelection)
@@ -104,8 +98,7 @@ void ADungeonControllerBase::Tick(float DeltaTime)
 			else
 			{
 				SetViewTargetWithBlend(singleTarget, 0.3f);
-			}
-			
+			}			
 		}
 		else
 		{
@@ -128,7 +121,6 @@ void ADungeonControllerBase::Tick(float DeltaTime)
 			{
 				SetViewTargetWithBlend(singleTarget, 0.3f);
 			}
-
 		}
 		DrawDebugPoint(GetWorld(), singleTarget->GetActorLocation(), 100.f, FColor::Red, false, 0.1f);
 	}
@@ -352,12 +344,13 @@ void ADungeonControllerBase::SelectSingleHorizontal(float value)
 				bool HasBeenPlacedOnRow = false;
 				for (int y = 1;y < 5;y++)
 				{
+					UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.01 %d"), y);
 					if (singleTarget->bIsBackLine == true)
 					{
 						rowMin = 5;
 						rowMax = 8;
 					}
-					newPlaceOnGrid += y;
+					newPlaceOnGrid += 1;
 					if (newPlaceOnGrid > rowMax)
 					{
 						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.1 %d"), newPlaceOnGrid);
@@ -365,7 +358,7 @@ void ADungeonControllerBase::SelectSingleHorizontal(float value)
 						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.2 "));
 						y = 1;
 					}
-					if (CurrentBattleArea->EnemyBattleSpawns[newPlaceOnGrid - 1]->myPawn != NULL && spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != singleTarget)
+					if (spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != NULL )//&& spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != singleTarget
 					{
 						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 7 %d"), newPlaceOnGrid);
 						singleTarget = spawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
@@ -389,7 +382,7 @@ void ADungeonControllerBase::SelectSingleHorizontal(float value)
 						rowMin = 5;
 						rowMax = 8;
 					}
-					newPlaceOnGrid -= y;
+					newPlaceOnGrid -= 1;
 					if (newPlaceOnGrid < rowMin)
 					{
 						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6 %d"), newPlaceOnGrid);
@@ -397,7 +390,7 @@ void ADungeonControllerBase::SelectSingleHorizontal(float value)
 						y = 1;
 					}
 					UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.7 %d"), newPlaceOnGrid);
-					if (spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != NULL && spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != singleTarget)
+					if (spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != NULL )//&& spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != singleTarget
 					{
 						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 7 %d"), newPlaceOnGrid);
 						singleTarget = spawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
@@ -426,7 +419,6 @@ void ADungeonControllerBase::SelectSingleVertical(float value)
 		UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal  lookingForHostile 1"));
 		spawnPointsToUse = CurrentBattleArea->PlayerBattleSpawns;
 	}
-
 
 		if (switchTimerReady == true)
 		{
@@ -457,17 +449,9 @@ void ADungeonControllerBase::SelectSingleVertical(float value)
 					}
 				}
 			}
-
-
-
-
 			singleTarget = spawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
 			SetViewTargetWithBlend(singleTarget, .3f);
 		}
-
-	
-
-
 }
 
 ABattlePawnBase* ADungeonControllerBase::SelectFirstHostileTarget()
@@ -569,11 +553,12 @@ void ADungeonControllerBase::ConfirmSingleTarget()
 		skillSelected = false;
 		BattleHUD->selectingTargets = false;
 		lookingForHostile = false;
+		hasSetLastTarget = false;
 		CurrentBattleArea->BattleBrain->activeAbility = activeAbility;
 		activeAbility = NULL;
 		BattleHUD->BackToAttackSelection();
 		SetViewTarget(CurrentBattleArea);
-		hasSetLastTarget = false;
+		
 	}
 }
 
