@@ -21,7 +21,7 @@ void ACharacterDataSheet::BeginPlay()
 {
 	Super::BeginPlay();
 	CharacterDetails.CharactersBattleBlueprint = NewObject<ABattlePawnBase>(CharacterDetails.BattlePawnToUse);
-	itemsEquiped.myWeapon = NewObject<AWeaponBase>(WeaponToUse);
+	itemsEquiped.myWeapon = WeaponToUse;
 
 	for (int i = 0; i < abilityClasses.Num();i++)
 	{

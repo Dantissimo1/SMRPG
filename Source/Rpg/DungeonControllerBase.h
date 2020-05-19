@@ -16,6 +16,7 @@ class UDungeonHUD;
 class UBattleHUD;
 class ABattlePawnBase;
 class UAbilityBase;
+class UBattleSpawnPoint;
 
 /**
  * 
@@ -105,6 +106,11 @@ public:
 	void SelectSingleVertical(float value);
 	ABattlePawnBase* SelectFirstHostileTarget();
 
+
+
+
+	ABattlePawnBase* SearchValidBackline(TArray<UBattleSpawnPoint*>inSpawnPointsToUse);
+	ABattlePawnBase* SearchValidFrontline(TArray<UBattleSpawnPoint*>inSpawnPointsToUse);
 
 
 	FTimerHandle tSwitchTimerHandle;

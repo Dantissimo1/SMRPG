@@ -106,15 +106,17 @@ public:
 };
 
 
+
+
 USTRUCT(BluePrintType)
-struct RPG_API FEquipedItems
+struct RPG_API FSavedEquipedItems
 {
 	GENERATED_USTRUCT_BODY()
 
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		AWeaponBase* myWeapon;
+		TSubclassOf<AWeaponBase> myWeapon;
 
 
 
@@ -158,7 +160,7 @@ public:
 		TSubclassOf<class AWeaponBase>WeaponToUse;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
-		FEquipedItems itemsEquiped;
+		FSavedEquipedItems itemsEquiped;
 
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Abilitys")

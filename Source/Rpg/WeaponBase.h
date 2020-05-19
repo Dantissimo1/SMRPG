@@ -27,6 +27,9 @@ public:
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
+		FString name = "Poop Stick";
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 		FDamageTypesToCause myDamage;
 		
 };

@@ -34,5 +34,6 @@ public:
 
     TArray<UEffect*> activeEffects;
 
-
+    void InitialRun();
+    void EndEffect();
 };

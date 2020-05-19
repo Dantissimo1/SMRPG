@@ -22,7 +22,7 @@ class AEnemyPartyFormationList;
 class UBattleBrainComponent;
 class UOpotunityAttackPosition;
 class UAttackPosition;
-
+class UAOEPoint;
 
 UCLASS()
 class RPG_API ABattleZoneBase : public AActor
@@ -97,6 +97,9 @@ public:
 		UBattleSpawnPoint* EnemySpawnPoint7;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPointsOposite")
 		UBattleSpawnPoint* EnemySpawnPoint8;
+
+	//////////////////////AOE Points////////////////////////////////
+
 
 
 	//playerside

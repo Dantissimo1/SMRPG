@@ -16,6 +16,9 @@
 #include "AttackPosition.h"
 #include "OpotunityAttackPosition.h"
 #include "CharacterDataSheet.h"
+#include "AOEGridBase.h"
+#include "AOEPoint.h"
+
 
 
 // Sets default values
@@ -105,7 +108,6 @@ ABattleZoneBase::ABattleZoneBase()
 	EnemyBattleSpawns.Add(EnemySpawnPoint8);
 
 	
-
 }
 
 

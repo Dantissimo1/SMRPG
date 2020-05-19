@@ -22,6 +22,21 @@ class UEffect;
 class UCameraComponent;
 
 
+USTRUCT(BluePrintType)
+struct RPG_API FEquipedItems
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		AWeaponBase* myWeapon;
+
+
+
+
+
+};
 
 UENUM()
 enum class ECharacterType : uint8
@@ -98,12 +113,14 @@ public:
 	FCharacterDetails mainCharInfo;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		FOfensiveStats OfensiveStatsBase;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		FOfensiveStats OfensiveStats;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+		FDDefensiveStats DefensiveStatsBase;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		FDDefensiveStats DefensiveStats;
-
 
 	//////////////////portraight///////////////////////
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Portrait")
@@ -136,6 +153,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equiped Items")
 	FEquipedItems MyEquipedItems;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equiped NPC Items")
+		TSubclassOf<AWeaponBase>WeaponToSpawn;
+
 	void InitializeEquipedItems();
 
 	///movement
@@ -173,15 +193,11 @@ public:
 
 	///////   damage
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "damage")
 	bool isDown = false;
-	void CauseDamageToBattlePawn(ABattlePawnBase* inPawn,bool isMagic);
-	//void CauseRangedDamageToBattlePawn(ABattlePawnBase* inPawn);
-	//void CauseMagicDamageToBattlePawn(ABattlePawnBase* inPawn);
-	//void TakeDamage(FBattlePawnTurnInfo* inDamage);
-
-	void TakeBattleDamage(FDamageTypesToCause* inDamage);
-
+	void CauseDamageToBattlePawn(ABattlePawnBase* inPawn);
+	void TakeBattleDamage(FDamageTypesToCause inDamage);
+	void GoDown();
 	TArray<UEffectSource*>activeEffectSources;
 	TArray<UEffect*>activeEffects;
 	

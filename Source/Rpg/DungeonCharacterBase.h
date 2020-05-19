@@ -32,7 +32,7 @@ public:
 
 	UWorld* World;
 
-
+	bool isDown = false;
 
 	/////batle mode 
 	AEncounterVolumeBase* CurrentEncountreVolume = NULL;

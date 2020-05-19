@@ -65,7 +65,7 @@ public:
 	bool RunActiveTurn();
 	bool RunPlayersTurn();
 	bool RunEnemyTurn();
-
+	void RemovePawnsTurns(ABattlePawnBase* inPawn);
 
 	//////////target selection///////
 	UAbilityBase* activeAbility = NULL;
@@ -86,7 +86,7 @@ public:
 	bool awatingOpotunityDecision = true;
 	bool variablesReset = false;
 	bool faceingTargetLocation = false;
-
+	bool damageStepDone = false;
 
 	void EndBattle();
 	void ClearTurnOrders();

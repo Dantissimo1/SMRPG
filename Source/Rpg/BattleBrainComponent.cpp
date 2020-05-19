@@ -66,8 +66,9 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 				PlayersCont->isWaitingForSingleTargetSelection = false;
 				watingForPlayersTarget = true;
 			}
-
-
+			activeAbility = NULL;
+			damageStepDone = false;
+			ActiveTurn->MyBattlePawn->activeAbility = NULL;
 			ActiveTurn = TurnOrder[0];
 			TurnOrder.RemoveAt(0);
 			PlayersCont->BattleHUD->CallCalcTurns();
@@ -349,7 +350,30 @@ bool UBattleBrainComponent::RunPlayersTurn()
 			PlayersCont->BattleHUD->HideAttackMenue();
 			//UE_LOG(LogTemp, Warning, TEXT("confirmedSingleTarget 0"));
 			
-			return testOp2 = AttackMelee(confirmedSingleTarget);
+			if (activeAbility)
+			{
+				if (activeAbility->AttackStyle == EAttackStyle::Melee)
+				{
+					return testOp2 = AttackMelee(confirmedSingleTarget);
+				}
+				if (activeAbility->AttackStyle == EAttackStyle::Magic)
+				{
+					return testOp2 = AttackMagic(confirmedSingleTarget);
+				}
+				if (activeAbility->AttackStyle == EAttackStyle::Rganged)
+				{
+					return testOp2 = AttackRanged(confirmedSingleTarget);
+				}
+			}
+			else
+			{
+				return testOp2 = AttackMelee(confirmedSingleTarget);
+			}
+
+
+
+
+			//return testOp2 = AttackMelee(confirmedSingleTarget);
 		}
 		/// more for difrent attack types
 
@@ -378,6 +402,19 @@ bool UBattleBrainComponent::RunEnemyTurn()
 	
 	return testOp2 = AttackMelee(attaaaaTarget);
 	
+}
+
+void UBattleBrainComponent::RemovePawnsTurns(ABattlePawnBase* inPawn)
+{
+	for (int j = 0; j < TurnOrder.Num();j++)
+	{
+		if (TurnOrder[j]->MyBattlePawn == inPawn)
+		{
+			TurnOrder.RemoveAt(j);
+			j -= 1;
+		}	
+	}
+	PlayersCont->BattleHUD->CalcTurnsHUD();
 }
 
 bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
@@ -426,6 +463,36 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 	}
 	else
 	{
+		if (damageStepDone == false)
+		{
+			if (activeAbility != NULL)
+			{
+				TArray<ABattlePawnBase*> targets;
+				targets = activeAbility->AbilitysInstructions(ActiveTurn->MyBattlePawn, attackTarget);
+				ActiveTurn->MyBattlePawn->activeAbility = activeAbility;
+				if (activeAbility->isHealing != true)
+				{
+					UE_LOG(LogTemp, Warning, TEXT(" Attack Magic Atttaaaaaa 2"));
+					for (int d = 0; d < targets.Num();d++)
+					{
+						UE_LOG(LogTemp, Warning, TEXT(" Attack Magic Atttaaaaaa 3"));
+						ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(targets[d]);
+					}
+				}
+				else
+				{
+
+
+				}
+
+			}
+			else
+			{
+				ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(attackTarget);
+			}
+			damageStepDone = true;
+		}
+		
 		//////////////UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home "));
 		if (variablesReset == false)
 		{
@@ -496,6 +563,35 @@ bool UBattleBrainComponent::AttackMagic(ABattlePawnBase* attackTarget)
 	}
 	if (ActiveTurn->MyBattlePawn->attackActionCompleeted == true)
 	{
+		if (damageStepDone == false)
+		{
+			if (activeAbility != NULL)
+			{
+				TArray<ABattlePawnBase*> targets;
+				ActiveTurn->MyBattlePawn->activeAbility = activeAbility;
+				targets = activeAbility->AbilitysInstructions(ActiveTurn->MyBattlePawn, attackTarget);
+				if (activeAbility->isHealing != true)
+				{	
+					UE_LOG(LogTemp, Warning, TEXT(" Attack Magic Atttaaaaaa 2"));
+					for (int d = 0; d < targets.Num();d++)
+					{
+						UE_LOG(LogTemp, Warning, TEXT(" Attack Magic Atttaaaaaa 3"));
+						ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(targets[d]);
+					}
+				}
+				else
+				{
+
+
+				}
+
+			}
+			else
+			{
+				ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(attackTarget);
+			}
+			damageStepDone = true;
+		}
 		//////UE_LOG(LogTemp, Warning, TEXT(" Attack magic 2"));
 		if (ActiveTurn->MyBattlePawn->RotateToTarget(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation()))
 		{
@@ -524,6 +620,35 @@ bool UBattleBrainComponent::AttackRanged(ABattlePawnBase* attackTarget)
 	/// adjustt to get if projectile has hit when you make them
 	if (ActiveTurn->MyBattlePawn->attackActionCompleeted == true)
 	{
+		if (damageStepDone == false)
+		{
+			if (activeAbility != NULL)
+			{
+				TArray<ABattlePawnBase*> targets;
+				ActiveTurn->MyBattlePawn->activeAbility = activeAbility;
+				targets = activeAbility->AbilitysInstructions(ActiveTurn->MyBattlePawn, attackTarget);
+				if (activeAbility->isHealing != true)
+				{
+					UE_LOG(LogTemp, Warning, TEXT(" Attack AttackRanged Atttaaaaaa 2"));
+					for (int d = 0; d < targets.Num();d++)
+					{
+						UE_LOG(LogTemp, Warning, TEXT(" Attack AttackRanged Atttaaaaaa 3"));
+						ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(targets[d]);
+					}
+				}
+				else
+				{
+
+
+				}
+
+			}
+			else
+			{
+				ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(attackTarget);
+			}
+			damageStepDone = true;
+		}
 		//////UE_LOG(LogTemp, Warning, TEXT(" Attack reange 2"));
 		if (ActiveTurn->MyBattlePawn->RotateToTarget(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation()))
 		{

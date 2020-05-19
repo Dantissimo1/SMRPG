@@ -11,8 +11,8 @@
 #include "EffectSource.h"
 #include "Effect.h"
 #include "Camera/CameraComponent.h"
-
-
+#include "BattleZoneBase.h"
+#include "BattleBrainComponent.h"
 
 // Sets default values
 ABattlePawnBase::ABattlePawnBase()
@@ -49,10 +49,8 @@ void ABattlePawnBase::SetUpPlayerPawn(ACharacterDataSheet* inDataSheet, UBattleS
 
 	//set stats
 	mainCharInfo = myDataSheet->CharacterDetails;
-	OfensiveStats = myDataSheet->OfensiveStats;
-	DefensiveStats = myDataSheet->DefensiveStats;
-
-	MyEquipedItems = myDataSheet->itemsEquiped;
+	OfensiveStatsBase = myDataSheet->OfensiveStats;
+	DefensiveStatsBase = myDataSheet->DefensiveStats;
 
 	InitializePlayersAbilitys();
 
@@ -97,18 +95,20 @@ void ABattlePawnBase::InitializePlayersAbilitys()
 	UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitys"));
 	for (int i = 0; i < myDataSheet->abilityClasses.Num();i++)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitys 1"));
-		FActorSpawnParameters Spawnparams;
-		Spawnparams.Owner = this;
-
-		abilitys.Add(NewObject<UAbilityBase>(this ,myDataSheet->abilityClasses[i]));
+		if (myDataSheet->abilityClasses[i] != NULL)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitys 1"));
+			abilitys.Add(NewObject<UAbilityBase>(this, myDataSheet->abilityClasses[i]));
+		}
 	}
 
 	for (int i = 0; i < myDataSheet->magicAbilityClasses.Num();i++)
 	{
-
-		magicAbilitys.Add(NewObject<UAbilityBase>(this ,myDataSheet->magicAbilityClasses[i]));
-
+		if (myDataSheet->magicAbilityClasses[i] != NULL)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitysMagic 1"));
+			magicAbilitys.Add(NewObject<UAbilityBase>(this, myDataSheet->magicAbilityClasses[i]));
+		}
 	}
 	
 }
@@ -117,8 +117,16 @@ void ABattlePawnBase::InitializeEquipedItems()
 {
 	FActorSpawnParameters Spawnparams;
 	Spawnparams.Owner = this;
-	MyEquipedItems.myWeapon = GetWorld()->SpawnActor<AWeaponBase>(Spawnparams);
+	FVector locationToSpawn = FVector(0, 0, 0);
 
+	if (isOwnedByPlayer != true)
+	{
+		MyEquipedItems.myWeapon = GetWorld()->SpawnActor<AWeaponBase>(WeaponToSpawn, locationToSpawn, FRotator(0, 0, 0), Spawnparams);
+	}
+	if (isOwnedByPlayer == true)
+	{
+		MyEquipedItems.myWeapon = GetWorld()->SpawnActor<AWeaponBase>(myDataSheet->itemsEquiped.myWeapon, locationToSpawn, FRotator(0, 0, 0), Spawnparams);
+	}
 
 
 }
@@ -292,55 +300,110 @@ bool ABattlePawnBase::AttackTargetMagic(ABattlePawnBase* inTarget)
 	return false;
 }
 
-void ABattlePawnBase::CauseDamageToBattlePawn(ABattlePawnBase* inPawn,bool isMagic)
+void ABattlePawnBase::CauseDamageToBattlePawn(ABattlePawnBase* inPawn)
 {
 	FDamageTypesToCause DamageToDeal;
+	float statsModifierTouse = 0;
 
-	if (isMagic != true)
+	if (isAttackingMelee)
 	{
-		DamageToDeal.ImpactDamage = (MyEquipedItems.myWeapon->myDamage.ImpactDamage * OfensiveStats.Strength);
-		DamageToDeal.SlashDamage = (MyEquipedItems.myWeapon->myDamage.SlashDamage * OfensiveStats.Strength);
-		DamageToDeal.PunctureDamage = (MyEquipedItems.myWeapon->myDamage.PunctureDamage * OfensiveStats.Strength);
-		DamageToDeal.FireDamage = (MyEquipedItems.myWeapon->myDamage.FireDamage * OfensiveStats.Strength);
-		DamageToDeal.EarthDamage = (MyEquipedItems.myWeapon->myDamage.EarthDamage * OfensiveStats.Strength);
-		DamageToDeal.WaterDamage = (MyEquipedItems.myWeapon->myDamage.WaterDamage * OfensiveStats.Strength);
-		DamageToDeal.ColdDamage = (MyEquipedItems.myWeapon->myDamage.ColdDamage * OfensiveStats.Strength);
-		DamageToDeal.ElectricityDamage = (MyEquipedItems.myWeapon->myDamage.ElectricityDamage * OfensiveStats.Strength);
-		DamageToDeal.HolyDamage = (MyEquipedItems.myWeapon->myDamage.HolyDamage * OfensiveStats.Strength);
-		DamageToDeal.VoidDamage = (MyEquipedItems.myWeapon->myDamage.VoidDamage * OfensiveStats.Strength);
-		DamageToDeal.ArcaneDamage = (MyEquipedItems.myWeapon->myDamage.ArcaneDamage * OfensiveStats.Strength);
+		statsModifierTouse = OfensiveStats.Strength;
+	}
+	if (isAttackingRanged)
+	{
+		statsModifierTouse = OfensiveStats.RangeFinesse;
+	}
+	if (isAttackingMagic)
+	{
+		statsModifierTouse = OfensiveStats.ArcaneAptitude;
 	}
 
-	if (activeAbility != NULL)
+	if (activeAbility == NULL)
 	{
-		DamageToDeal.ImpactDamage = activeAbility->DamageTypes.ImpactDamage;
-		DamageToDeal.SlashDamage = activeAbility->DamageTypes.SlashDamage;
-		DamageToDeal.PunctureDamage = activeAbility->DamageTypes.PunctureDamage;
-		DamageToDeal.FireDamage = activeAbility->DamageTypes.FireDamage;
-		DamageToDeal.EarthDamage = activeAbility->DamageTypes.EarthDamage;
-		DamageToDeal.WaterDamage = activeAbility->DamageTypes.WaterDamage;
-		DamageToDeal.ColdDamage = activeAbility->DamageTypes.ColdDamage;
-		DamageToDeal.ElectricityDamage = activeAbility->DamageTypes.ElectricityDamage;
-		DamageToDeal.HolyDamage = activeAbility->DamageTypes.HolyDamage;
-		DamageToDeal.VoidDamage = activeAbility->DamageTypes.VoidDamage;
-		DamageToDeal.ArcaneDamage = activeAbility->DamageTypes.ArcaneDamage;
-
-		inPawn->TakeBattleDamage(&DamageToDeal);
-
-
+		UE_LOG(LogTemp, Warning, TEXT("waepon naem  = %s"), *MyEquipedItems.myWeapon->name);
+		DamageToDeal.ImpactDamage = (MyEquipedItems.myWeapon->myDamage.ImpactDamage * (statsModifierTouse / 100));
+		DamageToDeal.SlashDamage = (MyEquipedItems.myWeapon->myDamage.SlashDamage * (statsModifierTouse / 100));
+		DamageToDeal.PunctureDamage = (MyEquipedItems.myWeapon->myDamage.PunctureDamage * (statsModifierTouse / 100));
+		DamageToDeal.FireDamage = (MyEquipedItems.myWeapon->myDamage.FireDamage * (statsModifierTouse / 100));
+		DamageToDeal.EarthDamage = (MyEquipedItems.myWeapon->myDamage.EarthDamage * (statsModifierTouse / 100));
+		DamageToDeal.WaterDamage = (MyEquipedItems.myWeapon->myDamage.WaterDamage * (statsModifierTouse / 100));
+		DamageToDeal.ColdDamage = (MyEquipedItems.myWeapon->myDamage.ColdDamage * (statsModifierTouse / 100));
+		DamageToDeal.ElectricityDamage = (MyEquipedItems.myWeapon->myDamage.ElectricityDamage * (statsModifierTouse / 100));
+		DamageToDeal.HolyDamage = (MyEquipedItems.myWeapon->myDamage.HolyDamage * (statsModifierTouse / 100));
+		DamageToDeal.VoidDamage = (MyEquipedItems.myWeapon->myDamage.VoidDamage * (statsModifierTouse / 100));
+		DamageToDeal.ArcaneDamage = (MyEquipedItems.myWeapon->myDamage.ArcaneDamage * (statsModifierTouse / 100));
+	}else
+	{
+		if (isAttackingMagic )
+		{
+			DamageToDeal.ImpactDamage = activeAbility->DamageTypes.ImpactDamage * (statsModifierTouse / 100);
+			DamageToDeal.SlashDamage = activeAbility->DamageTypes.SlashDamage * (statsModifierTouse / 100);
+			DamageToDeal.PunctureDamage = activeAbility->DamageTypes.PunctureDamage * (statsModifierTouse / 100);
+			DamageToDeal.FireDamage = activeAbility->DamageTypes.FireDamage * (statsModifierTouse / 100);
+			DamageToDeal.EarthDamage = activeAbility->DamageTypes.EarthDamage * (statsModifierTouse / 100);
+			DamageToDeal.WaterDamage = activeAbility->DamageTypes.WaterDamage * (statsModifierTouse / 100);
+			DamageToDeal.ColdDamage = activeAbility->DamageTypes.ColdDamage * (statsModifierTouse / 100);
+			DamageToDeal.ElectricityDamage = activeAbility->DamageTypes.ElectricityDamage * (statsModifierTouse / 100);
+			DamageToDeal.HolyDamage = activeAbility->DamageTypes.HolyDamage * (statsModifierTouse / 100);
+			DamageToDeal.VoidDamage = activeAbility->DamageTypes.VoidDamage * (statsModifierTouse / 100);
+			DamageToDeal.ArcaneDamage = activeAbility->DamageTypes.ArcaneDamage * (statsModifierTouse / 100);
+		}
+		else
+		{
+			DamageToDeal.ImpactDamage = (activeAbility->DamageTypes.ImpactDamage + MyEquipedItems.myWeapon->myDamage.ImpactDamage) * (statsModifierTouse / 100);
+			DamageToDeal.SlashDamage = (activeAbility->DamageTypes.SlashDamage + MyEquipedItems.myWeapon->myDamage.SlashDamage) * (statsModifierTouse / 100);
+			DamageToDeal.PunctureDamage = (activeAbility->DamageTypes.PunctureDamage + MyEquipedItems.myWeapon->myDamage.PunctureDamage) * (statsModifierTouse / 100);
+			DamageToDeal.FireDamage = (activeAbility->DamageTypes.FireDamage + MyEquipedItems.myWeapon->myDamage.FireDamage) * (statsModifierTouse / 100);
+			DamageToDeal.EarthDamage = (activeAbility->DamageTypes.EarthDamage + MyEquipedItems.myWeapon->myDamage.EarthDamage) * (statsModifierTouse / 100);
+			DamageToDeal.WaterDamage = (activeAbility->DamageTypes.WaterDamage + MyEquipedItems.myWeapon->myDamage.WaterDamage) * (statsModifierTouse / 100);
+			DamageToDeal.ColdDamage = (activeAbility->DamageTypes.ColdDamage + MyEquipedItems.myWeapon->myDamage.ColdDamage) * (statsModifierTouse / 100);
+			DamageToDeal.ElectricityDamage = (activeAbility->DamageTypes.ElectricityDamage + MyEquipedItems.myWeapon->myDamage.ElectricityDamage) * (statsModifierTouse / 100);
+			DamageToDeal.HolyDamage = (activeAbility->DamageTypes.HolyDamage + MyEquipedItems.myWeapon->myDamage.HolyDamage) * (statsModifierTouse / 100);
+			DamageToDeal.VoidDamage = (activeAbility->DamageTypes.VoidDamage + MyEquipedItems.myWeapon->myDamage.VoidDamage) * (statsModifierTouse / 100);
+			DamageToDeal.ArcaneDamage = (activeAbility->DamageTypes.ArcaneDamage + MyEquipedItems.myWeapon->myDamage.ArcaneDamage) * (statsModifierTouse / 100);
+		}
 	}
 
-
+	inPawn->TakeBattleDamage(DamageToDeal);
 
 
 }
 
-void ABattlePawnBase::TakeBattleDamage(FDamageTypesToCause* inDamage)
+void ABattlePawnBase::TakeBattleDamage(FDamageTypesToCause inDamage)
 {
+	FDamageTypesToCause finalDamage;
 
+	finalDamage.ImpactDamage = inDamage.ImpactDamage -((inDamage.ImpactDamage / 100) *DefensiveStats.ImpactResistance);
+	finalDamage.SlashDamage = inDamage.SlashDamage - ((inDamage.SlashDamage / 100) * DefensiveStats.SlashResistance);
+	finalDamage.PunctureDamage = inDamage.PunctureDamage - ((inDamage.PunctureDamage / 100) * DefensiveStats.PunctureResistance);
+	finalDamage.FireDamage = inDamage.FireDamage - ((inDamage.FireDamage / 100) * DefensiveStats.FireResistance);
+	finalDamage.EarthDamage = inDamage.EarthDamage - ((inDamage.EarthDamage / 100) * DefensiveStats.EarthResistance);
+	finalDamage.WaterDamage = inDamage.WaterDamage - ((inDamage.WaterDamage / 100) * DefensiveStats.WaterResistance);
+	finalDamage.ColdDamage = inDamage.ColdDamage - ((inDamage.ColdDamage / 100) * DefensiveStats.ColdResistance);
+	finalDamage.ElectricityDamage = inDamage.ElectricityDamage - ((inDamage.ElectricityDamage / 100) * DefensiveStats.ElectricityResistance);
+	finalDamage.HolyDamage = inDamage.HolyDamage - ((inDamage.HolyDamage / 100) * DefensiveStats.HolyResistance);
+	finalDamage.VoidDamage = inDamage.VoidDamage -((inDamage.VoidDamage / 100) * DefensiveStats.VoidResistance);
+	finalDamage.ArcaneDamage = inDamage.ArcaneDamage - ((inDamage.ArcaneDamage / 100) * DefensiveStats.ArcaneResistance);
 
+	float finalDamageTaken = finalDamage.ImpactDamage + finalDamage.SlashDamage + finalDamage.PunctureDamage + finalDamage.FireDamage
+		+ finalDamage.EarthDamage + finalDamage.WaterDamage + finalDamage.ColdDamage + finalDamage.ElectricityDamage
+		+ finalDamage.HolyDamage + finalDamage.VoidDamage + finalDamage.ArcaneDamage;
 
+	mainCharInfo.Health -= finalDamageTaken;
+	if (mainCharInfo.Health < 1)
+	{
+		GoDown();
+	}
+	UE_LOG(LogTemp, Warning, TEXT("finalDamageTaken %f"), finalDamageTaken);
+	UE_LOG(LogTemp, Warning, TEXT("mainCharInfo.Health %f"), mainCharInfo.Health);
 
+}
+
+void ABattlePawnBase::GoDown()
+{
+	isDown = true;
+
+	MyBattleZone->BattleBrain->RemovePawnsTurns(this);
 
 }
 

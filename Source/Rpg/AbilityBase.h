@@ -11,7 +11,7 @@
 
 class UEffectSource;
 class ABattlePawnBase;
-
+class USphereComponent;
 
 
 
@@ -19,12 +19,18 @@ UENUM()
 enum class EAttackType : uint8
 {
 	singleTarget,
-	aoeSmall,
 	aoeMed,
 	aoePartywide,
+	AttackselfBuff,
 };
 
-
+UENUM()
+enum class EAttackStyle : uint8
+{
+	Melee,
+	Rganged,
+	Magic,
+};
 
 
 /**
@@ -39,7 +45,7 @@ class RPG_API UAbilityBase : public UObject
 public:
 	UAbilityBase();
 
-	void AbilitysInstructions();
+	TArray< ABattlePawnBase*> AbilitysInstructions(ABattlePawnBase* sourcePawn, ABattlePawnBase* inAtTarg);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		FString Name = "Tits";
@@ -53,14 +59,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		bool isHealing = false;
 
+	USphereComponent* DamageSphere;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
+		float DamageSphereSize = 350;
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 		FDamageTypesToCause DamageTypes;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 		TSubclassOf<UEffectSource> AbilitysEffect;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		EAttackStyle AttackStyle = EAttackStyle::Melee;
 
-
-	void passOnEffects(ABattlePawnBase* inPawn, ABattlePawnBase* causeingPawn);
 	void passOnEffects(TArray<ABattlePawnBase*>inPawns, ABattlePawnBase* causeingPawn);
-	void passOnEffects(FVector* Location, ABattlePawnBase* causeingPawn);
+
 };
