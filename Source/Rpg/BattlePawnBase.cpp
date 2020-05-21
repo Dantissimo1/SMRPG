@@ -82,6 +82,14 @@ void ABattlePawnBase::EndAttack()
 	attackActionCompleeted = true;
 	//////////////UE_LOG(LogTemp, Warning, TEXT("AtackActioncokpleeted"));
 }
+void ABattlePawnBase::EndOpotunityAttack()
+{
+	opotunityActionCompleeted = true;
+}
+void ABattlePawnBase::EndCounterAttack()
+{
+	CounterActionCompleeted = true;
+}
 /*
 // Called to bind functionality to input
 void ABattlePawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -278,7 +286,7 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 
 
 		//////UE_LOG(LogTemp, Warning, TEXT("rot return true 2"));
-		//return true;
+		return true;
 	}
 	return false;
 }
@@ -396,6 +404,21 @@ void ABattlePawnBase::TakeBattleDamage(FDamageTypesToCause inDamage)
 	}
 	UE_LOG(LogTemp, Warning, TEXT("finalDamageTaken %f"), finalDamageTaken);
 	UE_LOG(LogTemp, Warning, TEXT("mainCharInfo.Health %f"), mainCharInfo.Health);
+
+}
+
+void ABattlePawnBase::HealTarget(ABattlePawnBase* inPawn)
+{
+	if (activeAbility != NULL)
+	{
+		float healAmount = ((inPawn->mainCharInfo.MaxHealth / 100) * activeAbility->healPercent)* (OfensiveStats.ArcaneAptitude / 100);
+
+		inPawn->mainCharInfo.Health += healAmount;
+		if (mainCharInfo.Health > mainCharInfo.MaxHealth)
+		{
+			mainCharInfo.Health = mainCharInfo.MaxHealth;
+		}
+	}
 
 }
 

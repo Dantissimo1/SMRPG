@@ -28,9 +28,15 @@ void UBattleHUD::CallCalcTurns()
 	////UE_LOG(LogTemp, Warning, TEXT("CalcTurnsHUD 2"));
 }
 
+void UBattleHUD::EndBattleWin_Implementation()
+{
+}
+
 void UBattleHUD::SetUpHUD_Implementation()
 {
 }
+
+
 
 
 void UBattleHUD::SelectTarget()
@@ -44,8 +50,23 @@ void UBattleHUD::SelectTarget()
 
 
 
+
 void UBattleHUD::CalcTurnsHUD_Implementation()
 {
 }
 
+void UBattleHUD::CreateOpotunityMenu_Implementation()
+{
+}
 
+void UBattleHUD::RemoveOpotunityMenu_Implementation()
+{
+}
+
+void UBattleHUD::CreateCounterMenu_Implementation()
+{
+}
+
+void UBattleHUD::RemoveCounterMenu_Implementation()
+{
+}

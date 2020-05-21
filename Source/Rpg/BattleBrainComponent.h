@@ -66,6 +66,37 @@ public:
 	bool RunPlayersTurn();
 	bool RunEnemyTurn();
 	void RemovePawnsTurns(ABattlePawnBase* inPawn);
+	void RunPawnBeginTrun(ABattlePawnBase* inPawn);
+	void ResetPawnsReaction(ABattlePawnBase* inPawn);
+	void RunPawnEndTurn(ABattlePawnBase* inPawn);
+	////opotunity attack
+	TArray<ABattlePawnBase*>FindAvalibleForOpotunity(ABattlePawnBase* inTarget);
+	bool serchedForOpotunityPawns = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Opotunity")
+	TArray<ABattlePawnBase*>pawnsForOpotunityDecision;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Opotunity")
+	ABattlePawnBase* pawnToOpotunity;
+	bool OpotunityMenuSpawned = false;
+	bool SpawnOpotunityMenue(TArray<ABattlePawnBase*>inPawn);
+	bool RunOpotunityAttack();
+	bool atOpotunityPoint1 = false;
+	bool atOpotunityPoint2 = false;
+	bool opotunityAttackPreformed = false;
+	/////counter
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")
+	bool awatingCounterDecision = true;
+	bool canCounter = false;
+	bool CountreAtempted = false;
+	bool CanCounter(ABattlePawnBase* inPawn);
+	bool RunCounter(ABattlePawnBase* inPawn);
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")
+	bool counterAproved = false;
+	bool RunStandingAttack(ABattlePawnBase* inTarget , ABattlePawnBase* inOwner);
+	bool counterBool1 = false;
+	bool counterBool2 = false;
+	bool counterBool3 = false;
+	bool counterMenuSpawned = false;
+
 
 	//////////target selection///////
 	UAbilityBase* activeAbility = NULL;

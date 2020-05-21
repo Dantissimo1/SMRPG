@@ -17,6 +17,11 @@ class UBattleHUD;
 class ABattlePawnBase;
 class UAbilityBase;
 class UBattleSpawnPoint;
+class UBattleHUDENDMenu;
+
+
+
+
 
 /**
  * 
@@ -77,6 +82,8 @@ public:
 		TSubclassOf< UDungeonHUD> DungeonHUDClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
 		TSubclassOf< UBattleHUD> BattleHUDClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+		TSubclassOf<UBattleHUDENDMenu> BattleHUDENDClass;
 
 	UDungeonHUD* DungeonHUD;
 	void SpawnDungeonHUD();
@@ -91,8 +98,11 @@ public:
 
 	/////////battle
 	UBattleHUD* BattleHUD;
+	UBattleHUDENDMenu* BattleEndMenue;
 	void BattleHUDSpawn();
 	void BattleHUDDespawn();
+	void BattleHUDENDSpawn();
+	void BattleHUDENDDeSpawn();
 	bool skillSelected = false;
 	bool targetSelected = false;
 	bool lookingForHostile = true;

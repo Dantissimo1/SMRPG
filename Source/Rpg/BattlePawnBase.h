@@ -101,12 +101,22 @@ public:
 		bool isAttackingMagic = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 		bool isAttackingRanged = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+		bool isAtackingOpotunity = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+		bool isAtackingCounter = false;
+
 	bool projectileHit = false;
 	bool attackActionCompleeted = false;
+	bool opotunityActionCompleeted = false;
+	bool CounterActionCompleeted = false;
 
 	UFUNCTION(BlueprintCallable)
 		void EndAttack();
-
+	UFUNCTION(BlueprintCallable)
+		void EndOpotunityAttack();
+	UFUNCTION(BlueprintCallable)
+		void EndCounterAttack();
 
 	//////////////////////stats/////////////////
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
@@ -191,12 +201,15 @@ public:
 	bool AttackTargetMagic(ABattlePawnBase* inTarget);
 	ABattlePawnBase* lastAttackTarget = NULL;
 
+
+
 	///////   damage
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "damage")
 	bool isDown = false;
 	void CauseDamageToBattlePawn(ABattlePawnBase* inPawn);
 	void TakeBattleDamage(FDamageTypesToCause inDamage);
+	void HealTarget(ABattlePawnBase* inPawn);
 	void GoDown();
 	TArray<UEffectSource*>activeEffectSources;
 	TArray<UEffect*>activeEffects;

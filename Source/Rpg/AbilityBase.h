@@ -58,6 +58,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		bool isHealing = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		float healPercent = 36;
 
 	USphereComponent* DamageSphere;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")

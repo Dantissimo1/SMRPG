@@ -43,11 +43,13 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 
 	if (isLoaded == true)
 	{
+
+
 		if (RunActiveTurn())
 		{ 
-			if (MyBattleZone-> PlayerCont)
+			if (MyBattleZone)
 			{
-				////UE_LOG(LogTemp, Warning, TEXT("inplayer cont"));
+				UE_LOG(LogTemp, Warning, TEXT("inplayer cont"));
 			}
 			////UE_LOG(LogTemp, Warning, TEXT("crash check 1 %d"),);
 			//start next turn
@@ -72,6 +74,31 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 			ActiveTurn = TurnOrder[0];
 			TurnOrder.RemoveAt(0);
 			PlayersCont->BattleHUD->CallCalcTurns();
+
+			bool winCondition = true;
+			bool failCondition = true;
+			for (int y = 0; y < enemyBattlePawns.Num();y++)
+			{
+
+				if (enemyBattlePawns[y]->isDown != true)
+				{
+					winCondition = false;
+				}
+			}
+			for (int y = 0; y < playerBattlePawns.Num();y++)
+			{
+				if (playerBattlePawns[y]->isDown != true)
+				{
+					failCondition = false;
+				}
+			}
+			if (winCondition == true)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("EndBattle "));
+				EndBattle();
+				
+			}
+
 		}
 	}
 
@@ -310,6 +337,9 @@ bool UBattleBrainComponent::RunActiveTurn()
 	{
 		bool turnCompleted;
 		DrawDebugPoint(GetWorld(), ActiveTurn->MyBattlePawn->GetActorLocation(), 50.f, FColor::Black, false, 0.1f);
+
+		RunPawnBeginTrun(ActiveTurn->MyBattlePawn);
+
 		if (ActiveTurn->MyBattlePawn->isOwnedByPlayer)
 		{
 			////////UE_LOG(LogTemp, Warning, TEXT("Players Turn"));
@@ -395,9 +425,14 @@ bool UBattleBrainComponent::RunEnemyTurn()
 {
 
 
-	attaaaaTarget = playerBattlePawns[1];
-	testOperationCompleted = true;
-	
+	for (int i = 0; i < playerBattlePawns.Num();i++)
+	{
+		if (playerBattlePawns[i]->bIsBackLine)
+		{
+
+			attaaaaTarget = playerBattlePawns[i];
+		}
+	}
 
 	
 	return testOp2 = AttackMelee(attaaaaTarget);
@@ -417,14 +452,201 @@ void UBattleBrainComponent::RemovePawnsTurns(ABattlePawnBase* inPawn)
 	PlayersCont->BattleHUD->CalcTurnsHUD();
 }
 
-bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
+void UBattleBrainComponent::RunPawnBeginTrun(ABattlePawnBase* inPawn)
 {
+	ResetPawnsReaction(inPawn);
 
+}
+
+void UBattleBrainComponent::ResetPawnsReaction(ABattlePawnBase* inPawn)
+{
+	inPawn->bHasReaction = true;
+}
+
+void UBattleBrainComponent::RunPawnEndTurn(ABattlePawnBase* inPawn)
+{
+}
+
+TArray<ABattlePawnBase*> UBattleBrainComponent::FindAvalibleForOpotunity(ABattlePawnBase* inTarget)
+{
+	TArray<ABattlePawnBase*> pawnsToReturn;
+	if (inTarget->bIsBackLine != true)
+	{	
+		return pawnsToReturn;
+	}
+
+	TArray<ABattlePawnBase*> pawnSetToCheck;
+	if (ActiveTurn->MyBattlePawn->isOwnedByPlayer)
+	{
+		pawnSetToCheck = enemyBattlePawns ;
+	}
+	else
+	{
+		pawnSetToCheck = playerBattlePawns;
+	}
+
+	int placeToCheck1 = 0;
+	int placeToCheck2 = 0;
+
+	if (inTarget->PawnsBaseActor->placeOnGrid == 5)
+	{
+		placeToCheck1 = 1;
+		placeToCheck2 = 2;
+	}
+	if (inTarget->PawnsBaseActor->placeOnGrid == 6)
+	{
+		placeToCheck1 = 2;
+		placeToCheck2 = 3;
+	}
+	if (inTarget->PawnsBaseActor->placeOnGrid == 7)
+	{
+		placeToCheck1 = 3;
+		placeToCheck2 = 4;
+	}
+	if (inTarget->PawnsBaseActor->placeOnGrid == 8)
+	{
+		placeToCheck1 = 4;
+		placeToCheck2 = 0;
+	}
+
+	for (int i = 0; i < pawnSetToCheck.Num();i++)
+	{
+		if (pawnSetToCheck[i]->PawnsBaseActor->placeOnGrid == placeToCheck1)
+		{
+			DrawDebugPoint(GetWorld(), pawnSetToCheck[i]->GetActorLocation(), 60.f, FColor::Emerald, false, 2.f);
+			if (pawnSetToCheck[i]->bHasReaction)
+			{
+				pawnsToReturn.Add(pawnSetToCheck[i]);
+			}
+		}
+		if (pawnSetToCheck[i]->PawnsBaseActor->placeOnGrid == placeToCheck2)
+		{
+			DrawDebugPoint(GetWorld(), pawnSetToCheck[i]->GetActorLocation(), 60.f, FColor::Emerald, false, 2.f);
+			if (pawnSetToCheck[i]->bHasReaction)
+			{
+				pawnsToReturn.Add(pawnSetToCheck[i]);
+			}
+		}
+	}
+
+	return pawnsToReturn;;
+}
+
+bool UBattleBrainComponent::SpawnOpotunityMenue(TArray<ABattlePawnBase*> inPawn)
+{
+	return true;
+}
+
+bool UBattleBrainComponent::RunOpotunityAttack()
+{
+	if (opotunityAttackPreformed != true)
+	{
+		if (atOpotunityPoint1 != true)
+		{
+			pawnToOpotunity->bHasReaction = false;
+			UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack1 "));
+			atOpotunityPoint1 = pawnToOpotunity->RotateToTarget(ActiveTurn->MyBattlePawn->GetActorLocation());
+			return false;
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack2 "));
+			pawnToOpotunity->isAtackingOpotunity = true;
+		}
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack3 "));
+	if (pawnToOpotunity->opotunityActionCompleeted == true)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack4 "));
+		pawnToOpotunity->opotunityActionCompleeted = false;
+		opotunityAttackPreformed = true;
+	}
+
+	if (atOpotunityPoint2 != true)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack5 "));
+		atOpotunityPoint2 = pawnToOpotunity->RotateToTarget(pawnToOpotunity->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
+		return false;
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack6 "));
+	atOpotunityPoint1 = false;
+	atOpotunityPoint2 = false;
+	opotunityAttackPreformed = false;
+	awatingOpotunityDecision = false;
+	pawnToOpotunity->opotunityActionCompleeted = false;
+	pawnToOpotunity->isAtackingOpotunity = false;
+	return true;
+}
+
+bool UBattleBrainComponent::CanCounter(ABattlePawnBase* inPawn)
+{
+	if (inPawn->bHasReaction != true)
+	{
+		return false;
+	}
+
+	int randNo = FMath::RandRange(0.f, 100.f);
+	randNo = FMath::RoundToInt(randNo);
+	if (randNo < inPawn->mainCharInfo.counterChance)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool UBattleBrainComponent::RunCounter(ABattlePawnBase* inPawn)
+{	
+	if (inPawn->bHasReaction)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" bHasReaction "));
+		if (counterBool1 == false)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" counterBool1 "));
+			if (inPawn->RotateToTarget(ActiveTurn->MyBattlePawn->GetActorLocation()))
+			{
+				UE_LOG(LogTemp, Warning, TEXT(" RotateToTarget "));
+				counterBool1 = true;
+			}
+			return false;
+		}
+		if (inPawn->CounterActionCompleeted != true)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" CounterActionCompleeted "));
+			inPawn->isAtackingCounter = true;
+			return false;
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" CounterActionCompleeted2 "));
+			inPawn->isAtackingCounter = false;
+		}
+		if (inPawn->RotateToTarget(inPawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation()))
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" RotateToTarget 2 "));
+			inPawn->CounterActionCompleeted = false;
+			counterBool1 = false;
+			counterBool2 = false;
+			inPawn->bHasReaction = false;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool UBattleBrainComponent::RunStandingAttack(ABattlePawnBase* inTarget, ABattlePawnBase* inOwner)
+{
+	return false;
+}
+
+bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
+{ 
 	//rte do all
 	//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack Melee "));
 	if (ActiveTurn->MyBattlePawn->attackActionCompleeted != true)
 	{
-
 		if (ActiveTurn->MyBattlePawn->bIsBackLine)
 		{
 			//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack Melee im at back"));
@@ -446,9 +668,57 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			}
 			if (awatingOpotunityDecision)
 			{
-				//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack Melee  awating opotunity decision"));
-				////put in functions for player and enemy opotunity decisions
-				//return false;
+				UE_LOG(LogTemp, Warning, TEXT(" Attack Melee  awating opotunity decision"));
+				
+				if (ActiveTurn->MyBattlePawn->isOwnedByPlayer != true)
+				{
+					if (pawnToOpotunity == NULL)
+					{
+						UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 1"));
+						if (serchedForOpotunityPawns != true)
+						{
+							UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 2"));
+							pawnsForOpotunityDecision = FindAvalibleForOpotunity(attackTarget);
+							serchedForOpotunityPawns = true;
+						}
+						if (pawnsForOpotunityDecision.Num() > 0)
+						{
+							UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 3"));
+							if (pawnToOpotunity == NULL)
+							{
+								UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 4"));
+								if (PlayersCont->BattleHUD->hasCreatedOpotunityMenu != true)
+								{
+									UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 5"));
+									PlayersCont->BattleHUD->CreateOpotunityMenu();
+									PlayersCont->BattleHUD->hasCreatedOpotunityMenu = true;
+									return false;
+								}
+								UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 6"));
+								return false;
+							}
+						}
+						else
+						{
+							UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 7"));
+							awatingOpotunityDecision = false;
+						}
+					}
+					else
+					{
+						UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity do attack"));
+						if (RunOpotunityAttack()!=true)
+						{
+							PlayersCont->BattleHUD->RemoveOpotunityMenu();
+							PlayersCont->BattleHUD->hasCreatedOpotunityMenu = false;
+							return false;
+						}
+					}
+				}
+				else
+				{
+					//NPCOpotunityDecision();
+				}
 			}
 		}
 
@@ -463,6 +733,19 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 	}
 	else
 	{
+		if (variablesReset == false)
+		{
+			//////////////UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home variable reset one time "));
+			ActiveTurn->MyBattlePawn->isAttackingMelee = false;
+			atAttackPosition = false;
+			atopotunityLocation = false;
+			atStaginPoint1 = false;
+			variablesReset = true;
+			serchedForOpotunityPawns = false;
+			pawnToOpotunity = NULL;
+		}
+
+		///Damage Step REWORK this do damage from abilitys if we have one so i can do more interesting things from them
 		if (damageStepDone == false)
 		{
 			if (activeAbility != NULL)
@@ -481,8 +764,10 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 				}
 				else
 				{
-
-
+					for (int d = 0; d < targets.Num();d++)
+					{
+						ActiveTurn->MyBattlePawn->HealTarget(targets[d]);
+					}
 				}
 
 			}
@@ -491,19 +776,62 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 				ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(attackTarget);
 			}
 			damageStepDone = true;
+
 		}
+
+
+
+			////countre Attack
+			if (CountreAtempted != true)
+			{
+				UE_LOG(LogTemp, Warning, TEXT(" CountreAtempted "));
+				CountreAtempted = true;
+				canCounter = CanCounter(attackTarget);
+			}
+			if (canCounter)
+			{
+				UE_LOG(LogTemp, Warning, TEXT(" canCounter "));
+				if (awatingCounterDecision)
+				{
+					UE_LOG(LogTemp, Warning, TEXT(" awatingCounterDecision "));
+					if (attackTarget->isOwnedByPlayer)
+					{
+						UE_LOG(LogTemp, Warning, TEXT(" CountreAtempted 2"));
+						PlayersCont->BattleHUD->CreateCounterMenu();
+						return false;
+					}
+					else
+					{
+
+					}
+
+				}
+				else if (counterAproved)
+				{
+					
+					UE_LOG(LogTemp, Warning, TEXT(" counterAproved "));
+					PlayersCont->BattleHUD->RemoveCounterMenu();
+
+					
+
+					if (RunCounter(attackTarget) == false)
+					{
+						counterBool3 = true;
+						UE_LOG(LogTemp, Warning, TEXT(" RunCounter return "));
+						return false;
+					}
+					else
+					{
+						canCounter = false;
+					}
+				}
+			}
 		
+	
+
+
 		//////////////UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home "));
-		if (variablesReset == false)
-		{
-			//////////////UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home variable reset one time "));
-			ActiveTurn->MyBattlePawn->isAttackingMelee = false;
-			atAttackPosition = false;
-			awatingOpotunityDecision = true;
-			atopotunityLocation = false;
-			atStaginPoint1 = false;
-			variablesReset = true;			
-		}
+
 		if (attackTarget->bIsBackLine)
 		{
 			//////////////UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home target is back line"));
@@ -532,16 +860,23 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			return false;
 		}else
 		{		
+			UE_LOG(LogTemp, Warning, TEXT(" reset all used variables "));
 			//reset all used variables
+			counterBool3 = false;
+			awatingCounterDecision = true;
+			counterAproved = false;
 			atStaginPoint1 = false;
 			atStagingPoint2 = false;
 			atAttackPosition = false;
 			atopotunityLocation = false;
 			backAtSpawn = false;
+			canCounter = false;
+			awatingCounterDecision = true;
 			awatingOpotunityDecision = true;
 			variablesReset = false;
 			faceingTargetLocation = false;
 			ActiveTurn->MyBattlePawn->attackActionCompleeted = false;
+			CountreAtempted = false;
 			//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack rune Melee done"))
 			return true;		
 		}
@@ -581,8 +916,10 @@ bool UBattleBrainComponent::AttackMagic(ABattlePawnBase* attackTarget)
 				}
 				else
 				{
-
-
+					for (int d = 0; d < targets.Num();d++)
+					{
+						ActiveTurn->MyBattlePawn->HealTarget(targets[d]);
+					}
 				}
 
 			}
@@ -638,8 +975,10 @@ bool UBattleBrainComponent::AttackRanged(ABattlePawnBase* attackTarget)
 				}
 				else
 				{
-
-
+					for (int d = 0; d < targets.Num();d++)
+					{
+						ActiveTurn->MyBattlePawn->HealTarget(targets[d]);
+					}
 				}
 
 			}
@@ -667,6 +1006,10 @@ bool UBattleBrainComponent::AttackRanged(ABattlePawnBase* attackTarget)
 void UBattleBrainComponent::EndBattle()
 {
 	ClearTurnOrders();
+
+	PlayersCont->BattleHUDDespawn();
+	PlayersCont->BattleHUDENDSpawn();
+
 }
 
 void UBattleBrainComponent::ClearTurnOrders()

@@ -43,6 +43,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent, Category = "Turns")
 	void CalcTurnsHUD();
 
+	UFUNCTION(BlueprintNativeEvent, Category = "Turns")
+		void EndBattleWin();
+
 	UFUNCTION(BlueprintNativeEvent, Category = "SetUpHUD")
 		void SetUpHUD();
 
@@ -50,6 +53,20 @@ public:
 		void ShowAttackMenue();
 	UFUNCTION(BlueprintImplementableEvent)
 		void HideAttackMenue();
+
+
+	bool hasCreatedOpotunityMenu = false;
+	UFUNCTION(BlueprintNativeEvent, Category = "SetUpHUD")
+		void CreateOpotunityMenu();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "SetUpHUD")
+		void RemoveOpotunityMenu();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "SetUpHUD")
+		void CreateCounterMenu();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "SetUpHUD")
+		void RemoveCounterMenu();
 
 
 	UFUNCTION(BlueprintImplementableEvent)
@@ -61,6 +78,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void SelectTarget();
+
 
 
 };

@@ -14,6 +14,10 @@
 #include "DrawDebugHelpers.h"
 #include "AbilityBase.h"
 #include "BattleSpawnPoint.h"
+#include "BattleHUDENDMenu.h"
+
+
+
 
 // Sets default values
 ADungeonControllerBase::ADungeonControllerBase()
@@ -278,7 +282,6 @@ void ADungeonControllerBase::SetBattleCamlocation(FVector* newLoc, FRotator* new
 
 void ADungeonControllerBase::BattleHUDSpawn()
 {
-	
 	if (BattleHUDClass)
 	{
 		BattleHUD = CreateWidget<UBattleHUD>(this, BattleHUDClass);
@@ -300,6 +303,29 @@ void ADungeonControllerBase::BattleHUDDespawn()
 	if (BattleHUD)
 	{
 		BattleHUD->RemoveFromParent();
+	}
+}
+
+void ADungeonControllerBase::BattleHUDENDSpawn()
+{
+	UE_LOG(LogTemp, Warning, TEXT("BattleHUDENDSpawn 0"));
+	if (BattleHUDENDClass)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("BattleHUDENDSpawn 0"));
+		BattleEndMenue = CreateWidget<UBattleHUDENDMenu>(this, BattleHUDENDClass);
+		BattleEndMenue->AddToViewport();
+		BattleEndMenue->SetVisibility(ESlateVisibility::Visible);
+		
+		BattleEndMenue->SetUp(CurrentBattleArea->BattleBrain, this);
+
+	}
+}
+
+void ADungeonControllerBase::BattleHUDENDDeSpawn()
+{
+	if (BattleEndMenue)
+	{
+		BattleEndMenue->RemoveFromParent();
 	}
 }
 
@@ -633,7 +659,8 @@ void ADungeonControllerBase::EndBattle()
 	SetViewTarget(MyChar);
 	bIsInBattleMode = false;
 	MyChar->CurrentEncountreVolume->BattleEndTimerReset();
-	BattleHUDDespawn();
+	//BattleHUDDespawn();
+	BattleHUDENDDeSpawn();
 	ToggleDungeonHUD(true);
 
 }

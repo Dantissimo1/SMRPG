@@ -36,7 +36,7 @@ ABattleZoneBase::ABattleZoneBase()
 	camOriginalTrans = TestCam1->GetRelativeTransform();
 
 	BattleBrain = CreateDefaultSubobject<UBattleBrainComponent>(TEXT("Battle Brain"));
-	BattleBrain->SetUp(this);
+	
 	//////create Spawn points///////
 	
 	spawnPoint1 = CreateDefaultSubobject<UBattleSpawnPoint>(TEXT("Spawn 1"));
@@ -123,6 +123,8 @@ void ABattleZoneBase::BeginPlay()
 void ABattleZoneBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	//UE_LOG(LogTemp, Warning, TEXT("EndBattle 1.5"));
+
 
 }
 
@@ -135,13 +137,13 @@ void ABattleZoneBase::InitializeBattle(ADungeonControllerBase* InPlayerCont)
 	SpawnPlayersParty();
 	SpanEnemyParty();
 	BattleBrain->InitializeBattle(allBattlePawns, playerBattlePawns,enemyBattlePawns);
+	BattleBrain->SetUp(this);
 	
 	
 	
 	
 	
-	
-	//GetWorldTimerManager().SetTimer(TestTimer, this, &ABattleZoneBase::EndBattle, 120.0f, false);
+	//GetWorldTimerManager().SetTimer(TestTimer, this, &ABattleZoneBase::EndBattle, 20.0f, false);
 
 }
 
@@ -316,6 +318,6 @@ void ABattleZoneBase::EndBattle()
 {
 	////de spawn remaning pawns
 	DeleteBattlePawns();
-	BattleBrain->EndBattle();
+	//BattleBrain->EndBattle();
 	PlayerCont->EndBattle();
 }
