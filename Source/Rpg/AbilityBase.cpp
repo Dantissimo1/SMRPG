@@ -20,60 +20,115 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 {
 	TArray<ABattlePawnBase*> targets;
 
-
-	if (attackType == EAttackType::singleTarget)
+	if (attackType != EAttackType::NONE)
 	{
-		FDamageTypesToCause DamageToDeal;
-		DamageToDeal = WorkOutDamage(inDamageModifier, inDamageToAdd);
-
-		inAtTarg->TakeBattleDamage(DamageToDeal);
-	}
-	if (attackType == EAttackType::aoeMed)
-	{
-		FDamageTypesToCause DamageToDeal;
-		DamageToDeal = WorkOutDamage(inDamageModifier, inDamageToAdd);
-
-		DamageSphere = NewObject<USphereComponent>(this, TEXT("Damage Sphere"));
-		DamageSphere->SetWorldLocation(inAtTarg->GetActorLocation());
-		DamageSphere->SetSphereRadius(DamageSphereSize, true);
-		DamageSphere->SetGenerateOverlapEvents(true);
-		DamageSphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-		DamageSphere->RegisterComponent();
-		DamageSphere->bHiddenInGame = false;
-		FVector newLoc= DamageSphere->GetComponentLocation();
-		newLoc.Z += 1;
-		DamageSphere->SetWorldLocation(newLoc, true);
-		TArray<AActor*> Overlaps;
-		DamageSphere->GetOverlappingActors(Overlaps);
-		for (int n = 0;n < Overlaps.Num();n++)
+		if (attackType == EAttackType::singleTarget)
 		{
-			if (Cast<ABattlePawnBase>(Overlaps[n]))
+			FDamageTypesToCause DamageToDeal;
+			DamageToDeal = WorkOutDamage(inDamageModifier, inDamageToAdd);
+			inAtTarg->TakeBattleDamage(DamageToDeal);
+			TArray<ABattlePawnBase*> target;
+			target.Add(inAtTarg);
+			if (AbilitysEffect != NULL)
 			{
-				Cast<ABattlePawnBase>(Overlaps[n])->TakeBattleDamage(DamageToDeal);
+				passOnEffects(target, sourcePawn);
 			}
 		}
+		if (attackType == EAttackType::aoeMed)
+		{
+			FDamageTypesToCause DamageToDeal;
 
+			DamageToDeal = WorkOutDamage(inDamageModifier, inDamageToAdd);
 
-		UE_LOG(LogTemp, Warning, TEXT(" Attack magic 2 %d"),Overlaps.Num());
+			DamageSphere = NewObject<USphereComponent>(this, TEXT("Damage Sphere"));
+			DamageSphere->SetWorldLocation(inAtTarg->GetActorLocation());
+			DamageSphere->SetSphereRadius(DamageSphereSize, true);
+			DamageSphere->SetGenerateOverlapEvents(true);
+			DamageSphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+			DamageSphere->RegisterComponent();
+			DamageSphere->bHiddenInGame = false;
+			FVector newLoc = DamageSphere->GetComponentLocation();
+			newLoc.Z += 1;
+			DamageSphere->SetWorldLocation(newLoc, true);
+			TArray<AActor*> Overlaps;
+			DamageSphere->GetOverlappingActors(Overlaps);
+			for (int n = 0;n < Overlaps.Num();n++)
+			{
+				if (Cast<ABattlePawnBase>(Overlaps[n]))
+				{
+					Cast<ABattlePawnBase>(Overlaps[n])->TakeBattleDamage(DamageToDeal);
+					targets.Add(Cast<ABattlePawnBase>(Overlaps[n]));
+				}
+			}
+			if (AbilitysEffect != NULL)
+			{
+				passOnEffects(targets, sourcePawn);
+			}
 
+			UE_LOG(LogTemp, Warning, TEXT(" Attack magic 2 %d"), Overlaps.Num());
+
+		}
+		if (attackType == EAttackType::aoePartywide)
+		{
+
+		}
 	}
-	if (attackType == EAttackType::aoePartywide)
+
+	if (buffType != EABuffType::NONE)
 	{
+		if (buffType != EABuffType::selfBuff)
+		{
+			TArray<ABattlePawnBase*>pawnsToBuff;
+			pawnsToBuff.Add(sourcePawn);
+			passOnEffects(pawnsToBuff, sourcePawn);
+		}
+		if (buffType != EABuffType::singleTarget)
+		{
+			TArray<ABattlePawnBase*>pawnsToBuff;
+			pawnsToBuff.Add(inAtTarg);
+			passOnEffects(pawnsToBuff, sourcePawn);
+		}
+		if (buffType != EABuffType::aoeMed)
+		{
+			TArray<ABattlePawnBase*>pawnsToBuff;
+
+			DamageSphere = NewObject<USphereComponent>(this, TEXT("Damage Sphere"));
+			DamageSphere->SetWorldLocation(inAtTarg->GetActorLocation());
+			DamageSphere->SetSphereRadius(DamageSphereSize, true);
+			DamageSphere->SetGenerateOverlapEvents(true);
+			DamageSphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+			DamageSphere->RegisterComponent();
+			DamageSphere->bHiddenInGame = false;
+			FVector newLoc = DamageSphere->GetComponentLocation();
+			newLoc.Z += 1;
+			DamageSphere->SetWorldLocation(newLoc, true);
+			TArray<AActor*> Overlaps;
+			DamageSphere->GetOverlappingActors(Overlaps);
+
+			for (int n = 0;n < Overlaps.Num();n++)
+			{
+				if (Cast<ABattlePawnBase>(Overlaps[n]))
+				{
+					pawnsToBuff.Add(Cast<ABattlePawnBase>(Overlaps[n]));
+				}
+			}
+			pawnsToBuff.Add(inAtTarg);
+			passOnEffects(pawnsToBuff, sourcePawn);
+		}
+		if (buffType != EABuffType::aoePartywide)
+		{
+
+		}
+		if (buffType != EABuffType::selfAOEBuff)
+		{
+
+		}
+		if (buffType != EABuffType::selfPartyBuff)
+		{
+
+		}
 
 	}
-
-	if (attackType == EAttackType::AttackselfBuff)
-	{
-		TArray<ABattlePawnBase*>effectTarg;
-		effectTarg.Add(sourcePawn);
-		passOnEffects(effectTarg, sourcePawn);
-		targets.Add(inAtTarg);
-	}
-	else
-	{
-		passOnEffects(targets, sourcePawn);
-	}
-	
 
 
 

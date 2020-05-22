@@ -8,6 +8,9 @@
 
 #include "WeaponBase.generated.h"
 
+
+class AProjectileBase;
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class RPG_API AWeaponBase : public AActor
 {
@@ -28,8 +31,14 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 		FString name = "Poop Stick";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
+		bool isRanged = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 		FDamageTypesToCause myDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
+		TSubclassOf<AProjectileBase> ProjectileToUse;
+
 		
 };

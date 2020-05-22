@@ -86,7 +86,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")
 	bool awatingCounterDecision = true;
 	bool canCounter = false;
+	bool counterDone = false;
 	bool CountreAtempted = false;
+	bool CounterActionCompleeted = false;
 	bool CanCounter(ABattlePawnBase* inPawn);
 	bool RunCounter(ABattlePawnBase* inPawn);
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")

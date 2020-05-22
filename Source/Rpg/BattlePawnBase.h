@@ -21,6 +21,8 @@ class UEffectSource;
 class UEffect;
 class UCameraComponent;
 class AParticleHolder;
+class AProjectileBase;
+
 
 USTRUCT(BluePrintType)
 struct RPG_API FEquipedItems
@@ -104,7 +106,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 		bool isAtackingOpotunity = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-		bool isAtackingCounter = false;
+		bool isAttackingStanding = false;
+
 
 	bool projectileHit = false;
 	bool attackActionCompleeted = false;
@@ -194,6 +197,7 @@ public:
 
 
 	/////atacking
+	ABattlePawnBase* lastAttackTarget = NULL;
 	ABattlePawnBase* attackTarget = NULL;
 	UAttackPosition* attackPosition;
 	UOpotunityAttackPosition* opotunityLocation;
@@ -210,11 +214,30 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage")
 	bool damageDone = false;
 
+
+
 	bool RunAttackTargetMelee(ABattlePawnBase* inTarget, UAbilityBase* inAbility);
+	UFUNCTION(BlueprintCallable)
+		void RunDamageStepMelee(ABattlePawnBase* inTarget);
+
 	bool RunAttackTargetMagic(ABattlePawnBase* inTarget, UAbilityBase* inAbility);
-	ABattlePawnBase* lastAttackTarget = NULL;
+	UFUNCTION(BlueprintCallable)
+		bool RunDamageStepMagic(ABattlePawnBase* inTarget);
 
 
+	bool RunAttackTargetRanged(ABattlePawnBase* inTarget, UAbilityBase* inAbility);
+	UFUNCTION(BlueprintCallable)
+		bool RunDamageStepRanged(ABattlePawnBase* inTarget);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage")
+	bool hasShot = false
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage");
+	bool hasHit = false;
+
+
+	bool RunAttackTargetCounter(ABattlePawnBase* inTarget);
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage");
+		FVector hitlocation;
 
 	///////   damage
 
@@ -224,10 +247,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void TriggerDamageStep();
-	UFUNCTION(BlueprintCallable)
-		void RunDamageStepMelee(ABattlePawnBase* inTarget);
-	UFUNCTION(BlueprintCallable)
-		bool RunDamageStepMagic(ABattlePawnBase* inTarget);
+
 
 	void CauseDamageToBattlePawn(ABattlePawnBase* inPawn);
 	void TakeBattleDamage(FDamageTypesToCause inDamage);

@@ -18,10 +18,21 @@ class AParticleHolder;
 UENUM()
 enum class EAttackType : uint8
 {
+	NONE,
 	singleTarget,
 	aoeMed,
 	aoePartywide,
-	AttackselfBuff,
+};
+UENUM()
+enum class EABuffType : uint8
+{
+	NONE,
+	singleTarget,
+	aoeMed,
+	aoePartywide,
+	selfBuff,
+	selfAOEBuff,
+	selfPartyBuff,
 };
 
 UENUM()
@@ -55,6 +66,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		EAttackType attackType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		EABuffType buffType;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		TSubclassOf<AParticleHolder> dammgeEffect;
 	

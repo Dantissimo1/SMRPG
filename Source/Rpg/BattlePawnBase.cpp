@@ -14,6 +14,7 @@
 #include "BattleZoneBase.h"
 #include "BattleBrainComponent.h"
 #include "ParticleHolder.h"
+#include "ProjectileBase.h"
 
 
 // Sets default values
@@ -328,6 +329,40 @@ bool ABattlePawnBase::RunAttackTargetMelee(ABattlePawnBase* inTarget, UAbilityBa
 	return false;
 }
 
+
+void ABattlePawnBase::RunDamageStepMelee(ABattlePawnBase* inTarget)
+{
+	FDamageTypesToCause DamageToDeal;
+	float statsModifierTouse = 0;
+	statsModifierTouse = OfensiveStats.Strength;
+	statsModifierTouse /= 100;
+
+	/// spawn mele damage particle here from weapon
+	UE_LOG(LogTemp, Warning, TEXT("waepon naem  = %s"), *MyEquipedItems.myWeapon->name);
+	DamageToDeal.ImpactDamage = (MyEquipedItems.myWeapon->myDamage.ImpactDamage * (statsModifierTouse));
+	DamageToDeal.SlashDamage = (MyEquipedItems.myWeapon->myDamage.SlashDamage * (statsModifierTouse));
+	DamageToDeal.PunctureDamage = (MyEquipedItems.myWeapon->myDamage.PunctureDamage * (statsModifierTouse));
+	DamageToDeal.FireDamage = (MyEquipedItems.myWeapon->myDamage.FireDamage * (statsModifierTouse));
+	DamageToDeal.EarthDamage = (MyEquipedItems.myWeapon->myDamage.EarthDamage * (statsModifierTouse));
+	DamageToDeal.WaterDamage = (MyEquipedItems.myWeapon->myDamage.WaterDamage * (statsModifierTouse));
+	DamageToDeal.ColdDamage = (MyEquipedItems.myWeapon->myDamage.ColdDamage * (statsModifierTouse));
+	DamageToDeal.ElectricityDamage = (MyEquipedItems.myWeapon->myDamage.ElectricityDamage * (statsModifierTouse));
+	DamageToDeal.HolyDamage = (MyEquipedItems.myWeapon->myDamage.HolyDamage * (statsModifierTouse));
+	DamageToDeal.VoidDamage = (MyEquipedItems.myWeapon->myDamage.VoidDamage * (statsModifierTouse));
+	DamageToDeal.ArcaneDamage = (MyEquipedItems.myWeapon->myDamage.ArcaneDamage * (statsModifierTouse));
+
+	if (activeAbility != NULL)
+	{
+		activeAbility->AbilitysInstructions(this, inTarget, statsModifierTouse, DamageToDeal);
+	}
+	else
+	{
+		inTarget->TakeBattleDamage(DamageToDeal);
+	}
+	doingDamage = false;
+	damageDone = true;
+}
+
 bool ABattlePawnBase::RunAttackTargetMagic(ABattlePawnBase* inTarget, UAbilityBase* inAbility)
 {
 	if (attackCompleeted == false)
@@ -344,6 +379,7 @@ bool ABattlePawnBase::RunAttackTargetMagic(ABattlePawnBase* inTarget, UAbilityBa
 		}
 		if (doingDamage)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("RunDamageStepMagic "))
 			doingDamage = RunDamageStepMagic(inTarget);
 		}
 		if (animFinished && damageDone)
@@ -361,9 +397,6 @@ bool ABattlePawnBase::RunAttackTargetMagic(ABattlePawnBase* inTarget, UAbilityBa
 		doingDamage = false;
 		return true;
 	}
-	return false;
-
-
 	return false;
 }
 
@@ -387,6 +420,10 @@ bool ABattlePawnBase::RunDamageStepMagic(ABattlePawnBase* inTarget)
 				spawnedParticle->SetUp(this);
 				particleSpawned = true;
 				//spawn particle
+			}
+			else
+			{
+				doAbilityDamage = true;
 			}
 		}
 		if (doAbilityDamage)
@@ -414,38 +451,151 @@ bool ABattlePawnBase::RunDamageStepMagic(ABattlePawnBase* inTarget)
 }
 
 
-void ABattlePawnBase::RunDamageStepMelee(ABattlePawnBase* inTarget)
+bool ABattlePawnBase::RunAttackTargetRanged(ABattlePawnBase* inTarget, UAbilityBase* inAbility)
 {
-	FDamageTypesToCause DamageToDeal;
-	float statsModifierTouse = 0;
-	statsModifierTouse = OfensiveStats.Strength;
-	statsModifierTouse /= 100;
-
-		/// spawn mele damage particle here from weapon
-	UE_LOG(LogTemp, Warning, TEXT("waepon naem  = %s"), *MyEquipedItems.myWeapon->name);
-	DamageToDeal.ImpactDamage = (MyEquipedItems.myWeapon->myDamage.ImpactDamage * (statsModifierTouse));
-	DamageToDeal.SlashDamage = (MyEquipedItems.myWeapon->myDamage.SlashDamage * (statsModifierTouse));
-	DamageToDeal.PunctureDamage = (MyEquipedItems.myWeapon->myDamage.PunctureDamage * (statsModifierTouse));
-	DamageToDeal.FireDamage = (MyEquipedItems.myWeapon->myDamage.FireDamage * (statsModifierTouse));
-	DamageToDeal.EarthDamage = (MyEquipedItems.myWeapon->myDamage.EarthDamage * (statsModifierTouse));
-	DamageToDeal.WaterDamage = (MyEquipedItems.myWeapon->myDamage.WaterDamage * (statsModifierTouse));
-	DamageToDeal.ColdDamage = (MyEquipedItems.myWeapon->myDamage.ColdDamage * (statsModifierTouse));
-	DamageToDeal.ElectricityDamage = (MyEquipedItems.myWeapon->myDamage.ElectricityDamage * (statsModifierTouse));
-	DamageToDeal.HolyDamage = (MyEquipedItems.myWeapon->myDamage.HolyDamage * (statsModifierTouse));
-	DamageToDeal.VoidDamage = (MyEquipedItems.myWeapon->myDamage.VoidDamage * (statsModifierTouse));
-	DamageToDeal.ArcaneDamage = (MyEquipedItems.myWeapon->myDamage.ArcaneDamage * (statsModifierTouse));
-
-	if(activeAbility != NULL)
+	if (attackCompleeted == false)
 	{
-		activeAbility->AbilitysInstructions(this, inTarget, statsModifierTouse , DamageToDeal);
+		UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 1"));
+		attackTarget = inTarget;
+		activeAbility = inAbility;
+		if (animFinished != true)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 2"));
+			isAttackingRanged = true;
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 3"));
+			isAttackingRanged = false;
+		}
+		if (doingDamage)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 4"));
+			doingDamage = RunDamageStepRanged(inTarget);
+		}
+		if (animFinished && damageDone)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 5"));
+			attackCompleeted = true;
+		}
 	}
 	else
 	{
-		inTarget->TakeBattleDamage(DamageToDeal);
+		attackTarget = NULL;
+		activeAbility = NULL;
+		attackCompleeted = false;
+		animFinished = false;
+		damageDone = false;
+		doingDamage = false;
+		return true;
 	}
-	doingDamage = false;
-	damageDone = true;
+	return false;
 }
+
+bool ABattlePawnBase::RunDamageStepRanged(ABattlePawnBase* inTarget)
+{
+	UE_LOG(LogTemp, Warning, TEXT(" RunDamageStepRanged 0"));
+	if (hasShot != true)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" RunDamageStepRanged 1"));
+		AProjectileBase* spawnedProjectile;
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		//SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		spawnedProjectile = GetWorld()->SpawnActor<AProjectileBase>(MyEquipedItems.myWeapon->ProjectileToUse, GetActorLocation(), GetActorRotation(), SpawnParams);
+		spawnedProjectile->SetUp(this,inTarget);
+		hasShot = true;
+		//hasHit = true;
+	}
+
+	if (hasHit)
+	{
+		FDamageTypesToCause DamageToDeal;
+		float statsModifierTouse = 0;
+		statsModifierTouse = OfensiveStats.RangeFinesse;
+		statsModifierTouse /= 100;
+
+		UE_LOG(LogTemp, Warning, TEXT("waepon naem  = %s"), *MyEquipedItems.myWeapon->name);
+		DamageToDeal.ImpactDamage = (MyEquipedItems.myWeapon->myDamage.ImpactDamage * (statsModifierTouse));
+		DamageToDeal.SlashDamage = (MyEquipedItems.myWeapon->myDamage.SlashDamage * (statsModifierTouse));
+		DamageToDeal.PunctureDamage = (MyEquipedItems.myWeapon->myDamage.PunctureDamage * (statsModifierTouse));
+		DamageToDeal.FireDamage = (MyEquipedItems.myWeapon->myDamage.FireDamage * (statsModifierTouse));
+		DamageToDeal.EarthDamage = (MyEquipedItems.myWeapon->myDamage.EarthDamage * (statsModifierTouse));
+		DamageToDeal.WaterDamage = (MyEquipedItems.myWeapon->myDamage.WaterDamage * (statsModifierTouse));
+		DamageToDeal.ColdDamage = (MyEquipedItems.myWeapon->myDamage.ColdDamage * (statsModifierTouse));
+		DamageToDeal.ElectricityDamage = (MyEquipedItems.myWeapon->myDamage.ElectricityDamage * (statsModifierTouse));
+		DamageToDeal.HolyDamage = (MyEquipedItems.myWeapon->myDamage.HolyDamage * (statsModifierTouse));
+		DamageToDeal.VoidDamage = (MyEquipedItems.myWeapon->myDamage.VoidDamage * (statsModifierTouse));
+		DamageToDeal.ArcaneDamage = (MyEquipedItems.myWeapon->myDamage.ArcaneDamage * (statsModifierTouse));
+
+		if (activeAbility != NULL)
+		{
+			activeAbility->AbilitysInstructions(this, inTarget, statsModifierTouse, DamageToDeal);
+			hasShot = false;
+			hasHit = false;
+			damageDone = true;
+			return false;
+		}
+		else
+		{
+			inTarget->TakeBattleDamage(DamageToDeal);
+			hasShot = false;
+			hasHit = false;
+			damageDone = true;
+			return false;
+		}
+		doingDamage = false;
+		damageDone = true;
+	}
+
+
+	return true;
+}
+
+bool ABattlePawnBase::RunAttackTargetCounter(ABattlePawnBase* inTarget)
+{
+	if (attackCompleeted == false)
+	{
+		attackTarget = inTarget;
+		if (animFinished != true)
+		{
+			isAttackingStanding = true;
+		}
+		else
+		{
+			isAttackingStanding = false;
+		}
+		if (doingDamage)
+		{
+			if (MyEquipedItems.myWeapon->isRanged)
+			{
+				RunDamageStepRanged(inTarget);
+			}
+			else
+			{
+				RunDamageStepMelee(inTarget);
+			}
+		}
+		if (animFinished && damageDone)
+		{
+			attackCompleeted = true;
+		}
+	}
+	else
+	{
+		bHasReaction = false;
+		attackTarget = NULL;
+		activeAbility = NULL;
+		attackCompleeted = false;
+		animFinished = false;
+		damageDone = false;
+		doingDamage = false;
+		return true;
+	}
+	return false;
+	return false;
+}
+
 
 
 

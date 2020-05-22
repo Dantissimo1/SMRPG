@@ -397,6 +397,10 @@ bool UBattleBrainComponent::RunPlayersTurn()
 			}
 			else
 			{
+				if (ActiveTurn->MyBattlePawn->MyEquipedItems.myWeapon->isRanged == true)
+				{
+					return testOp2 = AttackRanged(confirmedSingleTarget);
+				}
 				return testOp2 = AttackMelee(confirmedSingleTarget);
 			}
 
@@ -577,6 +581,7 @@ bool UBattleBrainComponent::RunOpotunityAttack()
 	awatingOpotunityDecision = false;
 	pawnToOpotunity->opotunityActionCompleeted = false;
 	pawnToOpotunity->isAtackingOpotunity = false;
+	
 	return true;
 }
 
@@ -612,21 +617,18 @@ bool UBattleBrainComponent::RunCounter(ABattlePawnBase* inPawn)
 			}
 			return false;
 		}
-		if (inPawn->CounterActionCompleeted != true)
+		if (CounterActionCompleeted != true)
 		{
 			UE_LOG(LogTemp, Warning, TEXT(" CounterActionCompleeted "));
-			inPawn->isAtackingCounter = true;
+			CounterActionCompleeted = inPawn->RunAttackTargetCounter(ActiveTurn->MyBattlePawn);
 			return false;
 		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT(" CounterActionCompleeted2 "));
-			inPawn->isAtackingCounter = false;
-		}
+
 		if (inPawn->RotateToTarget(inPawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation()))
 		{
 			UE_LOG(LogTemp, Warning, TEXT(" RotateToTarget 2 "));
 			inPawn->CounterActionCompleeted = false;
+			CounterActionCompleeted = false;
 			counterBool1 = false;
 			counterBool2 = false;
 			inPawn->bHasReaction = false;
@@ -741,6 +743,8 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 	else
 	{
 			////countre Attack
+		if (counterDone == false)
+		{
 			if (CountreAtempted != true)
 			{
 				UE_LOG(LogTemp, Warning, TEXT(" CountreAtempted "));
@@ -765,11 +769,11 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 					}
 				}
 				else if (counterAproved)
-				{					
+				{
 					UE_LOG(LogTemp, Warning, TEXT(" counterAproved "));
 					PlayersCont->BattleHUD->RemoveCounterMenu();
 
-					if (RunCounter(attackTarget) == false)
+					if (attackTarget->RunAttackTargetCounter(ActiveTurn->MyBattlePawn) == false)
 					{
 						counterBool3 = true;
 						UE_LOG(LogTemp, Warning, TEXT(" RunCounter return "));
@@ -777,12 +781,13 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 					}
 					else
 					{
+						counterDone = true;
 						canCounter = false;
 					}
 				}
 			}
-		
-	
+
+		}
 		//////////////UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home "));
 
 		if (attackTarget->bIsBackLine)
@@ -815,6 +820,7 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 		{		
 			UE_LOG(LogTemp, Warning, TEXT(" reset all used variables "));
 			//reset all used variables
+			counterDone = false;
 			counterBool3 = false;
 			awatingCounterDecision = true;
 			counterAproved = false;
@@ -860,9 +866,6 @@ bool UBattleBrainComponent::AttackMagic(ABattlePawnBase* attackTarget)
 			attackActionCompleeted = true;
 		}
 	}
-
-
-
 	if (ActiveTurn->MyBattlePawn->RotateToTarget(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation()))
 	{
 		ActiveTurn->MyBattlePawn->isAttackingMagic = false;
@@ -872,49 +875,6 @@ bool UBattleBrainComponent::AttackMagic(ABattlePawnBase* attackTarget)
 		atStaginPoint1 = false;
 		return true;
 	}
-
-
-
-	/*
-	if (ActiveTurn->MyBattlePawn->attackActionCompleeted == true)
-	{
-		/*
-		if (damageStepDone == false)
-		{
-			if (activeAbility != NULL)
-			{
-				TArray<ABattlePawnBase*> targets;
-				ActiveTurn->MyBattlePawn->activeAbility = activeAbility;
-				//targets = activeAbility->AbilitysInstructions(ActiveTurn->MyBattlePawn, attackTarget);
-				if (activeAbility->isHealing != true)
-				{	
-					UE_LOG(LogTemp, Warning, TEXT(" Attack Magic Atttaaaaaa 2"));
-					for (int d = 0; d < targets.Num();d++)
-					{
-						UE_LOG(LogTemp, Warning, TEXT(" Attack Magic Atttaaaaaa 3"));
-						ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(targets[d]);
-					}
-				}
-				else
-				{
-					for (int d = 0; d < targets.Num();d++)
-					{
-						ActiveTurn->MyBattlePawn->HealTarget(targets[d]);
-					}
-				}
-
-			}
-			else
-			{
-				ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(attackTarget);
-			}
-			damageStepDone = true;
-		}
-		
-		//////UE_LOG(LogTemp, Warning, TEXT(" Attack magic 2"));
-
-	}*/
-
 
 	return false;
 }
@@ -927,52 +887,32 @@ bool UBattleBrainComponent::AttackRanged(ABattlePawnBase* attackTarget)
 	{
 		atStaginPoint1 = ActiveTurn->MyBattlePawn->RotateToTarget(attackTarget->PawnsBaseActor->GetComponentLocation());
 		ActiveTurn->MyBattlePawn->isAttackingRanged = true;
-		//////UE_LOG(LogTemp, Warning, TEXT(" Attack reange Atttaaaaaa "));
+		UE_LOG(LogTemp, Warning, TEXT(" Attack reange Atttaaaaaa "));
 	}
 
 	/// adjustt to get if projectile has hit when you make them
-	if (ActiveTurn->MyBattlePawn->attackActionCompleeted == true)
+	if (attackActionCompleeted != true)
 	{
-		if (damageStepDone == false)
+		UE_LOG(LogTemp, Warning, TEXT(" Attack reange 2"));
+		if (ActiveTurn->MyBattlePawn->RunAttackTargetRanged(attackTarget, activeAbility) != true)
 		{
-			if (activeAbility != NULL)
-			{
-				TArray<ABattlePawnBase*> targets;
-				ActiveTurn->MyBattlePawn->activeAbility = activeAbility;
-				//targets = activeAbility->AbilitysInstructions(ActiveTurn->MyBattlePawn, attackTarget);
-				if (activeAbility->isHealing != true)
-				{
-					UE_LOG(LogTemp, Warning, TEXT(" Attack AttackRanged Atttaaaaaa 2"));
-					for (int d = 0; d < targets.Num();d++)
-					{
-						UE_LOG(LogTemp, Warning, TEXT(" Attack AttackRanged Atttaaaaaa 3"));
-						ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(targets[d]);
-					}
-				}
-				else
-				{
-					for (int d = 0; d < targets.Num();d++)
-					{
-						ActiveTurn->MyBattlePawn->HealTarget(targets[d]);
-					}
-				}
+			UE_LOG(LogTemp, Warning, TEXT(" Attack reange 3"));
+			return false;
+		}
+		else
+		{
+			attackActionCompleeted = true;
+		}
+	}	
 
-			}
-			else
-			{
-				ActiveTurn->MyBattlePawn->CauseDamageToBattlePawn(attackTarget);
-			}
-			damageStepDone = true;
-		}
-		//////UE_LOG(LogTemp, Warning, TEXT(" Attack reange 2"));
-		if (ActiveTurn->MyBattlePawn->RotateToTarget(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation()))
-		{
-			ActiveTurn->MyBattlePawn->isAttackingRanged = false;
-			//////UE_LOG(LogTemp, Warning, TEXT(" Attack range 3"));
-			ActiveTurn->MyBattlePawn->attackActionCompleeted = false;
-			atStaginPoint1 = false;
-			return true;
-		}
+	if (ActiveTurn->MyBattlePawn->RotateToTarget(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation()))
+	{
+		ActiveTurn->MyBattlePawn->isAttackingRanged = false;
+		UE_LOG(LogTemp, Warning, TEXT(" Attack reange 3"));
+		attackActionCompleeted = false;
+		ActiveTurn->MyBattlePawn->attackActionCompleeted = false;
+		atStaginPoint1 = false;
+		return true;
 	}
 
 	return false;
