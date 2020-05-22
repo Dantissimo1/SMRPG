@@ -7,7 +7,7 @@
 #include "EffectSource.h"
 #include "Effect.h"
 #include "Components/SphereComponent.h"
-
+#include "ParticleHolder.h"
 
 
 UAbilityBase::UAbilityBase()
@@ -16,17 +16,23 @@ UAbilityBase::UAbilityBase()
 
 }
 
-TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sourcePawn, ABattlePawnBase* inAtTarg)
+TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sourcePawn, ABattlePawnBase* inAtTarg, float inDamageModifier, FDamageTypesToCause inDamageToAdd)
 {
 	TArray<ABattlePawnBase*> targets;
 
 
 	if (attackType == EAttackType::singleTarget)
 	{
-		targets.Add(inAtTarg);
+		FDamageTypesToCause DamageToDeal;
+		DamageToDeal = WorkOutDamage(inDamageModifier, inDamageToAdd);
+
+		inAtTarg->TakeBattleDamage(DamageToDeal);
 	}
 	if (attackType == EAttackType::aoeMed)
 	{
+		FDamageTypesToCause DamageToDeal;
+		DamageToDeal = WorkOutDamage(inDamageModifier, inDamageToAdd);
+
 		DamageSphere = NewObject<USphereComponent>(this, TEXT("Damage Sphere"));
 		DamageSphere->SetWorldLocation(inAtTarg->GetActorLocation());
 		DamageSphere->SetSphereRadius(DamageSphereSize, true);
@@ -43,7 +49,7 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 		{
 			if (Cast<ABattlePawnBase>(Overlaps[n]))
 			{
-				targets.Add(Cast<ABattlePawnBase>(Overlaps[n]));
+				Cast<ABattlePawnBase>(Overlaps[n])->TakeBattleDamage(DamageToDeal);
 			}
 		}
 
@@ -53,7 +59,6 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 	}
 	if (attackType == EAttackType::aoePartywide)
 	{
-
 
 	}
 
@@ -66,15 +71,41 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 	}
 	else
 	{
-
 		passOnEffects(targets, sourcePawn);
 	}
+	
+
+
+
 
 	return targets;
 }
 
+void UAbilityBase::DoDamage(ABattlePawnBase* inCause, ABattlePawnBase* inAtTarg)
+{
+}
 
 
+
+
+FDamageTypesToCause UAbilityBase::WorkOutDamage(float inModifier, FDamageTypesToCause inDamageToAdd)
+{
+	FDamageTypesToCause finalDamage;
+
+	finalDamage.ImpactDamage = (DamageTypes.ImpactDamage * (inModifier))+ inDamageToAdd.ImpactDamage;
+	finalDamage.SlashDamage = (DamageTypes.SlashDamage * (inModifier)) + inDamageToAdd.SlashDamage;
+	finalDamage.PunctureDamage = (DamageTypes.PunctureDamage * (inModifier))+ inDamageToAdd.PunctureDamage;
+	finalDamage.FireDamage = (DamageTypes.FireDamage * (inModifier))+ inDamageToAdd.FireDamage;
+	finalDamage.EarthDamage = (DamageTypes.EarthDamage * (inModifier)) + inDamageToAdd.EarthDamage;
+	finalDamage.WaterDamage = (DamageTypes.WaterDamage * (inModifier)) + inDamageToAdd.WaterDamage;
+	finalDamage.ColdDamage = (DamageTypes.ColdDamage * (inModifier)) + inDamageToAdd.ColdDamage;
+	finalDamage.ElectricityDamage = (DamageTypes.ElectricityDamage * (inModifier))+ inDamageToAdd.ElectricityDamage;
+	finalDamage.HolyDamage = (DamageTypes.HolyDamage * (inModifier)) + inDamageToAdd.HolyDamage;
+	finalDamage.VoidDamage = (DamageTypes.VoidDamage * (inModifier)) + inDamageToAdd . VoidDamage;
+	finalDamage.ArcaneDamage = (DamageTypes.ArcaneDamage * (inModifier)) + inDamageToAdd.ArcaneDamage;
+
+	return finalDamage;
+}
 
 void UAbilityBase::passOnEffects(TArray<ABattlePawnBase*> inPawns, ABattlePawnBase* causeingPawn)
 {

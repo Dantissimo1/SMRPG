@@ -19,28 +19,28 @@ public:
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float ImpactDamage = 10;
+		float ImpactDamage = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float SlashDamage = 10;
+		float SlashDamage = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float PunctureDamage = 10;
+		float PunctureDamage = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float FireDamage = 10;
+		float FireDamage = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float EarthDamage = 10;
+		float EarthDamage = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float WaterDamage = 10;
+		float WaterDamage = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float ColdDamage = 10;
+		float ColdDamage = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float ElectricityDamage = 10;
+		float ElectricityDamage = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float HolyDamage = 10;
+		float HolyDamage = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float VoidDamage = 10;
+		float VoidDamage = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		float ArcaneDamage = 10;
+		float ArcaneDamage = 0;
 
 };
 

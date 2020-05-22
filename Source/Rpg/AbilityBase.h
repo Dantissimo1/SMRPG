@@ -12,7 +12,7 @@
 class UEffectSource;
 class ABattlePawnBase;
 class USphereComponent;
-
+class AParticleHolder;
 
 
 UENUM()
@@ -45,13 +45,19 @@ class RPG_API UAbilityBase : public UObject
 public:
 	UAbilityBase();
 
-	TArray< ABattlePawnBase*> AbilitysInstructions(ABattlePawnBase* sourcePawn, ABattlePawnBase* inAtTarg);
+	TArray< ABattlePawnBase*> AbilitysInstructions(ABattlePawnBase* sourcePawn, ABattlePawnBase* inAtTarg, float inDamageModifier, FDamageTypesToCause inDamageToAdd);
+
+	void DoDamage(ABattlePawnBase* inCause ,ABattlePawnBase* inAtTarg);
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		FString Name = "Tits";
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		EAttackType attackType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		TSubclassOf<AParticleHolder> dammgeEffect;
+	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		bool targetsHostile = true;
@@ -68,6 +74,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 		FDamageTypesToCause DamageTypes;
+
+	FDamageTypesToCause WorkOutDamage(float inModifier, FDamageTypesToCause inDamageToAdd);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 		TSubclassOf<UEffectSource> AbilitysEffect;
 

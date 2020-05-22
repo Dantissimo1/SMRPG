@@ -109,6 +109,7 @@ public:
 	bool AttackMelee(ABattlePawnBase* attackTarget);
 	bool AttackMagic(ABattlePawnBase* attackTarget);
 	bool AttackRanged(ABattlePawnBase* attackTarget);
+	bool attackActionCompleeted = false;
 	bool atStaginPoint1 = false;
 	bool atStagingPoint2 = false;
 	bool atAttackPosition = false;

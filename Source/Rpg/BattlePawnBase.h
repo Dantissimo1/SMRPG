@@ -20,7 +20,7 @@ class UBattleSpawnPoint;
 class UEffectSource;
 class UEffect;
 class UCameraComponent;
-
+class AParticleHolder;
 
 USTRUCT(BluePrintType)
 struct RPG_API FEquipedItems
@@ -194,11 +194,24 @@ public:
 
 
 	/////atacking
-
+	ABattlePawnBase* attackTarget = NULL;
 	UAttackPosition* attackPosition;
 	UOpotunityAttackPosition* opotunityLocation;
-	bool AttackTargetMelee(ABattlePawnBase* inTarget);
-	bool AttackTargetMagic(ABattlePawnBase* inTarget);
+	bool attackCompleeted = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage")
+	bool animFinished = false;
+	bool particleSpawned = false;
+	AParticleHolder* spawnedParticle = NULL;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage")
+		bool doAbilityDamage = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage")
+		bool abilityAnimDone = false;
+	bool doingDamage = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage")
+	bool damageDone = false;
+
+	bool RunAttackTargetMelee(ABattlePawnBase* inTarget, UAbilityBase* inAbility);
+	bool RunAttackTargetMagic(ABattlePawnBase* inTarget, UAbilityBase* inAbility);
 	ABattlePawnBase* lastAttackTarget = NULL;
 
 
@@ -207,6 +220,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "damage")
 	bool isDown = false;
+
+
+	UFUNCTION(BlueprintCallable)
+		void TriggerDamageStep();
+	UFUNCTION(BlueprintCallable)
+		void RunDamageStepMelee(ABattlePawnBase* inTarget);
+	UFUNCTION(BlueprintCallable)
+		bool RunDamageStepMagic(ABattlePawnBase* inTarget);
+
 	void CauseDamageToBattlePawn(ABattlePawnBase* inPawn);
 	void TakeBattleDamage(FDamageTypesToCause inDamage);
 	void HealTarget(ABattlePawnBase* inPawn);
