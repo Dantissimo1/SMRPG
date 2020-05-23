@@ -24,11 +24,20 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 	{
 		if (attackType == EAttackType::singleTarget)
 		{
+
+
 			FDamageTypesToCause DamageToDeal;
 			DamageToDeal = WorkOutDamage(inDamageModifier, inDamageToAdd);
-			inAtTarg->TakeBattleDamage(DamageToDeal);
 			TArray<ABattlePawnBase*> target;
 			target.Add(inAtTarg);
+			if (isHealing)
+			{
+				sourcePawn->HealTarget(inAtTarg);
+			}
+			else
+			{
+				inAtTarg->TakeBattleDamage(DamageToDeal);
+			}
 			if (AbilitysEffect != NULL)
 			{
 				passOnEffects(target, sourcePawn);
@@ -36,6 +45,7 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 		}
 		if (attackType == EAttackType::aoeMed)
 		{
+
 			FDamageTypesToCause DamageToDeal;
 
 			DamageToDeal = WorkOutDamage(inDamageModifier, inDamageToAdd);
@@ -56,7 +66,14 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 			{
 				if (Cast<ABattlePawnBase>(Overlaps[n]))
 				{
-					Cast<ABattlePawnBase>(Overlaps[n])->TakeBattleDamage(DamageToDeal);
+					if (isHealing)
+					{
+						sourcePawn->HealTarget(Cast<ABattlePawnBase>(Overlaps[n]));
+					}
+					else
+					{
+						Cast<ABattlePawnBase>(Overlaps[n])->TakeBattleDamage(DamageToDeal);
+					}
 					targets.Add(Cast<ABattlePawnBase>(Overlaps[n]));
 				}
 			}
@@ -78,12 +95,20 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 	{
 		if (buffType != EABuffType::selfBuff)
 		{
+			if (isHealing)
+			{
+				sourcePawn->HealTarget(sourcePawn);
+			}
 			TArray<ABattlePawnBase*>pawnsToBuff;
 			pawnsToBuff.Add(sourcePawn);
 			passOnEffects(pawnsToBuff, sourcePawn);
 		}
 		if (buffType != EABuffType::singleTarget)
 		{
+			if (isHealing)
+			{
+				sourcePawn->HealTarget(inAtTarg);
+			}
 			TArray<ABattlePawnBase*>pawnsToBuff;
 			pawnsToBuff.Add(inAtTarg);
 			passOnEffects(pawnsToBuff, sourcePawn);
@@ -109,6 +134,10 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 			{
 				if (Cast<ABattlePawnBase>(Overlaps[n]))
 				{
+					if (isHealing)
+					{
+						sourcePawn->HealTarget(Cast<ABattlePawnBase>(Overlaps[n]));
+					}
 					pawnsToBuff.Add(Cast<ABattlePawnBase>(Overlaps[n]));
 				}
 			}

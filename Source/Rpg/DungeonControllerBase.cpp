@@ -452,9 +452,12 @@ void ADungeonControllerBase::SelectSingleVertical(float value)
 			switchTimerReady = false;
 			if (singleTarget->bIsBackLine != true)
 			{
-				if (SearchValidBackline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid != NULL)
+				if (SearchValidBackline(spawnPointsToUse))
 				{
-					newPlaceOnGrid = SearchValidBackline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid;
+					if (SearchValidBackline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid != NULL)
+					{
+						newPlaceOnGrid = SearchValidBackline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid;
+					}
 				}
 				else
 				{
@@ -463,15 +466,18 @@ void ADungeonControllerBase::SelectSingleVertical(float value)
 			}
 			else
 			{
-				if (SearchValidFrontline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid != NULL)
+				if (SearchValidFrontline(spawnPointsToUse))
 				{
-					newPlaceOnGrid = SearchValidFrontline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid;
+					if (SearchValidFrontline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid != NULL)
+					{
+						newPlaceOnGrid = SearchValidFrontline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid;
+					}
 				}
-				else
+				else 
 				{
 					newPlaceOnGrid = SearchValidBackline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid;
 				}
-
+				
 			}
 			
 			singleTarget = spawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
@@ -581,7 +587,7 @@ ABattlePawnBase* ADungeonControllerBase::SearchValidBackline(TArray<UBattleSpawn
 			
 		}
 	}
-	return nullptr;
+	return singleTarget;
 }
 
 ABattlePawnBase* ADungeonControllerBase::SearchValidFrontline(TArray<UBattleSpawnPoint*>inSpawnPointsToUse)
@@ -606,7 +612,7 @@ ABattlePawnBase* ADungeonControllerBase::SearchValidFrontline(TArray<UBattleSpaw
 		}
 	}
 
-	return nullptr;
+	return singleTarget;
 }
 
 void ADungeonControllerBase::ToggleSwitchTimer()

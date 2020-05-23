@@ -83,6 +83,7 @@ public:
 
 	void SetUpPlayerPawn(ACharacterDataSheet* inDataSheet, UBattleSpawnPoint* inPawnsBaseActor, ABattleZoneBase* inBattleZone,bool inbackline,bool inOwnedByPlayer);
 	void SetUpNPCPawn();
+	void SetUpBaseStats();
 
 	ABattleZoneBase* MyBattleZone;
 
@@ -234,7 +235,7 @@ public:
 	bool hasHit = false;
 
 
-	bool RunAttackTargetCounter(ABattlePawnBase* inTarget);
+	bool RunAttackTargetStanding(ABattlePawnBase* inTarget);
 
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage");
 		FVector hitlocation;

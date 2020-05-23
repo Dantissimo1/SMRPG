@@ -76,6 +76,8 @@ public:
 	TArray<ABattlePawnBase*>pawnsForOpotunityDecision;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Opotunity")
 	ABattlePawnBase* pawnToOpotunity;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Opotunity")
+	bool deniedOpotunity = false;
 	bool OpotunityMenuSpawned = false;
 	bool SpawnOpotunityMenue(TArray<ABattlePawnBase*>inPawn);
 	bool RunOpotunityAttack();
@@ -93,6 +95,8 @@ public:
 	bool RunCounter(ABattlePawnBase* inPawn);
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")
 	bool counterAproved = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")
+	bool counterDenied = false;
 	bool RunStandingAttack(ABattlePawnBase* inTarget , ABattlePawnBase* inOwner);
 	bool counterBool1 = false;
 	bool counterBool2 = false;

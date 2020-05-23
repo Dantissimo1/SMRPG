@@ -43,7 +43,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		float BaseSpeed = 2;
-	float Speed = 2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+	float Speed = BaseSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		float counterChance = 5;

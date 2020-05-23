@@ -50,11 +50,13 @@ void ABattlePawnBase::SetUpPlayerPawn(ACharacterDataSheet* inDataSheet, UBattleS
 	bIsBackLine = inbackline;
 	isOwnedByPlayer = inOwnedByPlayer;
 
+	
 	//set stats
 	mainCharInfo = myDataSheet->CharacterDetails;
 	OfensiveStatsBase = myDataSheet->OfensiveStats;
 	DefensiveStatsBase = myDataSheet->DefensiveStats;
 
+	SetUpBaseStats();
 	InitializePlayersAbilitys();
 
 
@@ -63,7 +65,7 @@ void ABattlePawnBase::SetUpPlayerPawn(ACharacterDataSheet* inDataSheet, UBattleS
 
 void ABattlePawnBase::SetUpNPCPawn()
 {
-	
+	SetUpBaseStats();
 	for (int i = 0; i < abilityClasses.Num();i++)
 	{	
 		abilitys.Add(NewObject<UAbilityBase>(this, abilityClasses[i]));
@@ -77,7 +79,13 @@ void ABattlePawnBase::SetUpNPCPawn()
 	{
 		magicAbilitys.Add(NewObject<UAbilityBase>(this ,magicAbilityClasses[i]));
 	}
-	
+}
+
+void ABattlePawnBase::SetUpBaseStats()
+{
+	mainCharInfo.Health = mainCharInfo.MaxHealth;
+	mainCharInfo.Mana = mainCharInfo.ManaMax;
+	mainCharInfo.Speed = mainCharInfo.BaseSpeed;
 }
 
 void ABattlePawnBase::EndAttack()
@@ -552,7 +560,7 @@ bool ABattlePawnBase::RunDamageStepRanged(ABattlePawnBase* inTarget)
 	return true;
 }
 
-bool ABattlePawnBase::RunAttackTargetCounter(ABattlePawnBase* inTarget)
+bool ABattlePawnBase::RunAttackTargetStanding(ABattlePawnBase* inTarget)
 {
 	if (attackCompleeted == false)
 	{
