@@ -337,6 +337,54 @@ bool ABattlePawnBase::RunAttackTargetMelee(ABattlePawnBase* inTarget, UAbilityBa
 	return false;
 }
 
+bool ABattlePawnBase::RunAttackCharge(ABattlePawnBase* inTarget, UAbilityBase* inAbility)
+{
+	UE_LOG(LogTemp, Warning, TEXT("RunAttackCharge"));
+	if (animFinished != true)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("animFinished not %d"), animFinished);
+		attackTarget = inTarget;
+		activeAbility = inAbility;
+		chargeTime = inAbility->chargeTime;
+		
+
+		if (activeAbility->AttackStyle == EAttackStyle::Melee)
+		{
+			isChargeingMeleeAttack = true;
+		}
+		if (activeAbility->AttackStyle == EAttackStyle::Magic)
+		{
+			isChargeingMagicAttack = true;
+		}
+		if (activeAbility->AttackStyle == EAttackStyle::Rganged)
+		{
+			isChargeingRangedAttack = true;
+		}
+
+		return false;
+	}
+	UE_LOG(LogTemp, Warning, TEXT("animFinished"));
+	isChargeingAttack = true;
+	animFinished = false;
+	attackCompleeted = false;
+	return true;
+}
+
+bool ABattlePawnBase::CanecelChargedAttack()
+{
+	UE_LOG(LogTemp, Warning, TEXT("animFinished not %d"), animFinished);
+	attackTarget = NULL;
+	activeAbility = NULL;
+	chargeTime = 0;
+	isChargeingAttack = false;
+	isChargeingMeleeAttack = false;
+	isChargeingMagicAttack = false;
+	isChargeingRangedAttack = false;
+	animFinished = false;
+	attackCompleeted = false;
+	return true;
+}
+
 
 void ABattlePawnBase::RunDamageStepMelee(ABattlePawnBase* inTarget)
 {

@@ -77,6 +77,12 @@ public:
 		bool targetsHostile = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		bool chargedAttack = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		int chargeTime = 2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		bool isHealing = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		float healPercent = 36;

@@ -25,7 +25,7 @@ class RPG_API UBattleBrainComponent : public USceneComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UBattleBrainComponent();
 
@@ -33,7 +33,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
@@ -42,26 +42,26 @@ public:
 	ADungeonControllerBase* PlayersCont;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Turns")
-	TArray<UTurnInfo*>TurnOrder;
+		TArray<UTurnInfo*>TurnOrder;
 	TArray<UTurnInfo*>WorkingTurnOrder;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Turns")
-	UTurnInfo* ActiveTurn;
+		UTurnInfo* ActiveTurn;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Pawns")
-	TArray<ABattlePawnBase*>AllPawnsInBattle;
+		TArray<ABattlePawnBase*>AllPawnsInBattle;
 	TArray<ABattlePawnBase*>playerBattlePawns;
 	TArray<ABattlePawnBase*>enemyBattlePawns;
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Main")
-	ABattleZoneBase* MyBattleZone;
+		ABattleZoneBase* MyBattleZone;
 
 	void SetUp(ABattleZoneBase* InBattleZone);
 	void ConstructHUD();
 	void InitializeBattle(TArray<ABattlePawnBase*>allBattlePawns, TArray<ABattlePawnBase*>playerBattlePawns, TArray<ABattlePawnBase*>enemyBattlePawns);
 	void CalcInitialTurnOrder();
 	UFUNCTION(BlueprintCallable)
-	void ReCalcChrsTurns(ABattlePawnBase* inPawn);
+		void ReCalcChrsTurns(ABattlePawnBase* inPawn);
 	void SetActiveTurn();
-	void AddNewTurn(ABattlePawnBase* MyBattlePawn,FString ChrName,int Turn,float Speed);
+	void AddNewTurn(ABattlePawnBase* MyBattlePawn, FString ChrName, int Turn, float Speed);
 	bool RunActiveTurn();
 	bool RunPlayersTurn();
 	bool RunEnemyTurn();
@@ -73,11 +73,11 @@ public:
 	TArray<ABattlePawnBase*>FindAvalibleForOpotunity(ABattlePawnBase* inTarget);
 	bool serchedForOpotunityPawns = false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Opotunity")
-	TArray<ABattlePawnBase*>pawnsForOpotunityDecision;
+		TArray<ABattlePawnBase*>pawnsForOpotunityDecision;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Opotunity")
-	ABattlePawnBase* pawnToOpotunity;
+		ABattlePawnBase* pawnToOpotunity;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Opotunity")
-	bool deniedOpotunity = false;
+		bool deniedOpotunity = false;
 	bool OpotunityMenuSpawned = false;
 	bool SpawnOpotunityMenue(TArray<ABattlePawnBase*>inPawn);
 	bool RunOpotunityAttack();
@@ -86,7 +86,7 @@ public:
 	bool opotunityAttackPreformed = false;
 	/////counter
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")
-	bool awatingCounterDecision = true;
+		bool awatingCounterDecision = true;
 	bool canCounter = false;
 	bool counterDone = false;
 	bool CountreAtempted = false;
@@ -94,15 +94,24 @@ public:
 	bool CanCounter(ABattlePawnBase* inPawn);
 	bool RunCounter(ABattlePawnBase* inPawn);
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")
-	bool counterAproved = false;
+		bool counterAproved = false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")
-	bool counterDenied = false;
-	bool RunStandingAttack(ABattlePawnBase* inTarget , ABattlePawnBase* inOwner);
+		bool counterDenied = false;
+	bool RunStandingAttack(ABattlePawnBase* inTarget, ABattlePawnBase* inOwner);
 	bool counterBool1 = false;
 	bool counterBool2 = false;
 	bool counterBool3 = false;
 	bool counterMenuSpawned = false;
 
+	/////// charged ablitys
+	bool startChargedAttack(ABattlePawnBase* inTarget, UAbilityBase* inAbility);
+	bool runChargedAttackCharge();
+	bool runChargedAttack();
+	bool resetForChargedAttack = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Charge")
+	bool waitingForContinueCharge = true;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Charge")
+	bool continueCharge = true;
 
 	//////////target selection///////
 	UAbilityBase* activeAbility = NULL;
@@ -134,5 +143,9 @@ public:
 	ABattlePawnBase* attaaaaTarget;
 	bool testOperationCompleted = false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Turns")
-	bool testOp2 = false;
+		bool testOp2 = false;
+	bool testOp3 = false;
+	int targetNo = 0;
+
+
 };

@@ -68,6 +68,12 @@ public:
 	UFUNCTION(BlueprintNativeEvent, Category = "SetUpHUD")
 		void RemoveCounterMenu();
 
+	UFUNCTION(BlueprintNativeEvent, Category = "SetUpHUD")
+		void CreateChargingMenu();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "SetUpHUD")
+		void RemoveChargingMenu();
+
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void BackToAttackSelection();

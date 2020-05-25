@@ -66,9 +66,13 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 				PlayersCont->isWaitingForSingleTargetSelection = false;
 				watingForPlayersTarget = true;
 			}
+
+
+			///// TEST
+			testOp3 = false;
+
 			activeAbility = NULL;
 			damageStepDone = false;
-			ActiveTurn->MyBattlePawn->activeAbility = NULL;
 			ActiveTurn = TurnOrder[0];
 			TurnOrder.RemoveAt(0);
 			PlayersCont->BattleHUD->CallCalcTurns();
@@ -366,6 +370,30 @@ bool UBattleBrainComponent::RunActiveTurn()
 bool UBattleBrainComponent::RunPlayersTurn()
 {
 	////UE_LOG(LogTemp, Warning, TEXT("players turn 0"));
+
+	if (ActiveTurn->MyBattlePawn->attackCharged)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" attackCharged "));
+		return runChargedAttack();
+		
+	}
+	if (ActiveTurn->MyBattlePawn->isChargeingAttack)
+	{
+		//if (ActiveTurn->MyBattlePawn->animFinished)
+		{
+			return runChargedAttackCharge();
+		}
+	}
+	if (ActiveTurn->MyBattlePawn->attackCharged)
+	{/////REWORK CHARGE
+		confirmedSingleTarget = ActiveTurn->MyBattlePawn->attackTarget;
+		activeAbility = ActiveTurn->MyBattlePawn->activeAbility;
+		watingForPlayersTarget = false;
+		return true;
+	}
+
+
+
 	if (watingForPlayersTarget)
 	{
 		////UE_LOG(LogTemp, Warning, TEXT("watingForPlayersTarget 0"));
@@ -389,6 +417,11 @@ bool UBattleBrainComponent::RunPlayersTurn()
 			
 			if (activeAbility)
 			{
+				if(activeAbility->chargedAttack)
+				{
+					return startChargedAttack(confirmedSingleTarget, activeAbility);
+				}
+
 				if (activeAbility->AttackStyle == EAttackStyle::Melee)
 				{
 					return testOp2 = AttackMelee(confirmedSingleTarget);
@@ -436,6 +469,14 @@ bool UBattleBrainComponent::RunEnemyTurn()
 {
 
 
+/*
+	if (testOp3 != true)
+	{
+		float max = playerBattlePawns.Num() - 1;
+		float target = FMath::RandRange(0.f, max);
+		targetNo = FMath::RoundToInt(target);
+		testOp3 = true;
+	}*/
 	for (int i = 0; i < playerBattlePawns.Num();i++)
 	{
 		if (playerBattlePawns[i]->bIsBackLine)
@@ -525,7 +566,7 @@ TArray<ABattlePawnBase*> UBattleBrainComponent::FindAvalibleForOpotunity(ABattle
 		if (pawnSetToCheck[i]->PawnsBaseActor->placeOnGrid == placeToCheck1)
 		{
 			DrawDebugPoint(GetWorld(), pawnSetToCheck[i]->GetActorLocation(), 60.f, FColor::Emerald, false, 2.f);
-			if (pawnSetToCheck[i]->bHasReaction)
+			if (pawnSetToCheck[i]->bHasReaction && pawnSetToCheck[i]->isChargeingAttack !=true)
 			{
 				pawnsToReturn.Add(pawnSetToCheck[i]);
 			}
@@ -533,7 +574,7 @@ TArray<ABattlePawnBase*> UBattleBrainComponent::FindAvalibleForOpotunity(ABattle
 		if (pawnSetToCheck[i]->PawnsBaseActor->placeOnGrid == placeToCheck2)
 		{
 			DrawDebugPoint(GetWorld(), pawnSetToCheck[i]->GetActorLocation(), 60.f, FColor::Emerald, false, 2.f);
-			if (pawnSetToCheck[i]->bHasReaction)
+			if (pawnSetToCheck[i]->bHasReaction && pawnSetToCheck[i]->isChargeingAttack != true)
 			{
 				pawnsToReturn.Add(pawnSetToCheck[i]);
 			}
@@ -594,7 +635,7 @@ bool UBattleBrainComponent::RunOpotunityAttack()
 
 bool UBattleBrainComponent::CanCounter(ABattlePawnBase* inPawn)
 {
-	if (inPawn->bHasReaction != true)
+	if (inPawn->bHasReaction != true && inPawn->isChargeingAttack == true)
 	{
 		return false;
 	}
@@ -647,31 +688,141 @@ bool UBattleBrainComponent::RunCounter(ABattlePawnBase* inPawn)
 
 bool UBattleBrainComponent::RunStandingAttack(ABattlePawnBase* inTarget, ABattlePawnBase* inOwner)
 {
+
+
+
 	return false;
 }
 
+
+bool UBattleBrainComponent::startChargedAttack(ABattlePawnBase* inTarget, UAbilityBase* inAbility)
+{
+		return ActiveTurn->MyBattlePawn->RunAttackCharge(confirmedSingleTarget, activeAbility);
+}
+
+bool UBattleBrainComponent::runChargedAttackCharge()
+{
+	UE_LOG(LogTemp, Warning, TEXT(" runChargedAttackCharge "));
+	if (ActiveTurn->MyBattlePawn->isChargeingAttack)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" isChargeingAttack "));
+		if (waitingForContinueCharge)
+		{
+			UE_LOG(LogTemp, Warning, TEXT(" waitingForContinueCharge "));
+			PlayersCont->BattleHUD->CreateChargingMenu();
+			return false;
+		}
+		if (continueCharge)
+		{
+			ActiveTurn->MyBattlePawn->chargeTime--;
+			if (ActiveTurn->MyBattlePawn->chargeTime <= 0)
+			{
+				ActiveTurn->MyBattlePawn->attackCharged = true;
+				ActiveTurn->MyBattlePawn->isChargeingAttack = false;
+				waitingForContinueCharge = true;
+				return true;
+			}
+			confirmedSingleTarget = NULL;
+			activeAbility = NULL;
+			watingForPlayersTarget = true;
+			waitingForContinueCharge = true;
+			return true;
+		}
+		else
+		{
+
+
+			confirmedSingleTarget = NULL;
+			activeAbility = NULL;
+			watingForPlayersTarget = true;
+			ActiveTurn->MyBattlePawn->CanecelChargedAttack();
+			waitingForContinueCharge = true;
+			return false;
+		}
+
+
+		waitingForContinueCharge = true;
+		return true;
+	}
+
+	return false;
+}
+
+bool UBattleBrainComponent::runChargedAttack()
+{
+	UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack "));
+	bool attackDone = false;
+	if (resetForChargedAttack == false)
+	{
+		//ActiveTurn->MyBattlePawn->animFinished = false;
+		UE_LOG(LogTemp, Warning, TEXT(" resetForChargedAttack "));
+		ActiveTurn->MyBattlePawn->isChargeingAttack = false;
+		ActiveTurn->MyBattlePawn->isChargeingMeleeAttack = false;
+		ActiveTurn->MyBattlePawn->isChargeingMagicAttack = false;
+		ActiveTurn->MyBattlePawn->isChargeingRangedAttack = false;
+		activeAbility = ActiveTurn->MyBattlePawn->activeAbility;
+		confirmedSingleTarget = ActiveTurn->MyBattlePawn->attackTarget;
+		ActiveTurn->MyBattlePawn->animFinished = false;
+		resetForChargedAttack = true;
+	}
+
+	//ActiveTurn->MyBattlePawn->animFinished = false;
+	UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack 2 "));
+
+
+	if (activeAbility->AttackStyle == EAttackStyle::Melee)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Melee"));
+		attackDone = AttackMelee(confirmedSingleTarget);
+		UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Melee 2 "));
+	}
+
+	if (activeAbility->AttackStyle == EAttackStyle::Magic)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Magic "));
+		attackDone = AttackMagic(confirmedSingleTarget);
+	}
+	if (activeAbility->AttackStyle == EAttackStyle::Rganged)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Rganged "));
+		attackDone = AttackRanged(confirmedSingleTarget);
+	}
+	
+	UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack 4 "));
+	if (attackDone)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack 5 "));
+		resetForChargedAttack = false;
+		ActiveTurn->MyBattlePawn->attackCharged = false;
+	}
+
+	return attackDone;
+}
+
 bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
-{ 
+{
 	//get in to position
-	//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack Melee "));
+	UE_LOG(LogTemp, Warning, TEXT(" Attack Melee "));
+
+
 	if (attackActionCompleeted != true)
 	{
 		if (ActiveTurn->MyBattlePawn->bIsBackLine)
 		{
-			//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack Melee im at back"));
+			UE_LOG(LogTemp, Warning, TEXT(" Attack Melee im at back"));
 			if (atStaginPoint1 != true)
 			{
-				//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to staging"));
+				UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to staging"));
 				atStaginPoint1 = ActiveTurn->MyBattlePawn->MoveToLocation(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
 				return false;
 			}
 		}
 		//if (attackTarget->bIsBackLine)
 		{
-			//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack Melee  target is back"));
+			UE_LOG(LogTemp, Warning, TEXT(" Attack Melee  target is back"));
 			if (atopotunityLocation != true)
 			{
-				//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to opotunity"));
+				UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to opotunity"));
 				atopotunityLocation = ActiveTurn->MyBattlePawn->MoveToLocation(attackTarget->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
 				return false;
 			}
@@ -824,7 +975,7 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			}
 
 		}
-		//////////////UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home "));
+		UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home "));
 
 		if (attackTarget->bIsBackLine)
 		{

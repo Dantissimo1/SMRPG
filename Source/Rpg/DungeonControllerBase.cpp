@@ -424,8 +424,7 @@ void ADungeonControllerBase::SelectSingleHorizontal(float value)
 						return;
 					}
 				}
-			}
-		
+			}	
 	}
 }
 
@@ -452,7 +451,7 @@ void ADungeonControllerBase::SelectSingleVertical(float value)
 			switchTimerReady = false;
 			if (singleTarget->bIsBackLine != true)
 			{
-				if (SearchValidBackline(spawnPointsToUse))
+				if (SearchValidBackline(spawnPointsToUse)!=NULL)
 				{
 					if (SearchValidBackline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid != NULL)
 					{
@@ -466,7 +465,7 @@ void ADungeonControllerBase::SelectSingleVertical(float value)
 			}
 			else
 			{
-				if (SearchValidFrontline(spawnPointsToUse))
+				if (SearchValidFrontline(spawnPointsToUse) != NULL)
 				{
 					if (SearchValidFrontline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid != NULL)
 					{
@@ -477,7 +476,6 @@ void ADungeonControllerBase::SelectSingleVertical(float value)
 				{
 					newPlaceOnGrid = SearchValidBackline(spawnPointsToUse)->PawnsBaseActor->placeOnGrid;
 				}
-				
 			}
 			
 			singleTarget = spawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
@@ -568,23 +566,29 @@ ABattlePawnBase* ADungeonControllerBase::SelectFirstHostileTarget()
 
 ABattlePawnBase* ADungeonControllerBase::SearchValidBackline(TArray<UBattleSpawnPoint*>inSpawnPointsToUse)
 {
+	int q = 0;
 	int newPlaceOnGrid = 0;
-	UE_LOG(LogTemp, Warning, TEXT("bIsBackLine faslse 1"));
+	UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 1"));
 	for (int u = 4; u < inSpawnPointsToUse.Num();u++)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("bIsBackLine faslse 2"));
+		q++;
+		UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 2"));
 		newPlaceOnGrid = singleTarget->PawnsBaseActor->placeOnGrid + u;
 		if (newPlaceOnGrid > 8)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("bIsBackLine faslse 3"));
+			UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 3"));
 			newPlaceOnGrid = 4;
 			u = 1;
 		}
 		if (inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn != NULL && inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn->isDown != true)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("bIsBackLine faslse 4"));
+			UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 4"));
 			return inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
 			
+		}
+		if (q > 8)
+		{
+			return NULL;
 		}
 	}
 	return singleTarget;
@@ -592,23 +596,44 @@ ABattlePawnBase* ADungeonControllerBase::SearchValidBackline(TArray<UBattleSpawn
 
 ABattlePawnBase* ADungeonControllerBase::SearchValidFrontline(TArray<UBattleSpawnPoint*>inSpawnPointsToUse)
 {
+	int q = 0;
 	int newPlaceOnGrid = 0;
-	UE_LOG(LogTemp, Warning, TEXT("bIsBackLine  1"));
+	UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  1"));
+
+	if (singleTarget->bIsBackLine)
+	{
+		newPlaceOnGrid = singleTarget->PawnsBaseActor->placeOnGrid - 4;
+	}
+	else
+	{
+		newPlaceOnGrid = singleTarget->PawnsBaseActor->placeOnGrid;
+	}
+
+
 	for (int u = 0; u < 4;u++)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("bIsBackLine  2"));
-		newPlaceOnGrid = singleTarget->PawnsBaseActor->placeOnGrid - 4 + u;
+		q++;
+		UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  2"));
+		newPlaceOnGrid ++;
+		if (newPlaceOnGrid > 4)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  3"));
+			newPlaceOnGrid = 1;
+			u = 0;
+		}
 		if (newPlaceOnGrid < 1)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("bIsBackLine  3"));
-			newPlaceOnGrid = 4;
-			u = 0;
+			newPlaceOnGrid = 1;
 		}
 		if (inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn != NULL && inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn->isDown != true)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("bIsBackLine  4"));
+			UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  4"));
 			return inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
 		
+		}
+		if (q > 8)
+		{
+			return NULL;
 		}
 	}
 

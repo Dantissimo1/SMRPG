@@ -108,7 +108,14 @@ public:
 		bool isAtackingOpotunity = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 		bool isAttackingStanding = false;
-
+	bool attackCharged = false;
+	bool isChargeingAttack = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage")
+		bool isChargeingMeleeAttack = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage")
+		bool isChargeingMagicAttack = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage")
+		bool isChargeingRangedAttack = false;
 
 	bool projectileHit = false;
 	bool attackActionCompleeted = false;
@@ -217,7 +224,13 @@ public:
 
 
 
+
 	bool RunAttackTargetMelee(ABattlePawnBase* inTarget, UAbilityBase* inAbility);
+	bool RunAttackCharge(ABattlePawnBase* inTarget, UAbilityBase* inAbility);
+
+	bool CanecelChargedAttack();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		int chargeTime = 2;
 	UFUNCTION(BlueprintCallable)
 		void RunDamageStepMelee(ABattlePawnBase* inTarget);
 

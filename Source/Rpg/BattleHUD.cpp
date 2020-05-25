@@ -70,3 +70,11 @@ void UBattleHUD::CreateCounterMenu_Implementation()
 void UBattleHUD::RemoveCounterMenu_Implementation()
 {
 }
+
+void UBattleHUD::CreateChargingMenu_Implementation()
+{
+}
+
+void UBattleHUD::RemoveChargingMenu_Implementation()
+{
+}
