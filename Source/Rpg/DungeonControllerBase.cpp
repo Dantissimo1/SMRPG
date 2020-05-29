@@ -125,7 +125,7 @@ void ADungeonControllerBase::Tick(float DeltaTime)
 				SetViewTargetWithBlend(singleTarget, 0.3f);
 			}
 		}
-		DrawDebugPoint(GetWorld(), singleTarget->GetActorLocation(), 100.f, FColor::Red, false, 0.1f);
+		//DrawDebugPoint(GetWorld(), singleTarget->GetActorLocation(), 100.f, FColor::Red, false, 0.1f);
 	}
 	
 }

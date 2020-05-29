@@ -266,6 +266,7 @@ public:
 	void CauseDamageToBattlePawn(ABattlePawnBase* inPawn);
 	void TakeBattleDamage(FDamageTypesToCause inDamage);
 	void HealTarget(ABattlePawnBase* inPawn);
+	void ReciveHealing(float healAmount);
 	void GoDown();
 	TArray<UEffectSource*>activeEffectSources;
 	TArray<UEffect*>activeEffects;

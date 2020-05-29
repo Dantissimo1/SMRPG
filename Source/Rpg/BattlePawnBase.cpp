@@ -257,7 +257,7 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 		rotRemaning.Yaw -= 360;
 	}
 
-	DrawDebugPoint(GetWorld(), inLocation, 50.f, FColor::White, false, 0.1f);
+	//DrawDebugPoint(GetWorld(), inLocation, 50.f, FColor::White, false, 0.1f);
 	
 	if (rotRemaning.Yaw <= 0)
 	{
@@ -767,10 +767,20 @@ void ABattlePawnBase::HealTarget(ABattlePawnBase* inPawn)
 		float healAmount = ((inPawn->mainCharInfo.MaxHealth / 100) * activeAbility->healPercent)* (OfensiveStats.ArcaneAptitude / 100);
 
 		inPawn->mainCharInfo.Health += healAmount;
-		if (mainCharInfo.Health > mainCharInfo.MaxHealth)
+		if (inPawn->mainCharInfo.Health > inPawn->mainCharInfo.MaxHealth)
 		{
-			mainCharInfo.Health = mainCharInfo.MaxHealth;
+			inPawn->mainCharInfo.Health = inPawn->mainCharInfo.MaxHealth;
 		}
+	}
+
+}
+
+void ABattlePawnBase::ReciveHealing(float healAmount)
+{
+	mainCharInfo.Health += healAmount;
+	if (mainCharInfo.Health > mainCharInfo.MaxHealth)
+	{
+		mainCharInfo.Health = mainCharInfo.MaxHealth;
 	}
 
 }

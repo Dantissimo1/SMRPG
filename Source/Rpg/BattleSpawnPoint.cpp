@@ -26,9 +26,9 @@ UBattleSpawnPoint::UBattleSpawnPoint()
 	OpotunityPoint->SetupAttachment(this);
 	OpotunityPoint->SetWorldLocation(newPos);
 
-	DrawDebugPoint(GetWorld(), AttackPoint->GetComponentLocation(), 10.f, FColor::Red, true);
+	//DrawDebugPoint(GetWorld(), AttackPoint->GetComponentLocation(), 10.f, FColor::Red, true);
 
-	DrawDebugPoint(GetWorld(), OpotunityPoint->GetComponentLocation(), 10.f, FColor::Yellow, true);
+	//DrawDebugPoint(GetWorld(), OpotunityPoint->GetComponentLocation(), 10.f, FColor::Yellow, true);
 
 	// ...
 }
@@ -41,8 +41,8 @@ void UBattleSpawnPoint::BeginPlay()
 
 
 
-	DrawDebugPoint(GetWorld(), AttackPoint->GetComponentLocation(), 10.f, FColor::Red, true);
-	DrawDebugPoint(GetWorld(), OpotunityPoint->GetComponentLocation(), 10.f, FColor::Yellow, true);
+	//DrawDebugPoint(GetWorld(), AttackPoint->GetComponentLocation(), 10.f, FColor::Red, true);
+	//DrawDebugPoint(GetWorld(), OpotunityPoint->GetComponentLocation(), 10.f, FColor::Yellow, true);
 
 	// ...
 	
@@ -56,6 +56,6 @@ void UBattleSpawnPoint::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
 	// ...
 
-	DrawDebugPoint(GetWorld(), GetComponentLocation(), 10.0f, FColor::Green, false, 0.1f);
+	//DrawDebugPoint(GetWorld(), GetComponentLocation(), 10.0f, FColor::Green, false, 0.1f);
 }
 

@@ -40,6 +40,7 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 			}
 			if (AbilitysEffect != NULL)
 			{
+				UE_LOG(LogTemp, Warning, TEXT("passOnEffects"));
 				passOnEffects(target, sourcePawn);
 			}
 		}
@@ -79,6 +80,7 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 			}
 			if (AbilitysEffect != NULL)
 			{
+				UE_LOG(LogTemp, Warning, TEXT("passOnEffects"));
 				passOnEffects(targets, sourcePawn);
 			}
 
@@ -195,15 +197,16 @@ void UAbilityBase::passOnEffects(TArray<ABattlePawnBase*> inPawns, ABattlePawnBa
 {
 	if (AbilitysEffect != NULL)
 	{
-		UEffectSource* EffectScource = NewObject<UEffectSource>(AbilitysEffect->StaticClass() , TEXT("Effect Source"));
+		UEffectSource* EffectScource = NewObject<UEffectSource>(AbilitysEffect , TEXT("Effect Source"));
 		causeingPawn->activeEffectSources.Add(EffectScource);
 		for (int i = 0; i < inPawns.Num();i++)
 		{
-			UEffect* Effect = NewObject<UEffect>(Effect->StaticClass(), TEXT("Effect"));
+			UEffect* Effect = NewObject<UEffect>(this, TEXT("Effect " + i));
 			EffectScource->activeEffects.Add(Effect);
 			inPawns[i]->activeEffects.Add(Effect);
+			Effect->InitialRun(EffectScource, inPawns[i]);
 		}
-		EffectScource->InitialRun();
+		EffectScource->InitialRun(causeingPawn,this);
 	}
 	//////UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn"));
 

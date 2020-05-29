@@ -20,7 +20,7 @@ UAttackPosition::UAttackPosition()
 void UAttackPosition::BeginPlay()
 {
 	Super::BeginPlay();
-	DrawDebugPoint(GetWorld(), GetComponentLocation(), 10.f, FColor::Red, true);
+	//DrawDebugPoint(GetWorld(), GetComponentLocation(), 10.f, FColor::Red, true);
 	// ...
 	
 }

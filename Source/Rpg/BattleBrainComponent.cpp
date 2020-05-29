@@ -12,7 +12,7 @@
 #include "DungeonControllerBase.h"
 #include "TurnInfo.h"
 #include "AbilityBase.h"
-
+#include "EffectSource.h"
 
 
 // Sets default values for this component's properties
@@ -49,10 +49,17 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 			{
 				UE_LOG(LogTemp, Warning, TEXT("inplayer cont"));
 			}
-			////UE_LOG(LogTemp, Warning, TEXT("crash check 1 %d"),);
+
+
+			////run active effects at end of turn
+			for (int i = 0; i < ActiveTurn->MyBattlePawn->activeEffectSources.Num();i++)
+			{
+				ActiveTurn->MyBattlePawn->activeEffectSources[i]->TriggeredRun();
+			}
+
 			//start next turn
 			ReCalcChrsTurns(ActiveTurn->MyBattlePawn);
-			////UE_LOG(LogTemp, Warning, TEXT("crash check 2 %d"), );
+
 	
 
 
@@ -347,7 +354,7 @@ bool UBattleBrainComponent::RunActiveTurn()
 	if (ActiveTurn != NULL)
 	{
 		bool turnCompleted;
-		DrawDebugPoint(GetWorld(), ActiveTurn->MyBattlePawn->GetActorLocation(), 50.f, FColor::Black, false, 0.1f);
+		//DrawDebugPoint(GetWorld(), ActiveTurn->MyBattlePawn->GetActorLocation(), 50.f, FColor::Black, false, 0.1f);
 
 		RunPawnBeginTrun(ActiveTurn->MyBattlePawn);
 
@@ -565,7 +572,7 @@ TArray<ABattlePawnBase*> UBattleBrainComponent::FindAvalibleForOpotunity(ABattle
 	{
 		if (pawnSetToCheck[i]->PawnsBaseActor->placeOnGrid == placeToCheck1)
 		{
-			DrawDebugPoint(GetWorld(), pawnSetToCheck[i]->GetActorLocation(), 60.f, FColor::Emerald, false, 2.f);
+			//DrawDebugPoint(GetWorld(), pawnSetToCheck[i]->GetActorLocation(), 60.f, FColor::Emerald, false, 2.f);
 			if (pawnSetToCheck[i]->bHasReaction && pawnSetToCheck[i]->isChargeingAttack !=true)
 			{
 				pawnsToReturn.Add(pawnSetToCheck[i]);
@@ -573,7 +580,7 @@ TArray<ABattlePawnBase*> UBattleBrainComponent::FindAvalibleForOpotunity(ABattle
 		}
 		if (pawnSetToCheck[i]->PawnsBaseActor->placeOnGrid == placeToCheck2)
 		{
-			DrawDebugPoint(GetWorld(), pawnSetToCheck[i]->GetActorLocation(), 60.f, FColor::Emerald, false, 2.f);
+			//DrawDebugPoint(GetWorld(), pawnSetToCheck[i]->GetActorLocation(), 60.f, FColor::Emerald, false, 2.f);
 			if (pawnSetToCheck[i]->bHasReaction && pawnSetToCheck[i]->isChargeingAttack != true)
 			{
 				pawnsToReturn.Add(pawnSetToCheck[i]);
@@ -754,7 +761,6 @@ bool UBattleBrainComponent::runChargedAttack()
 	bool attackDone = false;
 	if (resetForChargedAttack == false)
 	{
-		//ActiveTurn->MyBattlePawn->animFinished = false;
 		UE_LOG(LogTemp, Warning, TEXT(" resetForChargedAttack "));
 		ActiveTurn->MyBattlePawn->isChargeingAttack = false;
 		ActiveTurn->MyBattlePawn->isChargeingMeleeAttack = false;

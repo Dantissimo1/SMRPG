@@ -20,7 +20,7 @@ UOpotunityAttackPosition::UOpotunityAttackPosition()
 void UOpotunityAttackPosition::BeginPlay()
 {
 	Super::BeginPlay();
-	DrawDebugPoint(GetWorld(), GetComponentLocation(), 10.f, FColor::Yellow, true);
+	//DrawDebugPoint(GetWorld(), GetComponentLocation(), 10.f, FColor::Yellow, true);
 	// ...
 	
 }

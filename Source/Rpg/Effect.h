@@ -4,7 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+
+
 #include "Effect.generated.h"
+
+
+class ABattlePawnBase;
+class UEffectSource;
+class UDamageLibary;
+
+
 
 /**
  * 
@@ -17,8 +26,13 @@ class RPG_API UEffect : public UObject
 public:
 
 	UEffect();
+	ABattlePawnBase* linkedPawn;
+
+	UEffectSource* mySource;
 
 
+	void InitialRun(UEffectSource* inSource, ABattlePawnBase* inLinkedPawn);
 
+	bool RunEffect();
 
 };
