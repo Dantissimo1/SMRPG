@@ -78,6 +78,8 @@ public:
 		ABattlePawnBase* pawnToOpotunity;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Opotunity")
 		bool deniedOpotunity = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Opotunity")
+		bool opotunityMenuDespawned = false;
 	bool OpotunityMenuSpawned = false;
 	bool SpawnOpotunityMenue(TArray<ABattlePawnBase*>inPawn);
 	bool RunOpotunityAttack();

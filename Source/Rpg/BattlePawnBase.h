@@ -17,8 +17,8 @@ class AIController;
 class UAttackPosition;
 class UOpotunityAttackPosition;
 class UBattleSpawnPoint;
-class UEffectSource;
-class UEffect;
+class AEffectSource;
+class AEffect;
 class UCameraComponent;
 class AParticleHolder;
 class AProjectileBase;
@@ -131,14 +131,16 @@ public:
 
 	//////////////////////stats/////////////////
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+	FCharacterDetails mainCharInfoBase;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 	FCharacterDetails mainCharInfo;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		FOfensiveStats OfensiveStatsBase;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		FOfensiveStats OfensiveStats;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Main Chr Info")
 		FDDefensiveStats DefensiveStatsBase;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main Chr Info")
 		FDDefensiveStats DefensiveStats;
@@ -268,8 +270,13 @@ public:
 	void HealTarget(ABattlePawnBase* inPawn);
 	void ReciveHealing(float healAmount);
 	void GoDown();
-	TArray<UEffectSource*>activeEffectSources;
-	TArray<UEffect*>activeEffects;
+
+
+	UPROPERTY()
+	TArray<AEffectSource*>activeEffectSources;
+	UPROPERTY()
+	TArray<AEffect*>activeEffects;
+	void RemoveEffect(AEffect* inEffect);
 	
 };
 

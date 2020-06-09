@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-
+#include "Components/ActorComponent.h"
 
 
 
@@ -12,83 +12,56 @@
 #include "EffectSource.generated.h"
 
 
-class UEffect;
+class AEffect;
 class ABattlePawnBase;
 class UDamageLibary;
 class UAbilityBase;
 
-UENUM()
-enum class EEffectType : uint8
-{
-    damage,
-    buff,
-    healing,
-    shield,
-};
-
-UENUM()
-enum class EEffectStyle : uint8
-{
-    Bleading,
-    Poision,
-    Burning,
-    Petrified,
-    Blind,
-    Silence,
-    Wet,
-    Cold,
-    Static,
-    Holy,
-    Void,
-    Arcane,
-    Healing,
-    shield,
-    Physical,
-
-};
 
 /**
  * 
  */
 UCLASS(Blueprintable)
-class RPG_API UEffectSource : public UObject
+class RPG_API AEffectSource : public AActor
 {
 	GENERATED_BODY()
 
+
+
+public:
+    AEffectSource();
+
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
+
+protected:
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
+
 public:
 
-    UEffectSource();
+    
 
     UAbilityBase* sourceAbility;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
-        EEffectType effectType;
-
+         TSubclassOf<AEffect> EfectToUse;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
         int lifeInTurns = 3;
 
     int TurnsRemaning = 3;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
-        EEffectStyle EffectProfile;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
-        EEffectType EfectType;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
-        bool bluprintOveride = false;
+    bool CheckIfEffectsRemain();
 
-    UFUNCTION(BlueprintImplementableEvent)
-        void ActivationOverride();
-
-    TArray<UEffect*> activeEffects;
+    TArray<AEffect*> activeEffects;
 
     ABattlePawnBase* myOwner;
 
-
+    bool isDead = false;
 
     void InitialRun(ABattlePawnBase* inOwner, UAbilityBase* inSourceAbility);
     void TriggeredRun();
     void decrementTurnCounter();
     void activateEffect();
-    bool runEffect(UEffect* affectChild);
     void EndEffect();
 };

@@ -24,8 +24,6 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 	{
 		if (attackType == EAttackType::singleTarget)
 		{
-
-
 			FDamageTypesToCause DamageToDeal;
 			DamageToDeal = WorkOutDamage(inDamageModifier, inDamageToAdd);
 			TArray<ABattlePawnBase*> target;
@@ -34,21 +32,19 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 			{
 				sourcePawn->HealTarget(inAtTarg);
 			}
-			else
+			else if (isDamageing == true)
 			{
 				inAtTarg->TakeBattleDamage(DamageToDeal);
 			}
-			if (AbilitysEffect != NULL)
+			if (AbilitysEffect.Num()>0)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("passOnEffects"));
+				//UE_LOG(LogTemp, Warning, TEXT("passOnEffects"));
 				passOnEffects(target, sourcePawn);
 			}
 		}
 		if (attackType == EAttackType::aoeMed)
 		{
-
 			FDamageTypesToCause DamageToDeal;
-
 			DamageToDeal = WorkOutDamage(inDamageModifier, inDamageToAdd);
 
 			DamageSphere = NewObject<USphereComponent>(this, TEXT("Damage Sphere"));
@@ -57,12 +53,13 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 			DamageSphere->SetGenerateOverlapEvents(true);
 			DamageSphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 			DamageSphere->RegisterComponent();
-			DamageSphere->bHiddenInGame = false;
 			FVector newLoc = DamageSphere->GetComponentLocation();
 			newLoc.Z += 1;
 			DamageSphere->SetWorldLocation(newLoc, true);
+
 			TArray<AActor*> Overlaps;
 			DamageSphere->GetOverlappingActors(Overlaps);
+
 			for (int n = 0;n < Overlaps.Num();n++)
 			{
 				if (Cast<ABattlePawnBase>(Overlaps[n]))
@@ -71,20 +68,20 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 					{
 						sourcePawn->HealTarget(Cast<ABattlePawnBase>(Overlaps[n]));
 					}
-					else
+					else if (isDamageing == true)
 					{
 						Cast<ABattlePawnBase>(Overlaps[n])->TakeBattleDamage(DamageToDeal);
 					}
 					targets.Add(Cast<ABattlePawnBase>(Overlaps[n]));
 				}
 			}
-			if (AbilitysEffect != NULL)
+			if (AbilitysEffect.Num() > 0)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("passOnEffects"));
+				//UE_LOG(LogTemp, Warning, TEXT("passOnEffects"));
 				passOnEffects(targets, sourcePawn);
 			}
-
-			UE_LOG(LogTemp, Warning, TEXT(" Attack magic 2 %d"), Overlaps.Num());
+			DamageSphere->DestroyComponent();
+			//UE_LOG(LogTemp, Warning, TEXT(" Attack magic 2 %d"), Overlaps.Num());
 
 		}
 		if (attackType == EAttackType::aoePartywide)
@@ -92,77 +89,6 @@ TArray<ABattlePawnBase*> UAbilityBase::AbilitysInstructions(ABattlePawnBase* sou
 
 		}
 	}
-
-	if (buffType != EABuffType::NONE)
-	{
-		if (buffType != EABuffType::selfBuff)
-		{
-			if (isHealing)
-			{
-				sourcePawn->HealTarget(sourcePawn);
-			}
-			TArray<ABattlePawnBase*>pawnsToBuff;
-			pawnsToBuff.Add(sourcePawn);
-			passOnEffects(pawnsToBuff, sourcePawn);
-		}
-		if (buffType != EABuffType::singleTarget)
-		{
-			if (isHealing)
-			{
-				sourcePawn->HealTarget(inAtTarg);
-			}
-			TArray<ABattlePawnBase*>pawnsToBuff;
-			pawnsToBuff.Add(inAtTarg);
-			passOnEffects(pawnsToBuff, sourcePawn);
-		}
-		if (buffType != EABuffType::aoeMed)
-		{
-			TArray<ABattlePawnBase*>pawnsToBuff;
-
-			DamageSphere = NewObject<USphereComponent>(this, TEXT("Damage Sphere"));
-			DamageSphere->SetWorldLocation(inAtTarg->GetActorLocation());
-			DamageSphere->SetSphereRadius(DamageSphereSize, true);
-			DamageSphere->SetGenerateOverlapEvents(true);
-			DamageSphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-			DamageSphere->RegisterComponent();
-			DamageSphere->bHiddenInGame = false;
-			FVector newLoc = DamageSphere->GetComponentLocation();
-			newLoc.Z += 1;
-			DamageSphere->SetWorldLocation(newLoc, true);
-			TArray<AActor*> Overlaps;
-			DamageSphere->GetOverlappingActors(Overlaps);
-
-			for (int n = 0;n < Overlaps.Num();n++)
-			{
-				if (Cast<ABattlePawnBase>(Overlaps[n]))
-				{
-					if (isHealing)
-					{
-						sourcePawn->HealTarget(Cast<ABattlePawnBase>(Overlaps[n]));
-					}
-					pawnsToBuff.Add(Cast<ABattlePawnBase>(Overlaps[n]));
-				}
-			}
-			pawnsToBuff.Add(inAtTarg);
-			passOnEffects(pawnsToBuff, sourcePawn);
-		}
-		if (buffType != EABuffType::aoePartywide)
-		{
-
-		}
-		if (buffType != EABuffType::selfAOEBuff)
-		{
-
-		}
-		if (buffType != EABuffType::selfPartyBuff)
-		{
-
-		}
-
-	}
-
-
-
 
 	return targets;
 }
@@ -195,20 +121,60 @@ FDamageTypesToCause UAbilityBase::WorkOutDamage(float inModifier, FDamageTypesTo
 
 void UAbilityBase::passOnEffects(TArray<ABattlePawnBase*> inPawns, ABattlePawnBase* causeingPawn)
 {
-	if (AbilitysEffect != NULL)
+	if (AbilitysEffect.Num() > 0)
 	{
-		UEffectSource* EffectScource = NewObject<UEffectSource>(AbilitysEffect , TEXT("Effect Source"));
-		causeingPawn->activeEffectSources.Add(EffectScource);
-		for (int i = 0; i < inPawns.Num();i++)
+		UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 9"));
+		for (int k = 0;k < AbilitysEffect.Num();k++)
 		{
-			UEffect* Effect = NewObject<UEffect>(this, TEXT("Effect " + i));
-			EffectScource->activeEffects.Add(Effect);
-			inPawns[i]->activeEffects.Add(Effect);
-			Effect->InitialRun(EffectScource, inPawns[i]);
+			UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 10"));
+			int No = 0;
+			for (TObjectIterator<AEffectSource> Itr; Itr; ++Itr)
+			{
+				No++;
+			}
+			No += 1;
+
+			FActorSpawnParameters SpawnParams;
+			SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+			UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 11"));
+			AEffectSource* EffectScource = GetWorld()->SpawnActor<AEffectSource>(AbilitysEffect[k], FVector(0, 0, 0), FRotator(0, 0, 0), SpawnParams);
+			UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 12"));
+			causeingPawn->activeEffectSources.Add(EffectScource);
+			EffectScource->InitialRun(causeingPawn, this);
+			UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 12"));
+
+			for (int i = 0; i < inPawns.Num();i++)
+			{
+
+				AEffect* Effect = GetWorld()->SpawnActor<AEffect>(EffectScource->EfectToUse, FVector(0, 0, 0), FRotator(0, 0, 0), SpawnParams);
+				//UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 2"));
+
+				for (int y = 0; y < inPawns[i]->activeEffects.Num();y++)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 11111111111111111111111111111111111111111111111111111111111111111111111111111"));
+					if (inPawns[i]->activeEffects[y]->statToBuff == Effect->statToBuff)
+					{
+						UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 222222222222222222222222222222222222222222222222222222222222222222222222222222222"));
+						inPawns[i]->activeEffects[y]->DestructBuffs();
+						UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 3"));
+						AEffectSource* SourceToCheck = inPawns[i]->activeEffects[y]->mySource;
+						UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 4"));
+						SourceToCheck->activeEffects.Remove(inPawns[i]->activeEffects[y]);
+						UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 5"));
+						inPawns[i]->RemoveEffect(inPawns[i]->activeEffects[y]);
+						UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 7"));
+						SourceToCheck->CheckIfEffectsRemain();
+						UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn 8"));
+					}
+				}
+				EffectScource->activeEffects.Add(Effect);
+				inPawns[i]->activeEffects.Add(Effect);
+				Effect->InitialRun(EffectScource, inPawns[i], this);
+			}
 		}
-		EffectScource->InitialRun(causeingPawn,this);
 	}
-	//////UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn"));
+	////////UE_LOG(LogTemp, Warning, TEXT("TestFuntion runn"));
 
 }
 

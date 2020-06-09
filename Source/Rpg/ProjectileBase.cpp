@@ -28,7 +28,7 @@ void AProjectileBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	//DrawDebugPoint(GetWorld(), GetActorLocation(),10.f, FColor::Red, false, 0.1f);
-	UE_LOG(LogTemp, Warning, TEXT(" Prjectile esxiststskljhsd;fgklhja;dlgkh ") );
+	//UE_LOG(LogTemp, Warning, TEXT(" Prjectile esxiststskljhsd;fgklhja;dlgkh ") );
 	if (LobbedProjectile == false)
 	{
 		MoveToTargetDirect();

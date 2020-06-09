@@ -30,9 +30,9 @@ ABattlePawnBase::ABattlePawnBase()
 void ABattlePawnBase::BeginPlay()
 {
 	Super::BeginPlay();
-	//////////////UE_LOG(LogTemp, Warning, TEXT("Battle Character Exists 22"));
+	////////////////UE_LOG(LogTemp, Warning, TEXT("Battle Character Exists 22"));
 	mainCharInfo.Speed = mainCharInfo.BaseSpeed;
-
+	
 }
 
 // Called every frame
@@ -40,6 +40,20 @@ void ABattlePawnBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	UE_LOG(LogTemp, Warning, TEXT("bATLEpAWNnAME = %s"), *GetName());
+	UE_LOG(LogTemp, Warning, TEXT("BuffStrength 1 %f"), OfensiveStats.Strength);
+	UE_LOG(LogTemp, Warning, TEXT("BuffStrength 2 %f"), OfensiveStats.RangeFinesse);
+	
+	for (int i = 0;i < activeEffectSources.Num();i++)
+	{	
+		UE_LOG(LogTemp, Warning, TEXT("activeEffectSources = %s"),*activeEffectSources[i]->GetName());
+	}
+	for (int i = 0; i < activeEffects.Num();i++)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("activeEffect = %s"), *activeEffects[i]->GetName());
+		
+	}
+	UE_LOG(LogTemp, Warning, TEXT("activeEffect done"))
 }
 
 void ABattlePawnBase::SetUpPlayerPawn(ACharacterDataSheet* inDataSheet, UBattleSpawnPoint* inPawnsBaseActor, ABattleZoneBase* inBattleZone, bool inbackline, bool inOwnedByPlayer)
@@ -83,6 +97,9 @@ void ABattlePawnBase::SetUpNPCPawn()
 
 void ABattlePawnBase::SetUpBaseStats()
 {
+	OfensiveStatsBase = OfensiveStats;
+	DefensiveStatsBase = DefensiveStats;
+	mainCharInfoBase = mainCharInfo;
 	mainCharInfo.Health = mainCharInfo.MaxHealth;
 	mainCharInfo.Mana = mainCharInfo.ManaMax;
 	mainCharInfo.Speed = mainCharInfo.BaseSpeed;
@@ -91,7 +108,7 @@ void ABattlePawnBase::SetUpBaseStats()
 void ABattlePawnBase::EndAttack()
 {
 	animFinished = true;
-	//////////////UE_LOG(LogTemp, Warning, TEXT("AtackActioncokpleeted"));
+	////////////////UE_LOG(LogTemp, Warning, TEXT("AtackActioncokpleeted"));
 }
 void ABattlePawnBase::EndOpotunityAttack()
 {
@@ -111,12 +128,12 @@ void ABattlePawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 void ABattlePawnBase::InitializePlayersAbilitys()
 {
-	UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitys"));
+	//UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitys"));
 	for (int i = 0; i < myDataSheet->abilityClasses.Num();i++)
 	{
 		if (myDataSheet->abilityClasses[i] != NULL)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitys 1"));
+			//UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitys 1"));
 			abilitys.Add(NewObject<UAbilityBase>(this, myDataSheet->abilityClasses[i]));
 		}
 	}
@@ -125,7 +142,7 @@ void ABattlePawnBase::InitializePlayersAbilitys()
 	{
 		if (myDataSheet->magicAbilityClasses[i] != NULL)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitysMagic 1"));
+			//UE_LOG(LogTemp, Warning, TEXT("InitializePlayersAbilitysMagic 1"));
 			magicAbilitys.Add(NewObject<UAbilityBase>(this, myDataSheet->magicAbilityClasses[i]));
 		}
 	}
@@ -152,23 +169,23 @@ void ABattlePawnBase::InitializeEquipedItems()
 
 bool ABattlePawnBase::MoveToLocation(FVector inLocation)
 {
-	//////////////UE_LOG(LogTemp, Warning, TEXT("move to location"));
+	////////////////UE_LOG(LogTemp, Warning, TEXT("move to location"));
 	bool moveCompleeted = false;
 	bool rotationCompleted = false;
 	FVector actorLocOnBattleFloor = GetActorLocation();
-	//////////////UE_LOG(LogTemp, Warning, TEXT("move to location 1"));
+	////////////////UE_LOG(LogTemp, Warning, TEXT("move to location 1"));
 	actorLocOnBattleFloor.Z = MyBattleZone->GetActorLocation().Z;
-	//////////////UE_LOG(LogTemp, Warning, TEXT("move to location 2"));
+	////////////////UE_LOG(LogTemp, Warning, TEXT("move to location 2"));
 	FVector inLocOnBattleFloor = inLocation;
 	inLocOnBattleFloor.Z = MyBattleZone->GetActorLocation().Z;
-	//////////////UE_LOG(LogTemp, Warning, TEXT("move to location 3"));
+	////////////////UE_LOG(LogTemp, Warning, TEXT("move to location 3"));
 	if (FVector::Dist(actorLocOnBattleFloor, inLocOnBattleFloor) < moveDistanceTolerance)
 	{
-		//////////////UE_LOG(LogTemp, Warning, TEXT("move within Tolerance"));
+		////////////////UE_LOG(LogTemp, Warning, TEXT("move within Tolerance"));
 		moveCompleeted = true;
 	}else
 	{
-		//////////////UE_LOG(LogTemp, Warning, TEXT("move forwards"));
+		////////////////UE_LOG(LogTemp, Warning, TEXT("move forwards"));
 		MoveForwards(inLocation);
 	}
 	RotateToTarget(inLocation);
@@ -184,16 +201,16 @@ bool ABattlePawnBase::MoveToLocation(FVector inLocation)
 		return true;
 	}
 
-	//////////////UE_LOG(LogTemp, Warning, TEXT("move Battle Pawn"));
+	////////////////UE_LOG(LogTemp, Warning, TEXT("move Battle Pawn"));
 	DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation()+((GetActorForwardVector()*800)), FColor::Red,false, 0.1f);
 	
-	//////////////UE_LOG(LogTemp, Warning, TEXT("Keep moving"));
+	////////////////UE_LOG(LogTemp, Warning, TEXT("Keep moving"));
 	return false;
 }
 
 void ABattlePawnBase::MoveForwards(FVector inLocation)
 {
-	//////////////UE_LOG(LogTemp, Warning, TEXT("move forawards 111"));
+	////////////////UE_LOG(LogTemp, Warning, TEXT("move forawards 111"));
 	isMoving = true;
 	FVector newLoc;
 	newLoc = GetActorLocation() - inLocation;
@@ -219,7 +236,7 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 
 	float angleBetween = FVector::DotProduct(t1, t3 );
 	float rotToAdd = 0;
-	//////UE_LOG(LogTemp, Warning, TEXT("angle between %f"), angleBetween);
+	////////UE_LOG(LogTemp, Warning, TEXT("angle between %f"), angleBetween);
 	FRotator rotRemaning = GetActorRotation() - (inLocation - t2).Rotation();
 
 	if (angleBetween < rotationTolerance && angleBetween > - rotationTolerance)
@@ -227,11 +244,11 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 		FVector t4 = GetActorForwardVector();
 		t4.Z = 0;
 		float sideAngle = FVector::DotProduct(t4, t3);
-		//////UE_LOG(LogTemp, Warning, TEXT("sideAngle =  %f"),sideAngle);
+		////////UE_LOG(LogTemp, Warning, TEXT("sideAngle =  %f"),sideAngle);
 		if (sideAngle < rotationTolerance)
 		{
 
-			//////UE_LOG(LogTemp, Warning, TEXT("rot return true "));
+			////////UE_LOG(LogTemp, Warning, TEXT("rot return true "));
 			return true;
 		}
 		else
@@ -262,25 +279,25 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 	if (rotRemaning.Yaw <= 0)
 	{
 		rotToAdd = rotationSpeed * GetWorld()->DeltaTimeSeconds;
-		//////UE_LOG(LogTemp, Warning, TEXT("rledft  %f"), rotToAdd);
+		////////UE_LOG(LogTemp, Warning, TEXT("rledft  %f"), rotToAdd);
 	}
 	else if (rotRemaning.Yaw > 0)
 	{
 		rotToAdd -= rotationSpeed * GetWorld()->DeltaTimeSeconds;
-		//////UE_LOG(LogTemp, Warning, TEXT("right =  %f"), rotToAdd);
+		////////UE_LOG(LogTemp, Warning, TEXT("right =  %f"), rotToAdd);
 	}
 
-	//////UE_LOG(LogTemp, Warning, TEXT("rot to add 2 =  %f"), rotToAdd);
+	////////UE_LOG(LogTemp, Warning, TEXT("rot to add 2 =  %f"), rotToAdd);
 	if (abs(rotToAdd) > abs(rotRemaning.Yaw))
 	{
 
 		rotToAdd = rotRemaning.Yaw;
-		//////UE_LOG(LogTemp, Warning, TEXT("rot corection    =  %f"), rotToAdd);
+		////////UE_LOG(LogTemp, Warning, TEXT("rot corection    =  %f"), rotToAdd);
 	}
 
 	FRotator rotation(0.f, rotToAdd, 0.f);
 	FRotator FinalRot = myRot + rotation;
-	////////UE_LOG(LogTemp, Warning, TEXT("rot to add 3 =  %s"), *FinalRot.ToString());
+	//////////UE_LOG(LogTemp, Warning, TEXT("rot to add 3 =  %s"), *FinalRot.ToString());
 	if (FinalRot.Yaw < -180)
 	{
 		FinalRot.Yaw += 360;
@@ -296,7 +313,7 @@ bool ABattlePawnBase::RotateToTarget(FVector inLocation)
 	{
 
 
-		//////UE_LOG(LogTemp, Warning, TEXT("rot return true 2"));
+		////////UE_LOG(LogTemp, Warning, TEXT("rot return true 2"));
 		return true;
 	}
 	return false;
@@ -339,10 +356,10 @@ bool ABattlePawnBase::RunAttackTargetMelee(ABattlePawnBase* inTarget, UAbilityBa
 
 bool ABattlePawnBase::RunAttackCharge(ABattlePawnBase* inTarget, UAbilityBase* inAbility)
 {
-	UE_LOG(LogTemp, Warning, TEXT("RunAttackCharge"));
+	//UE_LOG(LogTemp, Warning, TEXT("RunAttackCharge"));
 	if (animFinished != true)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("animFinished not %d"), animFinished);
+		//UE_LOG(LogTemp, Warning, TEXT("animFinished not %d"), animFinished);
 		attackTarget = inTarget;
 		activeAbility = inAbility;
 		chargeTime = inAbility->chargeTime;
@@ -363,7 +380,7 @@ bool ABattlePawnBase::RunAttackCharge(ABattlePawnBase* inTarget, UAbilityBase* i
 
 		return false;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("animFinished"));
+	//UE_LOG(LogTemp, Warning, TEXT("animFinished"));
 	isChargeingAttack = true;
 	animFinished = false;
 	attackCompleeted = false;
@@ -372,7 +389,7 @@ bool ABattlePawnBase::RunAttackCharge(ABattlePawnBase* inTarget, UAbilityBase* i
 
 bool ABattlePawnBase::CanecelChargedAttack()
 {
-	UE_LOG(LogTemp, Warning, TEXT("animFinished not %d"), animFinished);
+	//UE_LOG(LogTemp, Warning, TEXT("animFinished not %d"), animFinished);
 	attackTarget = NULL;
 	activeAbility = NULL;
 	chargeTime = 0;
@@ -394,7 +411,7 @@ void ABattlePawnBase::RunDamageStepMelee(ABattlePawnBase* inTarget)
 	statsModifierTouse /= 100;
 
 	/// spawn mele damage particle here from weapon
-	UE_LOG(LogTemp, Warning, TEXT("waepon naem  = %s"), *MyEquipedItems.myWeapon->name);
+	//UE_LOG(LogTemp, Warning, TEXT("waepon naem  = %s"), *MyEquipedItems.myWeapon->name);
 	DamageToDeal.ImpactDamage = (MyEquipedItems.myWeapon->myDamage.ImpactDamage * (statsModifierTouse));
 	DamageToDeal.SlashDamage = (MyEquipedItems.myWeapon->myDamage.SlashDamage * (statsModifierTouse));
 	DamageToDeal.PunctureDamage = (MyEquipedItems.myWeapon->myDamage.PunctureDamage * (statsModifierTouse));
@@ -435,7 +452,7 @@ bool ABattlePawnBase::RunAttackTargetMagic(ABattlePawnBase* inTarget, UAbilityBa
 		}
 		if (doingDamage)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("RunDamageStepMagic "))
+			//UE_LOG(LogTemp, Warning, TEXT("RunDamageStepMagic "))
 			doingDamage = RunDamageStepMagic(inTarget);
 		}
 		if (animFinished && damageDone)
@@ -511,27 +528,27 @@ bool ABattlePawnBase::RunAttackTargetRanged(ABattlePawnBase* inTarget, UAbilityB
 {
 	if (attackCompleeted == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 1"));
+		//UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 1"));
 		attackTarget = inTarget;
 		activeAbility = inAbility;
 		if (animFinished != true)
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 2"));
+			//UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 2"));
 			isAttackingRanged = true;
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 3"));
+			//UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 3"));
 			isAttackingRanged = false;
 		}
 		if (doingDamage)
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 4"));
+			//UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 4"));
 			doingDamage = RunDamageStepRanged(inTarget);
 		}
 		if (animFinished && damageDone)
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 5"));
+			//UE_LOG(LogTemp, Warning, TEXT(" RunAttackTargetRanged 5"));
 			attackCompleeted = true;
 		}
 	}
@@ -550,10 +567,10 @@ bool ABattlePawnBase::RunAttackTargetRanged(ABattlePawnBase* inTarget, UAbilityB
 
 bool ABattlePawnBase::RunDamageStepRanged(ABattlePawnBase* inTarget)
 {
-	UE_LOG(LogTemp, Warning, TEXT(" RunDamageStepRanged 0"));
+	//UE_LOG(LogTemp, Warning, TEXT(" RunDamageStepRanged 0"));
 	if (hasShot != true)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" RunDamageStepRanged 1"));
+		//UE_LOG(LogTemp, Warning, TEXT(" RunDamageStepRanged 1"));
 		AProjectileBase* spawnedProjectile;
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
@@ -571,7 +588,7 @@ bool ABattlePawnBase::RunDamageStepRanged(ABattlePawnBase* inTarget)
 		statsModifierTouse = OfensiveStats.RangeFinesse;
 		statsModifierTouse /= 100;
 
-		UE_LOG(LogTemp, Warning, TEXT("waepon naem  = %s"), *MyEquipedItems.myWeapon->name);
+		//UE_LOG(LogTemp, Warning, TEXT("waepon naem  = %s"), *MyEquipedItems.myWeapon->name);
 		DamageToDeal.ImpactDamage = (MyEquipedItems.myWeapon->myDamage.ImpactDamage * (statsModifierTouse));
 		DamageToDeal.SlashDamage = (MyEquipedItems.myWeapon->myDamage.SlashDamage * (statsModifierTouse));
 		DamageToDeal.PunctureDamage = (MyEquipedItems.myWeapon->myDamage.PunctureDamage * (statsModifierTouse));
@@ -681,7 +698,7 @@ void ABattlePawnBase::CauseDamageToBattlePawn(ABattlePawnBase* inPawn)
 
 	if (activeAbility == NULL)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("waepon naem  = %s"), *MyEquipedItems.myWeapon->name);
+		//UE_LOG(LogTemp, Warning, TEXT("waepon naem  = %s"), *MyEquipedItems.myWeapon->name);
 		DamageToDeal.ImpactDamage = (MyEquipedItems.myWeapon->myDamage.ImpactDamage * (statsModifierTouse / 100));
 		DamageToDeal.SlashDamage = (MyEquipedItems.myWeapon->myDamage.SlashDamage * (statsModifierTouse / 100));
 		DamageToDeal.PunctureDamage = (MyEquipedItems.myWeapon->myDamage.PunctureDamage * (statsModifierTouse / 100));
@@ -755,8 +772,8 @@ void ABattlePawnBase::TakeBattleDamage(FDamageTypesToCause inDamage)
 	{
 		GoDown();
 	}
-	UE_LOG(LogTemp, Warning, TEXT("finalDamageTaken %f"), finalDamageTaken);
-	UE_LOG(LogTemp, Warning, TEXT("mainCharInfo.Health %f"), mainCharInfo.Health);
+	//UE_LOG(LogTemp, Warning, TEXT("finalDamageTaken %f"), finalDamageTaken);
+	//UE_LOG(LogTemp, Warning, TEXT("mainCharInfo.Health %f"), mainCharInfo.Health);
 
 }
 
@@ -791,6 +808,12 @@ void ABattlePawnBase::GoDown()
 
 	MyBattleZone->BattleBrain->RemovePawnsTurns(this);
 
+}
+
+void ABattlePawnBase::RemoveEffect(AEffect* inEffect)
+{
+	activeEffects.Remove(inEffect);
+	inEffect->Destroy();
 }
 
 

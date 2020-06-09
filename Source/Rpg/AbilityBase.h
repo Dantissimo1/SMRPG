@@ -9,7 +9,8 @@
 
 #include "AbilityBase.generated.h"
 
-class UEffectSource;
+class AEffect;
+class AEffectSource;
 class ABattlePawnBase;
 class USphereComponent;
 class AParticleHolder;
@@ -23,17 +24,7 @@ enum class EAttackType : uint8
 	aoeMed,
 	aoePartywide,
 };
-UENUM()
-enum class EABuffType : uint8
-{
-	NONE,
-	singleTarget,
-	aoeMed,
-	aoePartywide,
-	selfBuff,
-	selfAOEBuff,
-	selfPartyBuff,
-};
+
 
 UENUM()
 enum class EAttackStyle : uint8
@@ -66,8 +57,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		EAttackType attackType;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
-		EABuffType buffType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		TSubclassOf<AParticleHolder> dammgeEffect;
@@ -85,6 +74,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		bool isHealing = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
+		bool isDamageing = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		float healPercent = 36;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		float shieldPercent = 60;
@@ -100,7 +91,7 @@ public:
 	FDamageTypesToCause WorkOutDamage(float inModifier, FDamageTypesToCause inDamageToAdd);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
-		TSubclassOf<UEffectSource> AbilitysEffect;
+		TArray<TSubclassOf<AEffectSource>> AbilitysEffect;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main")
 		EAttackStyle AttackStyle = EAttackStyle::Melee;

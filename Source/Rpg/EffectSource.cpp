@@ -7,36 +7,55 @@
 #include "DrawDebugHelpers.h"
 #include "BattlePawnBase.h"
 #include "AbilityBase.h"
+#include "Components/ActorComponent.h"
 
 
-UEffectSource::UEffectSource()
+AEffectSource::AEffectSource()
 {
 
 
 }
 
-void UEffectSource::InitialRun(ABattlePawnBase* inOwner, UAbilityBase* inSourceAbility)
+void AEffectSource::Tick(float DeltaTime)
+{
+}
+
+void AEffectSource::BeginPlay()
+{
+}
+
+bool AEffectSource::CheckIfEffectsRemain()
+{
+	if (activeEffects.Num() > 0)
+	{
+		return true;
+	}
+	myOwner->activeEffectSources.Remove(this);
+	Destroy();
+	return false;
+}
+
+void AEffectSource::InitialRun(ABattlePawnBase* inOwner, UAbilityBase* inSourceAbility)
 {
 	myOwner = inOwner;
 	TurnsRemaning = lifeInTurns;
 	sourceAbility = inSourceAbility;
-	UE_LOG(LogTemp, Warning, TEXT("InitialRun"));
-	if (effectType == EEffectType::buff)
-	{
-		activateEffect();
-	}
+	//UE_LOG(LogTemp, Warning, TEXT("InitialRun"));
+
+	activateEffect();
+	
 }
 
-void UEffectSource::TriggeredRun()
+void AEffectSource::TriggeredRun()
 {
-	UE_LOG(LogTemp, Warning, TEXT("TriggeredRun"));
-	if (effectType != EEffectType::buff)
-	{
-		activateEffect();
-	}
+	//UE_LOG(LogTemp, Warning, TEXT("TriggeredRun"));
+
+	activateEffect();
+	decrementTurnCounter();
+
 }
 
-void UEffectSource::decrementTurnCounter()
+void AEffectSource::decrementTurnCounter()
 {
 	TurnsRemaning--;
 	if (TurnsRemaning <= 0)
@@ -45,85 +64,48 @@ void UEffectSource::decrementTurnCounter()
 	}
 }
 
-void UEffectSource::activateEffect()
+void AEffectSource::activateEffect()
 {
-	UE_LOG(LogTemp, Warning, TEXT("activateEffect"));
-	for (int i = 0; i < activeEffects.Num();i++)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("activateEffect 2 %s"),*activeEffects[i]->linkedPawn->GetActorLocation().ToString());
-		DrawDebugPoint(GetWorld(), activeEffects[i]->linkedPawn->GetActorLocation(), 250.f, FColor::Red, false, 500.0f);
-		runEffect(activeEffects[i]);
-	}
-}
+	//UE_LOG(LogTemp, Warning, TEXT("activateEffect"));
 
-bool UEffectSource::runEffect(UEffect* affectChild)
-{
-	if (bluprintOveride)
+	if (activeEffects.Num() > 0)
 	{
-		ActivationOverride();
-		return false;
-	}
-
-	if (effectType == EEffectType::buff)
-	{
-
-
-	}
-	if (effectType == EEffectType::damage)
-	{
-		FDamageTypesToCause damageToDeal;
-		float damageModifier = 1;
-		if (sourceAbility->AttackStyle == EAttackStyle::Melee)
+		//UE_LOG(LogTemp, Warning, TEXT("activateEffect2 %d"),isDead);
+		for (int i = 0; i < activeEffects.Num();i++)
 		{
-			damageModifier = myOwner->OfensiveStats.Strength;
+			//UE_LOG(LogTemp, Warning, TEXT("activateEffect3"));
+			//UE_LOG(LogTemp, Warning, TEXT("activateEffect 3 %s"), *activeEffects[i]->GetName());
+			//UE_LOG(LogTemp, Warning, TEXT("activateEffect4"));
+			////UE_LOG(LogTemp, Warning, TEXT("activateEffect 2 %s"),*activeEffects[i]->linkedPawn->GetActorLocation().ToString());
+			//DrawDebugPoint(GetWorld(), activeEffects[i]->linkedPawn->GetActorLocation(), 250.f, FColor::Red, false, 500.0f);
+			activeEffects[i]->RunEffect();
 		}
-		if (sourceAbility->AttackStyle == EAttackStyle::Magic)
-		{
-			damageModifier = myOwner->OfensiveStats.ArcaneAptitude;
-		}
-		if (sourceAbility->AttackStyle == EAttackStyle::Rganged)
-		{
-			damageModifier = myOwner->OfensiveStats.RangeFinesse;
-		}
-
-		damageToDeal.ImpactDamage = sourceAbility->DamageTypes.ImpactDamage * (damageModifier / 100);
-		damageToDeal.SlashDamage = sourceAbility->DamageTypes.SlashDamage * (damageModifier / 100);
-		damageToDeal.PunctureDamage = sourceAbility->DamageTypes.PunctureDamage * (damageModifier / 100);
-		damageToDeal.FireDamage = sourceAbility->DamageTypes.FireDamage * (damageModifier / 100);
-		damageToDeal.EarthDamage = sourceAbility->DamageTypes.EarthDamage * (damageModifier / 100);
-		damageToDeal.WaterDamage = sourceAbility->DamageTypes.WaterDamage * (damageModifier / 100);
-		damageToDeal.ColdDamage = sourceAbility->DamageTypes.ColdDamage * (damageModifier / 100);
-		damageToDeal.ElectricityDamage = sourceAbility->DamageTypes.ElectricityDamage * (damageModifier / 100);
-		damageToDeal.HolyDamage = sourceAbility->DamageTypes.HolyDamage * (damageModifier / 100);
-		damageToDeal.VoidDamage = sourceAbility->DamageTypes.VoidDamage * (damageModifier / 100);
-		damageToDeal.ArcaneDamage = sourceAbility->DamageTypes.ArcaneDamage * (damageModifier / 100);
-		UE_LOG(LogTemp, Warning, TEXT("TakeEffectDamage"));
-
-
-		affectChild->linkedPawn->TakeBattleDamage(damageToDeal);
+	}
 	
-
-	}
-	if (effectType == EEffectType::healing)
-	{
-		float healAmount;
-		healAmount = ((affectChild->linkedPawn->mainCharInfo.MaxHealth / 100) * sourceAbility->healPercent) * (myOwner->OfensiveStats.ArcaneAptitude / 100);
-
-		affectChild->linkedPawn->ReciveHealing(healAmount);
-	}
-	if (effectType == EEffectType::shield)
-	{
-
-	}
-
-	return false;
 }
 
-void UEffectSource::EndEffect()
+
+
+void AEffectSource::EndEffect()
 {
-	for (int w = 0; w < activeEffects.Num();w++)
+	UE_LOG(LogTemp, Warning, TEXT("EndEffect"));
+	for (int w = activeEffects.Num(); w > 0 ;w--)
 	{
-		activeEffects[w]->MarkPendingKill();
+		int y = w - 1;
+		UE_LOG(LogTemp, Warning, TEXT("EndEffect2"));
+		activeEffects[y]->DestructBuffs();
+		UE_LOG(LogTemp, Warning, TEXT("EndEffect2.1"));
+		activeEffects[y]->linkedPawn->activeEffects.Remove(activeEffects[y]);
+		UE_LOG(LogTemp, Warning, TEXT("EndEffect2.1"));
+		//activeEffects[w]->ConditionalBeginDestroy();// MarkPendingKill();
+		activeEffects[y]->Destroy();
+		UE_LOG(LogTemp, Warning, TEXT("EndEffect2.3"));
 	}
-	MarkPendingKill();
+	activeEffects.Empty();
+	//UE_LOG(LogTemp, Warning, TEXT("EndEffect3 = %d"),activeEffects.Num());
+	//MarkPendingKill();
+	myOwner->activeEffectSources.Remove(this);
+	//UE_LOG(LogTemp, Warning, TEXT("EndEffect3.1"));
+	this->Destroy();
+	//UE_LOG(LogTemp, Warning, TEXT("EndEffect3.2"));
 }

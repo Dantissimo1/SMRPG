@@ -44,7 +44,7 @@ void UPlayerPartyComponent::BeginPlay()
 
 			if (PartyFormationFrontLine[i]->CharacterDetails.BattlePawnToUse)
 			{
-				//////////////UE_LOG(LogTemp, Warning, TEXT("BattlePartyFormationFrontLinePawn"));
+				////////////////UE_LOG(LogTemp, Warning, TEXT("BattlePartyFormationFrontLinePawn"));
 			}
 		}
 
@@ -59,7 +59,7 @@ void UPlayerPartyComponent::BeginPlay()
 
 			if (PartyFormationBackLine[i]->CharacterDetails.BattlePawnToUse)
 			{
-				//////////////UE_LOG(LogTemp, Warning, TEXT("BattlePartyFormationBackLinePawn"));
+				////////////////UE_LOG(LogTemp, Warning, TEXT("BattlePartyFormationBackLinePawn"));
 			}
 		}
 

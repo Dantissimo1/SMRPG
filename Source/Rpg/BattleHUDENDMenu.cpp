@@ -10,7 +10,7 @@ void UBattleHUDENDMenu::SetUp(UBattleBrainComponent* inBrain, ADungeonController
 {
 	if (inBrain)
 	{
-		////UE_LOG(LogTemp, Warning, TEXT("UBattleBrainComponent 2"));
+		//////UE_LOG(LogTemp, Warning, TEXT("UBattleBrainComponent 2"));
 		activeBattleBrain = inBrain;
 		playerController = inPlayerController;
 		//SetUpHUD();

@@ -50,18 +50,18 @@ void ADungeonControllerBase::Tick(float DeltaTime)
 
 	if (skillSelected == true)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" skillSelected 1"));
+		//UE_LOG(LogTemp, Warning, TEXT(" skillSelected 1"));
 		if (activeAbility == NULL)
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" activeAbility == NULL 1"));
+			//UE_LOG(LogTemp, Warning, TEXT(" activeAbility == NULL 1"));
 			isWaitingForSingleTargetSelection = true;
 			lookingForHostile = true;
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" activeAbility exists 1"));
+			//UE_LOG(LogTemp, Warning, TEXT(" activeAbility exists 1"));
 			lookingForHostile = activeAbility->targetsHostile;
-			UE_LOG(LogTemp, Warning, TEXT(" activeAbility exists 2"));
+			//UE_LOG(LogTemp, Warning, TEXT(" activeAbility exists 2"));
 			
 			
 			if (activeAbility->attackType == EAttackType::singleTarget)
@@ -85,16 +85,16 @@ void ADungeonControllerBase::Tick(float DeltaTime)
 		{
 			if (hasSetLastTarget == false && CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastAttackTarget && CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastAttackTarget->isDown != true)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("wating set singel to last 0"));
+				//UE_LOG(LogTemp, Warning, TEXT("wating set singel to last 0"));
 				singleTarget = CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastAttackTarget;
-				UE_LOG(LogTemp, Warning, TEXT(" Loooking for hostile 1"));
+				//UE_LOG(LogTemp, Warning, TEXT(" Loooking for hostile 1"));
 				SetViewTargetWithBlend(singleTarget, 0.3f);
-				UE_LOG(LogTemp, Warning, TEXT(" Looking for hostile 2"));
+				//UE_LOG(LogTemp, Warning, TEXT(" Looking for hostile 2"));
 				hasSetLastTarget = true;
 			}
 			if (singleTarget == NULL)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("single targe t null"));
+				//UE_LOG(LogTemp, Warning, TEXT("single targe t null"));
 				singleTarget = SelectFirstHostileTarget();
 				SetViewTargetWithBlend(singleTarget, 1.0f);
 			}
@@ -107,16 +107,16 @@ void ADungeonControllerBase::Tick(float DeltaTime)
 		{
 			if (hasSetLastTarget == false && CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastFreindlyTarget && CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastFreindlyTarget->isDown != true)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("wating set singel to ally last 0"));
+				//UE_LOG(LogTemp, Warning, TEXT("wating set singel to ally last 0"));
 				singleTarget = CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastFreindlyTarget;
-				UE_LOG(LogTemp, Warning, TEXT(" Loooking for ally 1"));
+				//UE_LOG(LogTemp, Warning, TEXT(" Loooking for ally 1"));
 				SetViewTargetWithBlend(singleTarget, 0.3f);
-				UE_LOG(LogTemp, Warning, TEXT(" Looking for ally 2"));
+				//UE_LOG(LogTemp, Warning, TEXT(" Looking for ally 2"));
 				hasSetLastTarget = true;
 			}
 			if (singleTarget == NULL)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("single targe ally null"));
+				//UE_LOG(LogTemp, Warning, TEXT("single targe ally null"));
 				singleTarget = SelectFirstHostileTarget();
 				SetViewTargetWithBlend(singleTarget, 1.0f);
 			}
@@ -193,14 +193,14 @@ void ADungeonControllerBase::JumpInput()
 
 void ADungeonControllerBase::Back()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Back"));
+	//UE_LOG(LogTemp, Warning, TEXT("Back"));
 
 	if (BattleHUD != NULL)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Back  2"));
+		//UE_LOG(LogTemp, Warning, TEXT("Back  2"));
 		if (BattleHUD->selectingTargets == true)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Back   3")); 
+			//UE_LOG(LogTemp, Warning, TEXT("Back   3")); 
 			BattleHUD->selectingTargets = false;
 			BattleHUD->BackToAttackSelection();
 			isWaitingForSingleTargetSelection = false;
@@ -287,7 +287,7 @@ void ADungeonControllerBase::BattleHUDSpawn()
 		BattleHUD = CreateWidget<UBattleHUD>(this, BattleHUDClass);
 		BattleHUD->AddToViewport();
 		BattleHUD->SetVisibility(ESlateVisibility::Visible);
-		////UE_LOG(LogTemp, Warning, TEXT("UBattleBrainComponent 0"));
+		//////UE_LOG(LogTemp, Warning, TEXT("UBattleBrainComponent 0"));
 		BattleHUD->SetUp(CurrentBattleArea->BattleBrain, this);
 
 	}
@@ -308,10 +308,10 @@ void ADungeonControllerBase::BattleHUDDespawn()
 
 void ADungeonControllerBase::BattleHUDENDSpawn()
 {
-	UE_LOG(LogTemp, Warning, TEXT("BattleHUDENDSpawn 0"));
+	//UE_LOG(LogTemp, Warning, TEXT("BattleHUDENDSpawn 0"));
 	if (BattleHUDENDClass)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("BattleHUDENDSpawn 0"));
+		//UE_LOG(LogTemp, Warning, TEXT("BattleHUDENDSpawn 0"));
 		BattleEndMenue = CreateWidget<UBattleHUDENDMenu>(this, BattleHUDENDClass);
 		BattleEndMenue->AddToViewport();
 		BattleEndMenue->SetVisibility(ESlateVisibility::Visible);
@@ -340,16 +340,16 @@ void ADungeonControllerBase::SelectSingleHorizontal(float value)
 		TArray<UBattleSpawnPoint*>spawnPointsToUse;
 		if (lookingForHostile == true)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal  lookingForHostile 1"));
+			//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal  lookingForHostile 1"));
 			spawnPointsToUse = CurrentBattleArea->EnemyBattleSpawns;
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal  lookingForHostile 1"));
+			//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal  lookingForHostile 1"));
 			spawnPointsToUse = CurrentBattleArea->PlayerBattleSpawns;
 		}
 
-		UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 1"));
+		//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 1"));
 
 			int rowMin = 1;
 			int rowMax = 4;
@@ -359,17 +359,17 @@ void ADungeonControllerBase::SelectSingleHorizontal(float value)
 				rowMax = 8;
 			}
 
-			UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 4"));
+			//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 4"));
 			int newPlaceOnGrid = 0;
 			if (value > 0)
 			{
 				newPlaceOnGrid = singleTarget->PawnsBaseActor->placeOnGrid;
-				UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 5 %d"), newPlaceOnGrid);
+				//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 5 %d"), newPlaceOnGrid);
 
 				bool HasBeenPlacedOnRow = false;
 				for (int y = 1;y < 5;y++)
 				{
-					UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.01 %d"), y);
+					//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.01 %d"), y);
 					if (singleTarget->bIsBackLine == true)
 					{
 						rowMin = 5;
@@ -378,14 +378,14 @@ void ADungeonControllerBase::SelectSingleHorizontal(float value)
 					newPlaceOnGrid += 1;
 					if (newPlaceOnGrid > rowMax)
 					{
-						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.1 %d"), newPlaceOnGrid);
+						//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.1 %d"), newPlaceOnGrid);
 						newPlaceOnGrid = rowMin;
-						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.2 "));
+						//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.2 "));
 						y = 1;
 					}
 					if (spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != NULL && spawnPointsToUse[newPlaceOnGrid - 1]->myPawn->isDown != true)//&& spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != singleTarget
 					{
-						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 7 %d"), newPlaceOnGrid);
+						//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 7 %d"), newPlaceOnGrid);
 						singleTarget = spawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
 						SetViewTargetWithBlend(singleTarget, .3f);
 						HasBeenPlacedOnRow = true;
@@ -396,28 +396,28 @@ void ADungeonControllerBase::SelectSingleHorizontal(float value)
 			if (value < 0)
 			{
 				newPlaceOnGrid = singleTarget->PawnsBaseActor->placeOnGrid;
-				UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 5 %d"), newPlaceOnGrid);
+				//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 5 %d"), newPlaceOnGrid);
 
 				bool HasBeenPlacedOnRow = false;
 				for (int y = 1;y < 5;y++)
 				{
 					if (singleTarget->bIsBackLine == true)
 					{
-						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 5.8 %d"), newPlaceOnGrid);
+						//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 5.8 %d"), newPlaceOnGrid);
 						rowMin = 5;
 						rowMax = 8;
 					}
 					newPlaceOnGrid -= 1;
 					if (newPlaceOnGrid < rowMin)
 					{
-						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6 %d"), newPlaceOnGrid);
+						//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6 %d"), newPlaceOnGrid);
 						newPlaceOnGrid = rowMax;
 						y = 1;
 					}
-					UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.7 %d"), newPlaceOnGrid);
+					//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 6.7 %d"), newPlaceOnGrid);
 					if (spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != NULL && spawnPointsToUse[newPlaceOnGrid - 1]->myPawn->isDown != true)//&& spawnPointsToUse[newPlaceOnGrid - 1]->myPawn != singleTarget
 					{
-						UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 7 %d"), newPlaceOnGrid);
+						//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal 7 %d"), newPlaceOnGrid);
 						singleTarget = spawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
 						SetViewTargetWithBlend(singleTarget, .3f);
 						HasBeenPlacedOnRow = true;
@@ -430,17 +430,17 @@ void ADungeonControllerBase::SelectSingleHorizontal(float value)
 
 void ADungeonControllerBase::SelectSingleVertical(float value)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("SelectSingleVertical 1"));
+	////UE_LOG(LogTemp, Warning, TEXT("SelectSingleVertical 1"));
 
 	TArray<UBattleSpawnPoint*>spawnPointsToUse;
 	if (lookingForHostile == true)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal  lookingForHostile 1"));
+		//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal  lookingForHostile 1"));
 		spawnPointsToUse = CurrentBattleArea->EnemyBattleSpawns;
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal  lookingForHostile 1"));
+		//UE_LOG(LogTemp, Warning, TEXT("SelectSingleHorizontal  lookingForHostile 1"));
 		spawnPointsToUse = CurrentBattleArea->PlayerBattleSpawns;
 	}
 
@@ -485,27 +485,27 @@ void ADungeonControllerBase::SelectSingleVertical(float value)
 
 ABattlePawnBase* ADungeonControllerBase::SelectFirstHostileTarget()
 {
-	UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 1"));
+	//UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 1"));
 
 	if (lookingForHostile)
 	{
 		if (CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastAttackTarget != NULL)
 		{
-			//UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 6"));
+			////UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 6"));
 			if (CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastAttackTarget->isDown != true)
 			{
 				return CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastAttackTarget;
 			}
-			UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 2"));
+			//UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 2"));
 		}
 		
 		
-			//UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 6"));
+			////UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 6"));
 			ABattlePawnBase* target = NULL;
 			for (int i = 0; i < CurrentBattleArea->enemyBattlePawns.Num();i++)
 			{
 
-				//UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 4"));
+				////UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 4"));
 				if (CurrentBattleArea->enemyBattlePawns[i]->isDown != true)
 				{
 					return target = CurrentBattleArea->enemyBattlePawns[i];
@@ -513,7 +513,7 @@ ABattlePawnBase* ADungeonControllerBase::SelectFirstHostileTarget()
 
 			}if (target == NULL)
 			{
-				//UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 5"));
+				////UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 5"));
 				return target = CurrentBattleArea->enemyBattlePawns[0];
 			}
 		
@@ -522,11 +522,11 @@ ABattlePawnBase* ADungeonControllerBase::SelectFirstHostileTarget()
 	{
 		if (CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastFreindlyTarget == NULL)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("selcet ally 1"));
+			//UE_LOG(LogTemp, Warning, TEXT("selcet ally 1"));
 			ABattlePawnBase* target = NULL;
 			for (int i = 0; i < CurrentBattleArea->playerBattlePawns.Num();i++)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("selcet ally 2"));
+				//UE_LOG(LogTemp, Warning, TEXT("selcet ally 2"));
 				float higestHealth = 1000000000000;
 				if (activeAbility->isHealing == true)
 				{
@@ -538,20 +538,20 @@ ABattlePawnBase* ADungeonControllerBase::SelectFirstHostileTarget()
 
 				}else if (CurrentBattleArea->playerBattlePawns[i]->bIsBackLine != true)
 				{
-					//UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 4"));
+					////UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 4"));
 					return target = CurrentBattleArea->playerBattlePawns[i];
 				}
 
 			}if (target == NULL)
 			{
-				//UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 5"));
+				////UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 5"));
 				target = CurrentBattleArea->playerBattlePawns[0];
 			}
 			return target;
 		}
 		else
 		{
-			//UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 6"));
+			////UE_LOG(LogTemp, Warning, TEXT("SelectFirstHostileTarget 6"));
 			return CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastFreindlyTarget;
 		}
 
@@ -568,21 +568,21 @@ ABattlePawnBase* ADungeonControllerBase::SearchValidBackline(TArray<UBattleSpawn
 {
 	int q = 0;
 	int newPlaceOnGrid = 0;
-	UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 1"));
+	//UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 1"));
 	for (int u = 4; u < inSpawnPointsToUse.Num();u++)
 	{
 		q++;
-		UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 2"));
+		//UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 2"));
 		newPlaceOnGrid = singleTarget->PawnsBaseActor->placeOnGrid + u;
 		if (newPlaceOnGrid > 8)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 3"));
+			//UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 3"));
 			newPlaceOnGrid = 4;
 			u = 1;
 		}
 		if (inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn != NULL && inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn->isDown != true)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 4"));
+			//UE_LOG(LogTemp, Warning, TEXT("SearchValidBackline 4"));
 			return inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
 			
 		}
@@ -598,7 +598,7 @@ ABattlePawnBase* ADungeonControllerBase::SearchValidFrontline(TArray<UBattleSpaw
 {
 	int q = 0;
 	int newPlaceOnGrid = 0;
-	UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  1"));
+	//UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  1"));
 
 	if (singleTarget->bIsBackLine)
 	{
@@ -613,11 +613,11 @@ ABattlePawnBase* ADungeonControllerBase::SearchValidFrontline(TArray<UBattleSpaw
 	for (int u = 0; u < 4;u++)
 	{
 		q++;
-		UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  2"));
+		//UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  2"));
 		newPlaceOnGrid ++;
 		if (newPlaceOnGrid > 4)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  3"));
+			//UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  3"));
 			newPlaceOnGrid = 1;
 			u = 0;
 		}
@@ -627,7 +627,7 @@ ABattlePawnBase* ADungeonControllerBase::SearchValidFrontline(TArray<UBattleSpaw
 		}
 		if (inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn != NULL && inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn->isDown != true)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  4"));
+			//UE_LOG(LogTemp, Warning, TEXT("SearchValidFrontline  4"));
 			return inSpawnPointsToUse[newPlaceOnGrid - 1]->myPawn;
 		
 		}
@@ -647,11 +647,11 @@ void ADungeonControllerBase::ToggleSwitchTimer()
 
 void ADungeonControllerBase::ConfirmSingleTarget()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("ConfirmSingleTarget 1"));
+	////UE_LOG(LogTemp, Warning, TEXT("ConfirmSingleTarget 1"));
 	if (singleTarget != NULL)
 	{
 		CurrentBattleArea->BattleBrain->ActiveTurn->MyBattlePawn->lastAttackTarget = singleTarget;
-		UE_LOG(LogTemp, Warning, TEXT("ConfirmSingleTarget 2"));
+		//UE_LOG(LogTemp, Warning, TEXT("ConfirmSingleTarget 2"));
 		CurrentBattleArea->BattleBrain->confirmedSingleTarget = singleTarget;
 		CurrentBattleArea->BattleBrain->watingForPlayersTarget = false;
 		isWaitingForSingleTargetSelection = false;

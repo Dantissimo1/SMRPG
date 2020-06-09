@@ -30,6 +30,7 @@ void AParticleHolder::Tick(float DeltaTime)
 void AParticleHolder::SetUp(ABattlePawnBase* inOwner)
 {
 	myOwner = inOwner;
+	SetActorScale3D(FVector(size, size, size));
 }
 
 void AParticleHolder::DoAbilityDamage()

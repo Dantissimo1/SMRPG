@@ -32,6 +32,8 @@ public:
 
 	void SetUp(ABattlePawnBase* inOwner);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "damage")
+	float size = 1;
 
 	UFUNCTION(BlueprintCallable)
 		void DoAbilityDamage();

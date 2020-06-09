@@ -47,16 +47,19 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 		{ 
 			if (MyBattleZone)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("inplayer cont"));
+				//UE_LOG(LogTemp, Warning, TEXT("inplayer cont"));
 			}
 
 
 			////run active effects at end of turn
-			for (int i = 0; i < ActiveTurn->MyBattlePawn->activeEffectSources.Num();i++)
+			//UE_LOG(LogTemp, Warning, TEXT("start effects %d"), ActiveTurn->MyBattlePawn->activeEffectSources.Num());
+			if (ActiveTurn->MyBattlePawn->activeEffectSources.Num() > 0)
 			{
-				ActiveTurn->MyBattlePawn->activeEffectSources[i]->TriggeredRun();
+				for (int i = ActiveTurn->MyBattlePawn->activeEffectSources.Num() -1; i >= 0;i--)
+				{
+					ActiveTurn->MyBattlePawn->activeEffectSources[i]->TriggeredRun();
+				}
 			}
-
 			//start next turn
 			ReCalcChrsTurns(ActiveTurn->MyBattlePawn);
 
@@ -103,7 +106,7 @@ void UBattleBrainComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 			}
 			if (winCondition == true)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("EndBattle "));
+				//UE_LOG(LogTemp, Warning, TEXT("EndBattle "));
 				EndBattle();
 				
 			}
@@ -152,7 +155,7 @@ void UBattleBrainComponent::InitializeBattle(TArray<ABattlePawnBase*>inPawns, TA
 
 	for (int i = 0; i < AllPawnsInBattle.Num();i++)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 2 %f"),AllPawnsInBattle[i]->mainCharInfo.Speed);
+		//UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 2 %f"),AllPawnsInBattle[i]->mainCharInfo.Speed);
 	}
 
 }
@@ -161,13 +164,13 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 {
 
 	WorkingTurnOrder.Empty();
-	////////////////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 1 %d"), AllPawnsInBattle.Num());
+	//////////////////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 1 %d"), AllPawnsInBattle.Num());
 	for (int t = 1; t < 6;t++)
 	{
-		////////////////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 2"));
+		//////////////////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 2"));
 		for (int i = 0; i < AllPawnsInBattle.Num();i++)
 		{
-			////////////////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 3"));
+			//////////////////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 3"));
 			UTurnInfo* PawnTurnInfo = NewObject<UTurnInfo>(UTurnInfo::StaticClass());
 			PawnTurnInfo->MyBattlePawn = AllPawnsInBattle[i];
 			PawnTurnInfo->Speed = AllPawnsInBattle[i]->mainCharInfo.BaseSpeed * t;
@@ -178,18 +181,18 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 	}
 	for (int i = 0; i < TurnOrder.Num();i++)
 	{
-		////UE_LOG(LogTemp, Warning, TEXT("chr 111 %s"),*TurnOrder[i]->ChrName);
-		////UE_LOG(LogTemp, Warning, TEXT("chr111 %f"), TurnOrder[i]->Speed);
-		////UE_LOG(LogTemp, Warning, TEXT("chr 111111 %d"), TurnOrder[i]->Turn);
+		//////UE_LOG(LogTemp, Warning, TEXT("chr 111 %s"),*TurnOrder[i]->ChrName);
+		//////UE_LOG(LogTemp, Warning, TEXT("chr111 %f"), TurnOrder[i]->Speed);
+		//////UE_LOG(LogTemp, Warning, TEXT("chr 111111 %d"), TurnOrder[i]->Turn);
 		bool hasBeenPlaced = false;
 		int place = 0;
 		if (WorkingTurnOrder.Num() > 0)
 		{
 			for (int q = 0; q < WorkingTurnOrder.Num();q++)
 			{
-				////UE_LOG(LogTemp, Warning, TEXT("chr wwwww %s"), *WorkingTurnOrder[q]->ChrName);
-				////UE_LOG(LogTemp, Warning, TEXT("chr wwwwww %f"), WorkingTurnOrder[q]->Speed);
-				////UE_LOG(LogTemp, Warning, TEXT("chr wwwwwwww %d"), WorkingTurnOrder[q]->Turn);
+				//////UE_LOG(LogTemp, Warning, TEXT("chr wwwww %s"), *WorkingTurnOrder[q]->ChrName);
+				//////UE_LOG(LogTemp, Warning, TEXT("chr wwwwww %f"), WorkingTurnOrder[q]->Speed);
+				//////UE_LOG(LogTemp, Warning, TEXT("chr wwwwwwww %d"), WorkingTurnOrder[q]->Turn);
 				if (TurnOrder[i] != WorkingTurnOrder[q])
 				{
 					if (TurnOrder[i]->Speed < WorkingTurnOrder[q]->Speed)
@@ -211,7 +214,7 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 				WorkingTurnOrder.Add(TurnOrder[i]);
 			}else
 			{
-				////UE_LOG(LogTemp, Warning, TEXT("place place 1111 %d"), place);
+				//////UE_LOG(LogTemp, Warning, TEXT("place place 1111 %d"), place);
 				WorkingTurnOrder.Insert(TurnOrder[i], place);
 			}
 		}
@@ -224,9 +227,9 @@ void UBattleBrainComponent::CalcInitialTurnOrder()
 	TurnOrder.Empty();
 	for (int y = 0; y < WorkingTurnOrder.Num();y++)
 	{
-		////UE_LOG(LogTemp, Warning, TEXT("chr fff %s"), *WorkingTurnOrder[y]->ChrName);
-		////UE_LOG(LogTemp, Warning, TEXT("chrffff %f"), WorkingTurnOrder[y]->Speed);
-		////UE_LOG(LogTemp, Warning, TEXT("chrffffff %d"), WorkingTurnOrder[y]->Turn);
+		//////UE_LOG(LogTemp, Warning, TEXT("chr fff %s"), *WorkingTurnOrder[y]->ChrName);
+		//////UE_LOG(LogTemp, Warning, TEXT("chrffff %f"), WorkingTurnOrder[y]->Speed);
+		//////UE_LOG(LogTemp, Warning, TEXT("chrffffff %d"), WorkingTurnOrder[y]->Turn);
 		TurnOrder.Insert(WorkingTurnOrder[y],y);
 	}
 }
@@ -235,42 +238,42 @@ void UBattleBrainComponent::ReCalcChrsTurns(ABattlePawnBase* inPawn)
 {
 	TArray< UTurnInfo*> CurrentTurns;
 	TArray<int>TurnNos;
-	////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 1"));
+	//////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 1"));
 	for (int i = 0; i < TurnOrder.Num();i++)
 	{	
-		////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 2"))
+		//////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 2"))
 		if(TurnOrder[i]->MyBattlePawn ==inPawn)
 		{
-			////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 3"))
+			//////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 3"))
 			CurrentTurns.Add(TurnOrder[i]);
 		}
 	}
 	for(int j = 0; j < CurrentTurns.Num();j++)
 	{
-		////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 4"))
+		//////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 4"))
 		//only update speed if it not the active turn
 		if (CurrentTurns[j] != ActiveTurn) 
 		{
-			////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 5"))
+			//////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 5"))
 			TurnNos.Add(CurrentTurns[j]->Turn);
-			////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 6"))
+			//////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 6"))
 			CurrentTurns[j]->Speed = CurrentTurns[j]->MyBattlePawn->mainCharInfo.Speed * CurrentTurns[j]->Turn;
 
 
 			int iNewPosition;
 			bool bElementAdded = 0;
-			////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 7"));
+			//////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 7"));
 			for (int p = 0;p < TurnOrder.Num();p++)
 			{
 				if (CurrentTurns[j] != TurnOrder[p])
 				{
-					////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 8"));
+					//////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 8"));
 					if (CurrentTurns[j]->Speed < TurnOrder[p]->Speed)
 					{
-						////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 9"));
+						//////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 9"));
 						iNewPosition = p;
 						break;
-						////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 10"));
+						//////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 10"));
 					}
 				}
 				else if (CurrentTurns[j]->Speed == TurnOrder[p]->Speed)
@@ -282,28 +285,28 @@ void UBattleBrainComponent::ReCalcChrsTurns(ABattlePawnBase* inPawn)
 
 
 			}
-			////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 13"));
+			//////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 13"));
 			UTurnInfo* turnToinsert = CurrentTurns[j];
 			TurnOrder.RemoveSingle(CurrentTurns[j]);
-			////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 14"));
+			//////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 14"));
 			TurnOrder.Insert(turnToinsert, iNewPosition);
-			////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 15"));
+			//////UE_LOG(LogTemp, Warning, TEXT("Calc Turn order 15"));
 		}
 	}
 	while (TurnNos.Num() < 4)
 	{
-		////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 7 %d"), CurrentTurns.Num())
+		//////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 7 %d"), CurrentTurns.Num())
 		int HighestTurnNo = 0;
 		for (int u = 0; u < TurnNos.Num();u++)
 		{
-			////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 8"))
+			//////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 8"))
 			if (TurnNos[u] > HighestTurnNo)
 			{
-				////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 9 %d"), HighestTurnNo)
+				//////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 9 %d"), HighestTurnNo)
 				HighestTurnNo = TurnNos[u];
 			}
 		}
-		////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 10"))
+		//////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 10"))
 		AddNewTurn(CurrentTurns[0]->MyBattlePawn, CurrentTurns[0]->ChrName, HighestTurnNo+1, inPawn->mainCharInfo.Speed);
 		TurnNos.Add(HighestTurnNo +1 );
 
@@ -333,10 +336,10 @@ void UBattleBrainComponent::AddNewTurn(ABattlePawnBase* MyBattlePawn, FString Ch
 	int a = 0;
 	for (int i = 0; i <TurnOrder.Num();i++)	
 	{ 
-		////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 11"))
+		//////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 11"))
 		if (TurnToAdd->Speed < TurnOrder[i]->Speed)
 		{
-			////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 12"))
+			//////////////UE_LOG(LogTemp, Warning, TEXT("ReCalcChrsTurns 12"))
 				a = i;
 		}
 		else
@@ -360,12 +363,12 @@ bool UBattleBrainComponent::RunActiveTurn()
 
 		if (ActiveTurn->MyBattlePawn->isOwnedByPlayer)
 		{
-			////////UE_LOG(LogTemp, Warning, TEXT("Players Turn"));
+			//////////UE_LOG(LogTemp, Warning, TEXT("Players Turn"));
 			return turnCompleted = RunPlayersTurn();		
 		}
 		else
 		{
-			////////UE_LOG(LogTemp, Warning, TEXT("enemy Turn"));
+			//////////UE_LOG(LogTemp, Warning, TEXT("enemy Turn"));
 			return turnCompleted = RunEnemyTurn();
 		}
 	}
@@ -376,11 +379,11 @@ bool UBattleBrainComponent::RunActiveTurn()
 
 bool UBattleBrainComponent::RunPlayersTurn()
 {
-	////UE_LOG(LogTemp, Warning, TEXT("players turn 0"));
+	//////UE_LOG(LogTemp, Warning, TEXT("players turn 0"));
 
 	if (ActiveTurn->MyBattlePawn->attackCharged)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" attackCharged "));
+		//UE_LOG(LogTemp, Warning, TEXT(" attackCharged "));
 		return runChargedAttack();
 		
 	}
@@ -403,7 +406,7 @@ bool UBattleBrainComponent::RunPlayersTurn()
 
 	if (watingForPlayersTarget)
 	{
-		////UE_LOG(LogTemp, Warning, TEXT("watingForPlayersTarget 0"));
+		//////UE_LOG(LogTemp, Warning, TEXT("watingForPlayersTarget 0"));
 		if (attackMenueSpawned != true)
 		{
 			attackMenueSpawned = true;
@@ -416,11 +419,11 @@ bool UBattleBrainComponent::RunPlayersTurn()
 	}
 	else
 	{
-		//UE_LOG(LogTemp, Warning, TEXT(" No longer watingForPlayersTarget 0"));
+		////UE_LOG(LogTemp, Warning, TEXT(" No longer watingForPlayersTarget 0"));
 		if (confirmedSingleTarget != NULL)
 		{
 			PlayersCont->BattleHUD->HideAttackMenue();
-			//UE_LOG(LogTemp, Warning, TEXT("confirmedSingleTarget 0"));
+			////UE_LOG(LogTemp, Warning, TEXT("confirmedSingleTarget 0"));
 			
 			if (activeAbility)
 			{
@@ -603,33 +606,33 @@ bool UBattleBrainComponent::RunOpotunityAttack()
 		if (atOpotunityPoint1 != true)
 		{
 			pawnToOpotunity->bHasReaction = false;
-			UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack1 "));
+			//UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack1 "));
 			atOpotunityPoint1 = pawnToOpotunity->RotateToTarget(ActiveTurn->MyBattlePawn->GetActorLocation());
 			return false;
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack2 "));
+			//UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack2 "));
 			pawnToOpotunity->isAtackingOpotunity = true;
 		}
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack3 "));
+	//UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack3 "));
 	if (pawnToOpotunity->opotunityActionCompleeted == true)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack4 "));
+		//UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack4 "));
 		pawnToOpotunity->opotunityActionCompleeted = false;
 		opotunityAttackPreformed = true;
 	}
 
 	if (atOpotunityPoint2 != true)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack5 "));
+		//UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack5 "));
 		atOpotunityPoint2 = pawnToOpotunity->RotateToTarget(pawnToOpotunity->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
 		return false;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack6 "));
+	//UE_LOG(LogTemp, Warning, TEXT(" RunOpotunityAttack6 "));
 	atOpotunityPoint1 = false;
 	atOpotunityPoint2 = false;
 	opotunityAttackPreformed = false;
@@ -661,27 +664,27 @@ bool UBattleBrainComponent::RunCounter(ABattlePawnBase* inPawn)
 {	
 	if (inPawn->bHasReaction)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" bHasReaction "));
+		//UE_LOG(LogTemp, Warning, TEXT(" bHasReaction "));
 		if (counterBool1 == false)
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" counterBool1 "));
+			//UE_LOG(LogTemp, Warning, TEXT(" counterBool1 "));
 			if (inPawn->RotateToTarget(ActiveTurn->MyBattlePawn->GetActorLocation()))
 			{
-				UE_LOG(LogTemp, Warning, TEXT(" RotateToTarget "));
+				//UE_LOG(LogTemp, Warning, TEXT(" RotateToTarget "));
 				counterBool1 = true;
 			}
 			return false;
 		}
 		if (CounterActionCompleeted != true)
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" CounterActionCompleeted "));
+			//UE_LOG(LogTemp, Warning, TEXT(" CounterActionCompleeted "));
 			CounterActionCompleeted = inPawn->RunAttackTargetStanding(ActiveTurn->MyBattlePawn);
 			return false;
 		}
 
 		if (inPawn->RotateToTarget(inPawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation()))
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" RotateToTarget 2 "));
+			//UE_LOG(LogTemp, Warning, TEXT(" RotateToTarget 2 "));
 			inPawn->CounterActionCompleeted = false;
 			CounterActionCompleeted = false;
 			counterBool1 = false;
@@ -709,13 +712,13 @@ bool UBattleBrainComponent::startChargedAttack(ABattlePawnBase* inTarget, UAbili
 
 bool UBattleBrainComponent::runChargedAttackCharge()
 {
-	UE_LOG(LogTemp, Warning, TEXT(" runChargedAttackCharge "));
+	//UE_LOG(LogTemp, Warning, TEXT(" runChargedAttackCharge "));
 	if (ActiveTurn->MyBattlePawn->isChargeingAttack)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" isChargeingAttack "));
+		//UE_LOG(LogTemp, Warning, TEXT(" isChargeingAttack "));
 		if (waitingForContinueCharge)
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" waitingForContinueCharge "));
+			//UE_LOG(LogTemp, Warning, TEXT(" waitingForContinueCharge "));
 			PlayersCont->BattleHUD->CreateChargingMenu();
 			return false;
 		}
@@ -757,11 +760,11 @@ bool UBattleBrainComponent::runChargedAttackCharge()
 
 bool UBattleBrainComponent::runChargedAttack()
 {
-	UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack "));
+	//UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack "));
 	bool attackDone = false;
 	if (resetForChargedAttack == false)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" resetForChargedAttack "));
+		//UE_LOG(LogTemp, Warning, TEXT(" resetForChargedAttack "));
 		ActiveTurn->MyBattlePawn->isChargeingAttack = false;
 		ActiveTurn->MyBattlePawn->isChargeingMeleeAttack = false;
 		ActiveTurn->MyBattlePawn->isChargeingMagicAttack = false;
@@ -773,31 +776,31 @@ bool UBattleBrainComponent::runChargedAttack()
 	}
 
 	//ActiveTurn->MyBattlePawn->animFinished = false;
-	UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack 2 "));
+	//UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack 2 "));
 
 
 	if (activeAbility->AttackStyle == EAttackStyle::Melee)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Melee"));
+		//UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Melee"));
 		attackDone = AttackMelee(confirmedSingleTarget);
-		UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Melee 2 "));
+		//UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Melee 2 "));
 	}
 
 	if (activeAbility->AttackStyle == EAttackStyle::Magic)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Magic "));
+		//UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Magic "));
 		attackDone = AttackMagic(confirmedSingleTarget);
 	}
 	if (activeAbility->AttackStyle == EAttackStyle::Rganged)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Rganged "));
+		//UE_LOG(LogTemp, Warning, TEXT(" EAttackStyle::Rganged "));
 		attackDone = AttackRanged(confirmedSingleTarget);
 	}
 	
-	UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack 4 "));
+	//UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack 4 "));
 	if (attackDone)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack 5 "));
+		//UE_LOG(LogTemp, Warning, TEXT(" runChargedAttack 5 "));
 		resetForChargedAttack = false;
 		ActiveTurn->MyBattlePawn->attackCharged = false;
 	}
@@ -808,27 +811,27 @@ bool UBattleBrainComponent::runChargedAttack()
 bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 {
 	//get in to position
-	UE_LOG(LogTemp, Warning, TEXT(" Attack Melee "));
+	//UE_LOG(LogTemp, Warning, TEXT(" Attack Melee "));
 
 
 	if (attackActionCompleeted != true)
 	{
 		if (ActiveTurn->MyBattlePawn->bIsBackLine)
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" Attack Melee im at back"));
+			//UE_LOG(LogTemp, Warning, TEXT(" Attack Melee im at back"));
 			if (atStaginPoint1 != true)
 			{
-				UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to staging"));
+				//UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to staging"));
 				atStaginPoint1 = ActiveTurn->MyBattlePawn->MoveToLocation(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
 				return false;
 			}
 		}
 		//if (attackTarget->bIsBackLine)
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" Attack Melee  target is back"));
+			//UE_LOG(LogTemp, Warning, TEXT(" Attack Melee  target is back"));
 			if (atopotunityLocation != true)
 			{
-				UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to opotunity"));
+				//UE_LOG(LogTemp, Warning, TEXT(" Attack Melee move to opotunity"));
 				atopotunityLocation = ActiveTurn->MyBattlePawn->MoveToLocation(attackTarget->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
 				return false;
 			}
@@ -843,45 +846,50 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			if (awatingOpotunityDecision)
 			{
 
-				UE_LOG(LogTemp, Warning, TEXT(" Attack Melee  awating opotunity decision"));
+				//UE_LOG(LogTemp, Warning, TEXT(" Attack Melee  awating opotunity decision"));
 				
 				if (ActiveTurn->MyBattlePawn->isOwnedByPlayer != true)
 				{
 					if (pawnToOpotunity == NULL)
 					{
-						UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 1"));
+						//UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 1"));
 						if (serchedForOpotunityPawns != true)
 						{
-							UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 2"));
+							//UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 2"));
 							pawnsForOpotunityDecision = FindAvalibleForOpotunity(attackTarget);
 							serchedForOpotunityPawns = true;
 						}
 						if (pawnsForOpotunityDecision.Num() > 0)
 						{
-							UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 3"));
+							//UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 3"));
 							if (pawnToOpotunity == NULL)
 							{
-								UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 4"));
+								//UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 4"));
 								if (PlayersCont->BattleHUD->hasCreatedOpotunityMenu != true)
 								{
-									UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 5"));
+									//UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 5"));
 									PlayersCont->BattleHUD->CreateOpotunityMenu();
 									PlayersCont->BattleHUD->hasCreatedOpotunityMenu = true;
 									return false;
 								}
-								UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 6"));
+								//UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 6"));
 								return false;
 							}
 						}
 						else
 						{
-							UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 7"));
+							//UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity 7"));
 							awatingOpotunityDecision = false;
 						}
 					}
 					else
 					{
-						UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity do attack"));
+						if (opotunityMenuDespawned != true)
+						{
+							PlayersCont->BattleHUD->RemoveOpotunityMenu();
+							opotunityMenuDespawned = true;
+						}
+						//UE_LOG(LogTemp, Warning, TEXT(" pawnToOpotunity do attack"));
 						if (pawnToOpotunity->RunAttackTargetStanding(ActiveTurn->MyBattlePawn) !=true)
 						{
 							return false;
@@ -893,6 +901,7 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 							PlayersCont->BattleHUD->RemoveOpotunityMenu();
 							PlayersCont->BattleHUD->hasCreatedOpotunityMenu = false;
 							awatingOpotunityDecision = false;
+							opotunityMenuDespawned = false;
 						}
 					}
 				}
@@ -934,19 +943,19 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 		{
 			if (CountreAtempted != true)
 			{
-				UE_LOG(LogTemp, Warning, TEXT(" CountreAtempted "));
+				//UE_LOG(LogTemp, Warning, TEXT(" CountreAtempted "));
 				CountreAtempted = true;
 				canCounter = CanCounter(attackTarget);
 			}
 			if (canCounter)
 			{
-				UE_LOG(LogTemp, Warning, TEXT(" canCounter "));
+				//UE_LOG(LogTemp, Warning, TEXT(" canCounter "));
 				if (awatingCounterDecision)
 				{
-					UE_LOG(LogTemp, Warning, TEXT(" awatingCounterDecision "));
+					//UE_LOG(LogTemp, Warning, TEXT(" awatingCounterDecision "));
 					if (attackTarget->isOwnedByPlayer)
 					{
-						UE_LOG(LogTemp, Warning, TEXT(" CountreAtempted 2"));
+						//UE_LOG(LogTemp, Warning, TEXT(" CountreAtempted 2"));
 						PlayersCont->BattleHUD->CreateCounterMenu();
 						return false;
 					}
@@ -957,13 +966,13 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 				}
 				else if (counterAproved)
 				{
-					UE_LOG(LogTemp, Warning, TEXT(" counterAproved "));
+					//UE_LOG(LogTemp, Warning, TEXT(" counterAproved "));
 					PlayersCont->BattleHUD->RemoveCounterMenu();
 
 					if (attackTarget->RunAttackTargetStanding(ActiveTurn->MyBattlePawn) == false)
 					{
 						counterBool3 = true;
-						UE_LOG(LogTemp, Warning, TEXT(" RunCounter return "));
+						//UE_LOG(LogTemp, Warning, TEXT(" RunCounter return "));
 						return false;
 					}
 					else
@@ -981,11 +990,11 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			}
 
 		}
-		UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home "));
+		//UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home "));
 
 		if (attackTarget->bIsBackLine)
 		{
-			//////////////UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home target is back line"));
+			////////////////UE_LOG(LogTemp, Warning, TEXT(" attack done goingg home target is back line"));
 			if (atopotunityLocation != true)
 			{
 				atopotunityLocation = ActiveTurn->MyBattlePawn->MoveToLocation(attackTarget->PawnsBaseActor->OpotunityPoint->GetComponentLocation());
@@ -1011,7 +1020,7 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			return false;
 		}else
 		{		
-			UE_LOG(LogTemp, Warning, TEXT(" reset all used variables "));
+			//UE_LOG(LogTemp, Warning, TEXT(" reset all used variables "));
 			//reset all used variables
 			deniedOpotunity = false;
 			counterDenied = false;
@@ -1031,10 +1040,10 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 			faceingTargetLocation = false;
 			attackActionCompleeted = false;
 			CountreAtempted = false;
-			//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack rune Melee done"))
+			////////////////UE_LOG(LogTemp, Warning, TEXT(" Attack rune Melee done"))
 			return true;		
 		}
-		//////////////UE_LOG(LogTemp, Warning, TEXT(" Attack Melee atack completed move home "))
+		////////////////UE_LOG(LogTemp, Warning, TEXT(" Attack Melee atack completed move home "))
 	}
 	///return to ready position
 	return false;
@@ -1042,13 +1051,13 @@ bool UBattleBrainComponent::AttackMelee(ABattlePawnBase* attackTarget)
 
 bool UBattleBrainComponent::AttackMagic(ABattlePawnBase* attackTarget)
 {
-	//////UE_LOG(LogTemp, Warning, TEXT(" Attack magic"));
+	////////UE_LOG(LogTemp, Warning, TEXT(" Attack magic"));
 	//ActiveTurn->MyBattlePawn->isAttackingMagic = true;
 	if (atStaginPoint1 != true)
 	{
 		atStaginPoint1 = ActiveTurn->MyBattlePawn->RotateToTarget(attackTarget->PawnsBaseActor->GetComponentLocation());
 		ActiveTurn->MyBattlePawn->isAttackingMagic = true;
-		//////UE_LOG(LogTemp, Warning, TEXT(" Attack Magic Atttaaaaaa "));
+		////////UE_LOG(LogTemp, Warning, TEXT(" Attack Magic Atttaaaaaa "));
 	}
 	if (attackActionCompleeted != true)
 	{
@@ -1064,7 +1073,7 @@ bool UBattleBrainComponent::AttackMagic(ABattlePawnBase* attackTarget)
 	if (ActiveTurn->MyBattlePawn->RotateToTarget(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation()))
 	{
 		ActiveTurn->MyBattlePawn->isAttackingMagic = false;
-		//////UE_LOG(LogTemp, Warning, TEXT(" Attack magic 3"));
+		////////UE_LOG(LogTemp, Warning, TEXT(" Attack magic 3"));
 		attackActionCompleeted = false;
 		ActiveTurn->MyBattlePawn->attackActionCompleeted = false;
 		atStaginPoint1 = false;
@@ -1076,22 +1085,22 @@ bool UBattleBrainComponent::AttackMagic(ABattlePawnBase* attackTarget)
 
 bool UBattleBrainComponent::AttackRanged(ABattlePawnBase* attackTarget)
 {
-	//////UE_LOG(LogTemp, Warning, TEXT(" Attack range"));
+	////////UE_LOG(LogTemp, Warning, TEXT(" Attack range"));
 	
 	if (atStaginPoint1 != true)
 	{
 		atStaginPoint1 = ActiveTurn->MyBattlePawn->RotateToTarget(attackTarget->PawnsBaseActor->GetComponentLocation());
 		ActiveTurn->MyBattlePawn->isAttackingRanged = true;
-		UE_LOG(LogTemp, Warning, TEXT(" Attack reange Atttaaaaaa "));
+		//UE_LOG(LogTemp, Warning, TEXT(" Attack reange Atttaaaaaa "));
 	}
 
 	/// adjustt to get if projectile has hit when you make them
 	if (attackActionCompleeted != true)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" Attack reange 2"));
+		//UE_LOG(LogTemp, Warning, TEXT(" Attack reange 2"));
 		if (ActiveTurn->MyBattlePawn->RunAttackTargetRanged(attackTarget, activeAbility) != true)
 		{
-			UE_LOG(LogTemp, Warning, TEXT(" Attack reange 3"));
+			//UE_LOG(LogTemp, Warning, TEXT(" Attack reange 3"));
 			return false;
 		}
 		else
@@ -1103,7 +1112,7 @@ bool UBattleBrainComponent::AttackRanged(ABattlePawnBase* attackTarget)
 	if (ActiveTurn->MyBattlePawn->RotateToTarget(ActiveTurn->MyBattlePawn->PawnsBaseActor->OpotunityPoint->GetComponentLocation()))
 	{
 		ActiveTurn->MyBattlePawn->isAttackingRanged = false;
-		UE_LOG(LogTemp, Warning, TEXT(" Attack reange 3"));
+		//UE_LOG(LogTemp, Warning, TEXT(" Attack reange 3"));
 		attackActionCompleeted = false;
 		ActiveTurn->MyBattlePawn->attackActionCompleeted = false;
 		atStaginPoint1 = false;
@@ -1130,7 +1139,7 @@ void UBattleBrainComponent::ClearTurnOrders()
 	WorkingTurnOrder.Empty();
 	WorkingTurnOrder.SetNum(0);
 	AllPawnsInBattle.Empty();
-	//////////////UE_LOG(LogTemp, Warning, TEXT("Turns left,%d"), AllPawnsInBattle.Num());
+	////////////////UE_LOG(LogTemp, Warning, TEXT("Turns left,%d"), AllPawnsInBattle.Num());
 	
 	ActiveTurn = NULL;
 }
